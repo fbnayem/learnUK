@@ -235,8 +235,8 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
           <div class="search-grid">
             <div class="field">
               <label for="lead-phone">Phone or WhatsApp</label>
-              <input class="input" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+880 1711 000000" required aria-describedby="lead-hint lead-phone-error">
-              <p class="error" id="lead-phone-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter a phone number, including your country code</span></p>
+              <input class="input" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="07700 900123" required aria-describedby="lead-hint lead-phone-error">
+              <p class="error" id="lead-phone-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter a UK phone number, like 07700 900123</span></p>
             </div>
             <div class="field">
               <label for="lead-email">Email address</label>
@@ -459,7 +459,7 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
         <div class="form-grid form-grid--2">
           ${field('name', 'Full name', `<input class="input" id="name" name="name" type="text" autocomplete="name" required data-validate ${desc('name')}>`)}
           ${field('email', 'Email address', `<input class="input" id="email" name="email" type="email" pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+" autocomplete="email" inputmode="email" spellcheck="false" required data-validate ${desc('email')}>`)}
-          ${field('phone', 'Phone or WhatsApp number (optional)', `<input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" data-validate ${desc('phone', true)}>`, { hint: 'Include your country code, for example +880' })}
+          ${field('phone', 'Phone or WhatsApp number (optional)', `<input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="07700 900123" data-validate ${desc('phone', true)}>`, { hint: 'A UK number, for example 07700 900123' })}
           ${field('country', 'Country you live in', `<select class="select" id="country" name="country" autocomplete="country-name" required data-validate ${desc('country')}><option value="">Select a country</option>${countries.map((c) => `<option>${c}</option>`).join('')}</select>`)}
           ${field('level', 'Level of study', `<select class="select" id="level" name="level" required data-validate ${desc('level')}><option value="">Select a level</option><option>Foundation</option><option>Undergraduate</option><option>Postgraduate</option><option>Not sure yet</option></select>`)}
           ${field('intake', 'Preferred start (optional)', `<select class="select" id="intake" name="intake"><option value="">Not sure yet</option><option>January 2027</option><option>September 2027</option><option>January 2028</option><option>September 2028</option></select>`, { error: false })}
