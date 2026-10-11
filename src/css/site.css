@@ -552,8 +552,10 @@ body.menu-open { overflow: hidden; }
 .split { display: grid; gap: var(--space-5); align-items: center; }
 @media (min-width: 56em) { .split { grid-template-columns: 1fr 1fr; } .split--rev > :first-child { order: 2; } }
 .stack-photos { position: relative; padding: 0 8% 12% 0; }
-.stack-photos .photo-slot { border-radius: var(--radius-lg); box-shadow: var(--shadow-2); }
+.stack-photos .photo-slot, .stack-photos .photo { border-radius: var(--radius-lg); box-shadow: var(--shadow-2); }
 .stack-photos .photo-slot + .photo-slot { position: absolute; right: 0; bottom: 0; width: 52%; --ar: 1; border: 6px solid var(--white); }
+.stack-photos .photo { aspect-ratio: 3 / 2; }
+.stack-photos .photo + .photo { position: absolute; right: 0; bottom: 0; width: 46%; aspect-ratio: 1; border: 6px solid var(--white); }
 
 /* ---------- Section entrances ---------- */
 .js .reveal { opacity: 0; transform: translateY(var(--rise)); transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms); }
@@ -602,3 +604,18 @@ body.menu-open { overflow: hidden; }
 .contact-list span, .contact-list address { min-width: 0; overflow-wrap: anywhere; font-style: normal; padding-top: .55rem; }
 .contact-list address { padding-top: .5rem; }
 .contact-list a { color: var(--amber); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; margin-top: -.55rem; margin-bottom: -.55rem; padding: 0 .1rem; }
+
+/* ---------- Photos ---------- */
+.photo { display: block; overflow: hidden; border-radius: var(--radius-lg); background: var(--mist); }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.why-photo { margin-bottom: var(--space-5); }
+.why-photo .photo { aspect-ratio: 16 / 9; box-shadow: var(--shadow-2); }
+@media (min-width: 48em) { .why-photo .photo { aspect-ratio: 21 / 8; } .why-photo img { object-position: 50% 35%; } }
+.aside-photo { aspect-ratio: 3 / 2; margin: 0 0 var(--space-4); border-radius: calc(var(--radius-lg) - 4px); }
+/* Page hero with a photo: the photo sits behind a navy fade so the white text keeps its contrast. */
+.page-hero--photo::after { display: none; }
+.page-hero-media { position: absolute; inset: 0; z-index: -1; }
+.page-hero-media .photo { position: absolute; inset: 0; border-radius: 0; background: var(--navy); }
+.page-hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(11 22 64 / .96) 0%, rgb(11 22 64 / .9) 40%, rgb(11 22 64 / .45) 75%, rgb(11 22 64 / .25) 100%); }
+@media (max-width: 47.99em) { .page-hero-media::after { background: linear-gradient(180deg, rgb(11 22 64 / .78) 0%, rgb(11 22 64 / .92) 100%); } }
+.page-hero--photo .container { padding-block: var(--space-6) var(--space-6); }

@@ -1,0 +1,18 @@
+// Turns the source photos in assets-src/photos into responsive AVIF/WebP/JPEG files in static/img/photos.
+// Usage: node tools/gen-photos.mjs
+import sharp from 'sharp';
+import { readdirSync, mkdirSync } from 'node:fs';
+
+const SRC = 'assets-src/photos', OUT = 'static/img/photos', WIDTHS = [480, 800, 1200, 1536];
+mkdirSync(OUT, { recursive: true });
+for (const file of readdirSync(SRC).filter((f) => f.endsWith('.jpg'))) {
+  const name = file.replace(/\.jpg$/, '');
+  const meta = await sharp(`${SRC}/${file}`).metadata();
+  for (const w of WIDTHS.filter((w) => w <= meta.width)) {
+    const img = sharp(`${SRC}/${file}`).resize({ width: w });
+    await img.clone().avif({ quality: 50, effort: 6 }).toFile(`${OUT}/${name}-${w}.avif`);
+    await img.clone().webp({ quality: 74, effort: 6 }).toFile(`${OUT}/${name}-${w}.webp`);
+    if (w === 800) await img.clone().jpeg({ quality: 78, mozjpeg: true, progressive: true }).toFile(`${OUT}/${name}-${w}.jpg`);
+  }
+  console.log(name, meta.width, meta.height);
+}

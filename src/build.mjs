@@ -1,5 +1,5 @@
 // Static site generator for Learn UK. `node src/build.mjs` writes dist/.
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync, cpSync } from 'node:fs';
 import { build } from 'esbuild';
 import { createHash } from 'node:crypto';
 
@@ -52,6 +52,14 @@ const P = {
 const icon = (n, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" ${extra}>${P[n]}</svg>`;
 
 const photo = (brief, ar = '4 / 3', extra = '') => `<div class="photo-slot" style="--ar:${ar}" role="img" aria-label="Photo placeholder: ${esc(brief)}" ${extra}><span>${icon('camera')}<b>Photo slot</b>${esc(brief)}</span></div>`;
+
+// Responsive photo from static/img/photos (made by tools/gen-photos.mjs).
+const PHOTO_W = { 'study-documents': [480, 800, 1200], default: [480, 800, 1200, 1536] };
+const pic = (name, alt, sizes, { w = 1536, h = 1024, cls = '', eager = false } = {}) => {
+  const ws = PHOTO_W[name] || PHOTO_W.default;
+  const set = (ext) => ws.map((x) => `assets/img/photos/${name}-${x}.${ext} ${x}w`).join(', ');
+  return `<picture class="photo ${cls}"><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${set('webp')}" sizes="${sizes}"><img src="assets/img/photos/${name}-800.jpg" width="${w}" height="${h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
+};
 
 /* ---------- Site chrome ---------- */
 const NAV = [
@@ -137,7 +145,8 @@ ${footer()}
 `;
 }
 
-const pageHero = (crumb, eyebrow, h1, lede, extra = '') => `<section class="page-hero on-dark">
+const pageHero = (crumb, eyebrow, h1, lede, extra = '', img = null) => `<section class="page-hero on-dark${img ? ' page-hero--photo' : ''}">
+  ${img ? `<div class="page-hero-media">${pic(img[0], '', '100vw', { eager: true })}</div>` : ''}
   <div class="container">
     <nav aria-label="Breadcrumb"><ol class="breadcrumb"><li><a href="index.html">Home</a></li><li aria-current="page">${crumb}</li></ol></nav>
     <p class="eyebrow">${eyebrow}</p>
@@ -284,6 +293,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
 <section class="section section--mist" aria-labelledby="why-title">
   <div class="container">
     <div class="section-head reveal"><div><p class="eyebrow">Why study in the UK</p><h2 id="why-title">World-class degrees, often in less time</h2><p>UK courses are focused and intensive, so you can graduate sooner and start your career earlier.</p></div></div>
+    <div class="why-photo reveal">${pic('campus-students', 'Three international students walking and talking on a UK university campus in autumn', '(min-width: 75em) 70rem, 94vw')}</div>
     <dl class="stats">
       <div class="stat reveal" style="--i:0"><dt>for most undergraduate degrees in England, Wales and Northern Ireland</dt><dd>3 years</dd></div>
       <div class="stat reveal" style="--i:1"><dt>for most taught master’s degrees</dt><dd>1 year</dd></div>
@@ -334,7 +344,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
 ${ctaBand()}` });
 
 pages.push({ file: 'universities.html', title: 'Universities', description: `Explore all ${universities.length} UK universities by nation and city, with official course data from Discover Uni.`,
-  body: `${pageHero('Universities', 'Study', 'Find a UK university that fits you', 'Compare universities across England, Scotland, Wales and Northern Ireland, then explore their courses.')}
+  body: `${pageHero('Universities', 'Study', 'Find a UK university that fits you', 'Compare universities across England, Scotland, Wales and Northern Ireland, then explore their courses.', '', ['university-quad'])}
 <section class="section section--mist">
   <div class="container">
     ${sourceNote(`${n(universities.length)} UK universities offering full-time undergraduate courses.`)}
@@ -353,7 +363,7 @@ pages.push({ file: 'universities.html', title: 'Universities', description: `Exp
 ${ctaBand('Want help choosing?', 'An adviser can shortlist universities for your subject, grades and budget.')}` });
 
 pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(courseTotal)} full-time undergraduate courses at UK universities, from official Discover Uni data.`,
-  body: `${pageHero('Courses', 'Study', 'Search UK courses', `Every full-time undergraduate course at UK universities listed on Discover Uni: ${n(courseTotal)} courses. Filter by subject, university and nation.`)}
+  body: `${pageHero('Courses', 'Study', 'Search UK courses', `Every full-time undergraduate course at UK universities listed on Discover Uni: ${n(courseTotal)} courses. Filter by subject, university and nation.`, '', ['library'])}
 <section class="section section--mist">
   <div class="container">
     ${sourceNote('Full-time undergraduate courses only. Postgraduate courses are not in this official dataset; ask an adviser and we will search them with you.')}
@@ -378,7 +388,7 @@ pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(co
 ${ctaBand('Can’t see your course?', 'Postgraduate, foundation and pathway courses are not in this list. Our advisers can search them with you.')}` });
 
 pages.push({ file: 'application-journey.html', title: 'Application journey', description: 'The six steps from your first enquiry to arriving at a UK university, and how Learn UK supports each one.',
-  body: `${pageHero('Application journey', 'How it works', 'From first question to first lecture', 'Six clear steps, with an adviser beside you for each one. Scroll to follow the journey.')}
+  body: `${pageHero('Application journey', 'How it works', 'From first question to first lecture', 'Six clear steps, with an adviser beside you for each one. Scroll to follow the journey.', '', ['arrival'])}
 <section class="section">
   <div class="container" style="max-width:52rem">
     <div class="journey-wrap"><span class="journey-progress" aria-hidden="true"></span>
@@ -397,7 +407,7 @@ pages.push({ file: 'services.html', title: 'Services', description: 'Course matc
 </section>
 <section class="section section--mist">
   <div class="container split">
-    <div class="stack-photos reveal">${photo('Adviser meeting a student and family', '4 / 3')}${photo('Student reviewing documents', '1')}</div>
+    <div class="stack-photos reveal">${pic('family-adviser', 'An adviser showing a student and her mother course options on a laptop', '(min-width: 64em) 36rem, 92vw')}${pic('study-documents', 'A student sorting application documents next to a passport and pen', '(min-width: 64em) 19rem, 48vw', { w: 1254, h: 1254 })}</div>
     <div class="reveal">
       <p class="eyebrow">What to expect</p>
       <h2>A plan that fits you, not a sales pitch</h2>
@@ -423,7 +433,7 @@ pages.push({ file: 'about.html', title: 'About us', description: 'Learn UK helps
       <p>Learn UK guides international students through choosing, applying for and starting a degree at a UK university. We focus on fit: the course, the city and the budget that suit each student.</p>
       <p>Placeholder copy: Learn UK to add its story, founding year, team size, offices and university relationships.</p>
     </div>
-    <div class="reveal">${photo('Learn UK team at work, natural light from the left', '4 / 3')}</div>
+    <div class="reveal">${pic('advice-session', 'An adviser and a student talking through her plans at a desk', '(min-width: 64em) 36rem, 92vw')}</div>
   </div>
 </section>
 <section class="section section--mist">
@@ -495,6 +505,7 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
       </div>
     </div>
     <aside class="panel" aria-labelledby="expect-title" style="background:var(--navy);color:var(--white);border-color:var(--navy)">
+      ${pic('video-call', 'An adviser waving to a student on a video call', '(min-width: 64em) 26rem, 92vw', { cls: 'aside-photo' })}
       <div class="on-dark">
         <h2 id="expect-title" style="font-size:var(--step-2);color:var(--white)">What happens next</h2>
         <ul class="list-check" style="color:var(--on-dark-soft)">
@@ -528,7 +539,7 @@ async function main() {
   copyFileSync(ROOT + 'node_modules/@fontsource-variable/urbanist/files/urbanist-latin-wght-normal.woff2', OUT + 'assets/fonts/urbanist-latin-wght.woff2');
   copyFileSync(ROOT + 'node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2', OUT + 'assets/fonts/inter-latin-wght.woff2');
   for (const f of ['learn-uk-wordmark-white.svg', 'learn-uk-wordmark-royal-blue.svg', 'learn-uk-favicon.svg']) copyFileSync(LOGO + f, OUT + 'assets/img/' + f);
-  if (existsSync(ROOT + 'static/img')) for (const f of readdirSync(ROOT + 'static/img')) copyFileSync(ROOT + 'static/img/' + f, OUT + 'assets/img/' + f);
+  if (existsSync(ROOT + 'static/img')) cpSync(ROOT + 'static/img', OUT + 'assets/img', { recursive: true });
   copyFileSync(SRC + 'data/universities.json', OUT + 'data/universities.json');
   // The courses page loads one compact file: universities by index, subjects by index, then courses.
   // Default order: by subject of the course name, ignoring the award (BA, BSc (Hons) ...) and stray quote marks.
