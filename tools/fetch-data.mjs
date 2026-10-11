@@ -95,10 +95,19 @@ for (const b of wd.results.bindings) {
 console.log(`Wikidata: matched ${facts.size} of ${ukprns.length} providers`);
 
 // Places Wikidata does not record (checked against each university's own contact page).
+// Where Wikidata only gives a county or district, the main campus town is used instead.
 const CITY_OVERRIDES = { 'Arden University': 'Coventry', 'Hartpury University': 'Gloucester', 'Northeastern University London': 'London',
-  'University College of Estate Management': 'Reading', 'University of London institute in Paris': 'Paris' };
+  'University College of Estate Management': 'Reading', 'University of London institute in Paris': 'Paris',
+  'Anglia Ruskin University': 'Cambridge and Chelmsford', 'Arts University Bournemouth': 'Poole', 'Bournemouth University': 'Bournemouth',
+  'Bangor University': 'Bangor', 'University of Brighton': 'Brighton', 'University of Cambridge': 'Cambridge', 'University of Essex': 'Colchester',
+  'University of Hull': 'Hull', 'University of Kent': 'Canterbury', 'Leeds Beckett University': 'Leeds', 'University of Northampton': 'Northampton',
+  'Queen Margaret University, Edinburgh': 'Musselburgh', 'Robert Gordon University': 'Aberdeen', 'Royal Agricultural University': 'Cirencester',
+  'Royal Holloway, University of London': 'Egham', 'University of South Wales/Prifysgol De Cymru': 'Pontypridd', 'University of Sussex': 'Brighton',
+  'University of the Highlands and Islands': 'Inverness', 'University of the West of Scotland': 'Paisley', 'UWE, Bristol': 'Bristol',
+  'University of Wales: Trinity Saint David': 'Carmarthen', 'Wrexham University': 'Wrexham' };
 // Discover Uni sometimes lists a legal name in capitals; prefer a readable form.
-const tidyName = (name, f) => {
+const tidyName = (raw, f) => {
+  const name = raw.replace(/\s*\(part of [^)]*\)\s*$/i, '').replace(/\.$/, '').trim();
   if (name !== name.toUpperCase()) return name;
   if (f?.label) return f.label;
   return name.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\b(Of|And|The|For|In|At)\b/g, (w) => w.toLowerCase()).replace(/^the /, 'The ');
@@ -106,7 +115,7 @@ const tidyName = (name, f) => {
 
 // Wikidata often places a university in a district ("City of Leeds"); reduce that to the town name.
 const cleanPlace = (p) => p.replace(/^(City and County of|City of|Royal Borough of|Metropolitan Borough of|Borough of|District of|County Borough of)\s+/i, '')
-  .replace(/\s+(District|City Council|Borough|\(district\)|\(borough\))$/i, '').trim();
+  .replace(/\s+(City|County|District|City Council|Borough|\(district\)|\(borough\))$/i, '').trim();
 const cityName = (f) => {
   if (!f) return null;
   for (const set of [f.towns, f.places, f.hqs]) { const v = [...set].map(cleanPlace).filter(Boolean).sort((a, b) => a.length - b.length)[0]; if (v) return v; }
@@ -125,8 +134,10 @@ const pickSite = (set) => [...set].sort((a, b) => a.length - b.length)[0] || nul
 const universities = [];
 for (const u of byUni.values()) {
   const f = facts.get(u.ukprn);
-  const looksLikeUni = /\buniversity\b/i.test(u.name) && !/^university cent(re|er)\b/i.test(u.name);
-  if (!(f?.isUni || looksLikeUni)) continue;
+  // "University Centre" and further education colleges are not universities, even when Wikidata files them under one.
+  const looksLikeUni = /\buniversity\b(?!\s+cent(re|er))/i.test(u.name);
+  const isCollege = /\bcollege\s*$|\bcollege and\b|\buniversity cent(re|er)\b/i.test(u.name);
+  if (!(looksLikeUni || (f?.isUni && !isCollege))) continue;
   const name = tidyName(u.name, f);
   const city = f?.inLondon ? 'London' : CITY_OVERRIDES[name] || cityName(f) || null;
   universities.push({
