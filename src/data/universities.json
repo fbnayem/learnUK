@@ -548,6 +548,17 @@
    "courseCount": 150
   },
   {
+   "slug": "goldsmiths-university-of-london",
+   "name": "Goldsmiths, University of London",
+   "ukprn": 10002718,
+   "city": "London",
+   "nation": "England",
+   "website": "https://gold.ac.uk",
+   "founded": 1891,
+   "wikidata": "Q528231",
+   "courseCount": 70
+  },
+  {
    "slug": "university-of-greater-manchester",
    "name": "University of Greater Manchester",
    "ukprn": 10006841,
@@ -1547,6 +1558,17 @@
    "founded": 1957,
    "wikidata": "Q7894613",
    "courseCount": 61
+  },
+  {
+   "slug": "university-college-london",
+   "name": "University College London",
+   "ukprn": 10007784,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.ucl.ac.uk",
+   "founded": 1826,
+   "wikidata": "Q193196",
+   "courseCount": 426
   },
   {
    "slug": "university-college-of-estate-management",
