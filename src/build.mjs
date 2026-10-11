@@ -8,12 +8,20 @@ const SRC = ROOT + 'src/';
 const OUT = ROOT + 'dist/';
 const LOGO = ROOT + 'static/logo/';
 
-const { universities } = JSON.parse(readFileSync(SRC + 'data/universities.json'));
-const { courses } = JSON.parse(readFileSync(SRC + 'data/courses.json'));
-const uniBySlug = Object.fromEntries(universities.map((u) => [u.slug, u]));
+const { universities, meta: dataMeta } = JSON.parse(readFileSync(SRC + 'data/universities.json'));
+const courseData = JSON.parse(readFileSync(SRC + 'data/courses.json'));
+const { subjects } = courseData;
+const courseTotal = courseData.courses.length;
+const n = (x) => x.toLocaleString('en-GB');
+const dataDate = new Date(dataMeta.updated + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
+const CONTACT = {
+  email: 'info@learnuk.co.uk',
+  mobile: { label: '07908 661821', tel: '+447908661821' },
+  landline: { label: '020 8036 1199', tel: '+442080361199' },
+  address: ['210 Olympic House', '28-42 Clements Road', 'Ilford, Essex', 'IG1 1BA'],
+};
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const gbp = (n) => '£' + n.toLocaleString('en-GB');
 
 /* ---------- Icons (inline, decorative) ---------- */
 const P = {
@@ -50,7 +58,7 @@ const NAV = [
   { href: 'index.html', label: 'Home' },
   { group: 'Study', items: [
     { href: 'universities.html', label: 'Universities', desc: 'Compare UK universities and cities' },
-    { href: 'courses.html', label: 'Courses', desc: 'Search courses by subject and level' },
+    { href: 'courses.html', label: 'Courses', desc: 'Search courses by subject and university' },
     { href: 'application-journey.html', label: 'Application journey', desc: 'Every step from enquiry to arrival' },
   ] },
   { href: 'services.html', label: 'Services' },
@@ -91,7 +99,7 @@ const footer = () => `<footer class="site-footer on-dark">
       </div>
       <div><h2>Study</h2><ul><li><a href="universities.html">Universities</a></li><li><a href="courses.html">Courses</a></li><li><a href="application-journey.html">Application journey</a></li></ul></div>
       <div><h2>Learn UK</h2><ul><li><a href="services.html">Services</a></li><li><a href="about.html">About us</a></li><li><a href="faqs.html">FAQs</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div><h2>Talk to us</h2><ul><li><a href="contact.html">Book a free consultation</a></li><li><a href="mailto:hello@learnuk.example">hello@learnuk.example</a></li></ul><p class="hint" style="font-size:.85rem;margin-top:.5rem">Placeholder contact details: replace before launch.</p></div>
+      <div><h2>Talk to us</h2><ul><li><a href="contact.html">Book a free consultation</a></li><li><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></li><li><a href="tel:${CONTACT.landline.tel}">Office: ${CONTACT.landline.label}</a></li><li><a href="tel:${CONTACT.mobile.tel}">Mobile: ${CONTACT.mobile.label}</a></li></ul><address class="footer-address">${CONTACT.address.join('<br>')}</address></div>
     </div>
     <div class="footer-base"><span>© 2026 Learn UK. All rights reserved.</span><span>Privacy policy and terms: to be added before launch.</span></div>
   </div>
@@ -138,7 +146,7 @@ const pageHero = (crumb, eyebrow, h1, lede, extra = '') => `<section class="page
   </div>
 </section>`;
 
-const sampleNote = (what) => `<p class="sample-note">${icon('info')}<span><strong>Sample data.</strong> ${what} are placeholders for design and testing. Replace them with verified university information before launch.</span></p>`;
+const sourceNote = (what) => `<p class="source-note">${icon('info')}<span>${what} Source: <a href="https://discoveruni.gov.uk/">Discover Uni</a> (Office for Students, HESA and the UK funding bodies), Open Government Licence v3.0, with university websites and locations from <a href="https://www.wikidata.org/">Wikidata</a>. Updated ${dataDate}. Always check the details on the university’s own website before applying.</span></p>`;
 
 const ctaBand = (h = 'Not sure where to start?', p = 'Book a free consultation. We will talk through your goals, your grades and your budget, then suggest a shortlist that fits.') => `<section class="section"><div class="container"><div class="cta-band reveal">
   <div><h2>${h}</h2><p>${p}</p></div>
@@ -188,31 +196,26 @@ const FAQS = [
 
 const faqList = (items, open = false) => `<div class="faq">${items.map(([q, a], i) => `<details${open && i === 0 ? ' open' : ''}><summary><span class="q">${q}</span><span class="chev">${icon('chevron')}</span></summary><div class="answer"><p>${a}</p></div></details>`).join('')}</div>`;
 
-const uniCard = (u, i = 0) => `<article class="card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation)}" data-intake="${u.intakes.join('|')}" data-search="${esc([u.name, u.city, u.area, u.nation].join(' '))}">
-  <div class="card-media">${photo(`Students on campus at ${u.name}`, '16 / 10')}</div>
+const initials = (name) => name.replace(/^the\s+/i, '').replace(/\b(of|and|the|for|in|at|&)\b/gi, ' ').split(/[\s,'’-]+/).filter(Boolean).slice(0, 3).map((w) => w[0].toUpperCase()).join('');
+const hostOf = (url) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } };
+const uniCard = (u, i = 0) => `<article class="card uni-card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation || '')}" data-search="${esc([u.name, u.city, u.nation].filter(Boolean).join(' '))}">
   <div class="card-body">
-    <h3><a class="card-link" href="courses.html?university=${u.slug}">${esc(u.name)}</a></h3>
-    <p>${icon('pin', 'style="width:1em;height:1em;display:inline;vertical-align:-.125em;margin-right:.25rem"')}${esc(u.city)}, ${esc(u.area)}</p>
-    <ul class="meta"><li class="tag">${esc(u.setting)} university</li>${u.intakes.map((m) => `<li class="tag tag--royal">${m} intake</li>`).join('')}</ul>
-    <div class="card-foot"><span><strong>${u.courseCount}</strong> sample courses</span><span class="text-link" aria-hidden="true">View courses ${icon('arrow')}</span></div>
+    <div class="uni-head"><span class="monogram" aria-hidden="true">${esc(initials(u.name))}</span><div><h3><a class="card-link" href="courses.html?university=${u.slug}">${esc(u.name)}</a></h3>
+    <p>${icon('pin', 'style="width:1em;height:1em;display:inline;vertical-align:-.125em;margin-right:.25rem"')}${esc([u.city, u.nation].filter(Boolean).join(', '))}</p></div></div>
+    <ul class="meta">${u.nation ? `<li class="tag tag--royal">${esc(u.nation)}</li>` : ''}${u.founded && u.founded > 1000 ? `<li class="tag">Founded ${u.founded}</li>` : ''}</ul>
+    <div class="card-foot"><span><strong>${n(u.courseCount)}</strong> full-time undergraduate ${u.courseCount === 1 ? 'course' : 'courses'}</span>${u.website ? `<a class="site-link" href="${esc(u.website)}" rel="noopener">${esc(hostOf(u.website))}<span class="visually-hidden"> (official website of ${esc(u.name)})</span></a>` : ''}</div>
   </div>
 </article>`;
-
-const courseCard = (c, i = 0) => {
-  const u = uniBySlug[c.university];
-  return `<article class="card course-card reveal" style="--i:${i % 3}" data-tilt data-item data-level="${c.level}" data-subject="${esc(c.subject)}" data-intake="${c.intakes.join('|')}" data-university="${c.university}" data-search="${esc([c.title, c.subject, u.name, u.city].join(' '))}">
-  <div class="card-body">
-    <h3>${esc(c.title)}</h3>
-    <p>${esc(u.name)} · ${esc(u.city)}</p>
-    <ul class="meta"><li class="tag tag--royal">${c.level}</li><li class="tag">${esc(c.subject)}</li><li class="tag">${icon('clock', 'style="width:.9em;height:.9em"')} ${c.duration}</li><li class="tag">${icon('calendar', 'style="width:.9em;height:.9em"')} ${c.intakes.join(' and ')}</li>${c.foundationAvailable ? '<li class="tag tag--amber">Foundation year available</li>' : ''}</ul>
-    <div class="card-foot"><span>From <strong>${gbp(c.feeFromGBP)}</strong> a year<br><small>Sample fee</small></span><a class="btn btn--ghost" href="contact.html?course=${encodeURIComponent(`${c.title}, ${u.name}`)}">Enquire<span class="visually-hidden"> about ${esc(c.title)} at ${esc(u.name)}</span> ${icon('arrow')}</a></div>
-  </div>
-</article>`;
-};
 
 const options = (list, all) => `<option value="">${all}</option>` + list.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
-const subjects = [...new Set(courses.map((c) => c.subject))].sort();
-const nations = [...new Set(universities.map((u) => u.nation))];
+const nations = ['England', 'Scotland', 'Wales', 'Northern Ireland'].filter((x) => universities.some((u) => u.nation === x));
+// Home page: a spread across the four nations, falling back to the largest universities.
+const FEATURED = [/^the university of manchester$/i, /^university of leeds$/i, /^university of birmingham$/i, /^university of glasgow$/i, /^cardiff university$/i, /^queen'?s university belfast$/i];
+const featured = (() => {
+  const picks = FEATURED.map((re) => universities.find((u) => re.test(u.name))).filter(Boolean);
+  for (const u of [...universities].sort((a, b) => b.courseCount - a.courseCount)) { if (picks.length >= 6) break; if (!picks.includes(u)) picks.push(u); }
+  return picks.slice(0, 6);
+})();
 
 /* ---------- Pages ---------- */
 const pages = [];
@@ -289,9 +292,8 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
 
 <section class="section section--mist" aria-labelledby="unis-title">
   <div class="container">
-    <div class="section-head reveal"><div><p class="eyebrow">Universities</p><h2 id="unis-title">Explore universities across the UK</h2><p>From city campuses to green parkland, in England, Scotland, Wales and Northern Ireland.</p></div><a class="text-link" href="universities.html">All universities ${icon('arrow')}</a></div>
-    ${sampleNote('Course counts and intakes')}
-    <div class="grid grid--3">${universities.slice(0, 6).map(uniCard).join('')}</div>
+    <div class="section-head reveal"><div><p class="eyebrow">Universities</p><h2 id="unis-title">Explore universities across the UK</h2><p>${n(universities.length)} universities and ${n(courseTotal)} full-time undergraduate courses, in England, Scotland, Wales and Northern Ireland.</p></div><a class="text-link" href="universities.html">All universities ${icon('arrow')}</a></div>
+    <div class="grid grid--3">${featured.map(uniCard).join('')}</div>
   </div>
 </section>
 
@@ -317,15 +319,14 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
 </section>
 ${ctaBand()}` });
 
-pages.push({ file: 'universities.html', title: 'Universities', description: 'Explore UK universities by nation, city and intake, and find courses that suit you.',
+pages.push({ file: 'universities.html', title: 'Universities', description: `Explore all ${universities.length} UK universities by nation and city, with official course data from Discover Uni.`,
   body: `${pageHero('Universities', 'Study', 'Find a UK university that fits you', 'Compare universities across England, Scotland, Wales and Northern Ireland, then explore their courses.')}
 <section class="section section--mist">
   <div class="container">
-    ${sampleNote('The universities list, course counts and intakes')}
-    <form class="filters filters--3" data-filter-form data-noun="universities" aria-label="Filter universities">
+    ${sourceNote(`${n(universities.length)} UK universities offering full-time undergraduate courses.`)}
+    <form class="filters filters--2" data-filter-form data-noun="universities" aria-label="Filter universities">
       <div class="field"><label for="f-q">Search</label><input class="input" id="f-q" name="q" type="search" placeholder="University or city" autocomplete="off"></div>
       <div class="field"><label for="f-nation">Nation</label><select class="select" id="f-nation" name="nation">${options(nations, 'All nations')}</select></div>
-      <div class="field"><label for="f-intake">Intake</label><select class="select" id="f-intake" name="intake">${options(['September', 'January'], 'Any intake')}</select></div>
     </form>
     <div data-results-region>
       <div class="results-bar"><p class="results-count" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span data-count>${universities.length} universities found</span></p></div>
@@ -337,27 +338,30 @@ pages.push({ file: 'universities.html', title: 'Universities', description: 'Exp
 </section>
 ${ctaBand('Want help choosing?', 'An adviser can shortlist universities for your subject, grades and budget.')}` });
 
-pages.push({ file: 'courses.html', title: 'Courses', description: 'Search undergraduate and postgraduate courses at UK universities by subject, level and intake.',
-  body: `${pageHero('Courses', 'Study', 'Search UK courses', 'Filter by subject, level, university and intake. Every result links straight to an enquiry.')}
+pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(courseTotal)} full-time undergraduate courses at UK universities, from official Discover Uni data.`,
+  body: `${pageHero('Courses', 'Study', 'Search UK courses', `Every full-time undergraduate course at UK universities listed on Discover Uni: ${n(courseTotal)} courses. Filter by subject, university and nation.`)}
 <section class="section section--mist">
   <div class="container">
-    ${sampleNote('Course titles, durations, intakes and fees')}
-    <form class="filters" data-filter-form data-noun="courses" aria-label="Filter courses">
-      <div class="field"><label for="c-q">Search</label><input class="input" id="c-q" name="q" type="search" placeholder="For example, computer science" autocomplete="off"></div>
-      <div class="field"><label for="c-level">Level</label><select class="select" id="c-level" name="level">${options(['Undergraduate', 'Postgraduate'], 'Any level')}</select></div>
+    ${sourceNote('Full-time undergraduate courses only. Postgraduate courses are not in this official dataset; ask an adviser and we will search them with you.')}
+    <form class="filters" data-course-search data-filter-form-courses aria-label="Filter courses" action="courses.html" method="get">
+      <div class="field"><label for="c-q">Search</label><input class="input" id="c-q" name="q" type="search" placeholder="For example, computer science" autocomplete="off" enterkeyhint="search"></div>
       <div class="field"><label for="c-subject">Subject</label><select class="select" id="c-subject" name="subject">${options(subjects, 'All subjects')}</select></div>
-      <div class="field"><label for="c-intake">Intake</label><select class="select" id="c-intake" name="intake">${options(['September', 'January'], 'Any intake')}</select></div>
       <div class="field"><label for="c-uni">University</label><select class="select" id="c-uni" name="university"><option value="">All universities</option>${universities.map((u) => `<option value="${u.slug}">${esc(u.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="c-nation">Nation</label><select class="select" id="c-nation" name="nation">${options(nations, 'All nations')}</select></div>
+      <div class="field field--check"><label class="check"><input type="checkbox" name="placement" value="1"> Placement year available</label><label class="check"><input type="checkbox" name="abroad" value="1"> Year abroad available</label></div>
     </form>
-    <div data-results-region>
-      <div class="results-bar"><p class="results-count" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span data-count>${courses.length} courses found</span></p><button class="btn btn--ghost" type="button" data-clear>Clear filters</button></div>
+    <div data-results-region class="is-loading" aria-busy="true">
+      <div class="results-bar"><p class="results-count" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span data-count>Loading ${n(courseTotal)} courses…</span></p><button class="btn btn--ghost" type="button" data-clear>Clear filters</button></div>
       <h2 class="visually-hidden">Courses</h2>
-      <div class="course-row results">${courses.map(courseCard).join('')}</div>
+      <div class="course-row results" data-course-results></div>
+      <noscript><p class="empty-state">The course search needs JavaScript. You can browse <a href="universities.html">universities</a> instead, or <a href="contact.html">ask an adviser</a>.</p></noscript>
+      <div class="more-row"><button class="btn btn--ghost" type="button" data-more hidden>Show more courses</button></div>
       <div class="empty-state" data-empty hidden><p><strong>No courses match those filters.</strong></p><p>Try a broader search or clear a filter. Or <a href="contact.html">ask an adviser</a> about courses not listed here.</p></div>
+      <div class="empty-state" data-load-error hidden><p><strong>The course list did not load.</strong></p><p>Check your connection and <a href="courses.html">try again</a>, or <a href="contact.html">ask an adviser</a>.</p></div>
     </div>
   </div>
 </section>
-${ctaBand('Can’t see your course?', 'This list is a starting point. Our advisers can search the full range of UK courses with you.')}` });
+${ctaBand('Can’t see your course?', 'Postgraduate, foundation and pathway courses are not in this list. Our advisers can search them with you.')}` });
 
 pages.push({ file: 'application-journey.html', title: 'Application journey', description: 'The six steps from your first enquiry to arriving at a UK university, and how Learn UK supports each one.',
   body: `${pageHero('Application journey', 'How it works', 'From first question to first lecture', 'Six clear steps, with an adviser beside you for each one. Scroll to follow the journey.')}
@@ -485,8 +489,13 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
           <li>${icon('check')}<span>You leave with a clear plan and a shortlist to explore.</span></li>
         </ul>
         <hr style="border:0;border-top:1px solid rgb(255 255 255 / .15);margin:var(--space-4) 0">
-        <p style="margin:0 0 .3rem;color:var(--white);font-weight:600">Prefer to email?</p>
-        <p style="margin:0"><a href="mailto:hello@learnuk.example" style="color:var(--amber)">hello@learnuk.example</a> <span style="color:var(--on-dark-soft);font-size:.85rem">(placeholder)</span></p>
+        <p style="margin:0 0 .5rem;color:var(--white);font-weight:600">Prefer to call or email?</p>
+        <ul class="contact-list">
+          <li>${icon('mail')}<span>Email <a href="mailto:${CONTACT.email}">${CONTACT.email}</a></span></li>
+          <li>${icon('phone')}<span>Office <a href="tel:${CONTACT.landline.tel}">${CONTACT.landline.label}</a></span></li>
+          <li>${icon('phone')}<span>Mobile <a href="tel:${CONTACT.mobile.tel}">${CONTACT.mobile.label}</a></span></li>
+          <li>${icon('pin')}<address>${CONTACT.address.join(', ')}</address></li>
+        </ul>
       </div>
     </aside>
   </div>
@@ -507,7 +516,9 @@ async function main() {
   for (const f of ['learn-uk-wordmark-white.svg', 'learn-uk-wordmark-royal-blue.svg', 'learn-uk-favicon.svg']) copyFileSync(LOGO + f, OUT + 'assets/img/' + f);
   if (existsSync(ROOT + 'static/img')) for (const f of readdirSync(ROOT + 'static/img')) copyFileSync(ROOT + 'static/img/' + f, OUT + 'assets/img/' + f);
   copyFileSync(SRC + 'data/universities.json', OUT + 'data/universities.json');
-  copyFileSync(SRC + 'data/courses.json', OUT + 'data/courses.json');
+  // The courses page loads one compact file: universities by index, subjects by index, then courses.
+  const client = { updated: dataMeta.updated, u: universities.map((u) => [u.slug, u.name, u.city || '', u.nation || '', u.ukprn]), s: subjects, c: courseData.courses };
+  writeFileSync(OUT + 'data/courses.json', JSON.stringify(client));
 
   for (const p of pages) writeFileSync(OUT + p.file, page(p));
   console.log('Built', pages.length, 'pages to dist/');

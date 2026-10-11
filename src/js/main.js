@@ -245,6 +245,117 @@ function initFilters() {
   apply(false);
 }
 
+/* ---------------- Course search: official data loaded on demand ---------------- */
+function initCourses() {
+  const form = document.querySelector('[data-course-search]');
+  if (!form) return;
+  const region = document.querySelector('[data-results-region]');
+  const list = document.querySelector('[data-course-results]');
+  const count = document.querySelector('[data-count]');
+  const empty = document.querySelector('[data-empty]');
+  const more = document.querySelector('[data-more]');
+  const failed = document.querySelector('[data-load-error]');
+  const PAGE = 24;
+  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmt = (x) => x.toLocaleString('en-GB');
+  const AVAIL = ['', 'optional', 'compulsory'];
+
+  const params = new URLSearchParams(location.search);
+  [...form.elements].forEach((el) => {
+    if (!el.name || !params.has(el.name)) return;
+    if (el.type === 'checkbox') el.checked = params.get(el.name) === el.value; else el.value = params.get(el.name);
+  });
+
+  let data = null, matches = [], shown = 0, timer = 0;
+  const busy = (on) => { region.classList.toggle('is-loading', on); if (on) region.setAttribute('aria-busy', 'true'); else region.removeAttribute('aria-busy'); };
+
+  function card(c) {
+    const [title, ui, subj, length, placement, abroad, campus, duId] = c;
+    const [, uname, city, , ukprn] = data.u[ui];
+    const tags = subj.slice(0, 2).map((i) => `<li class="tag">${esc(data.s[i])}</li>`);
+    if (length) tags.push(`<li class="tag">${esc(length)}</li>`);
+    if (placement) tags.push(`<li class="tag tag--royal">Placement year ${AVAIL[placement]}</li>`);
+    if (abroad) tags.push(`<li class="tag tag--royal">Year abroad ${AVAIL[abroad]}</li>`);
+    const where = [uname, city].filter(Boolean).join(' · ');
+    return `<article class="card course-card"><div class="card-body">
+      <h3>${esc(title)}</h3>
+      <p class="uni-line">${esc(where)}${campus ? ` <span class="visually-hidden">, campus:</span><small>(${esc(campus)})</small>` : ''}</p>
+      <ul class="meta">${tags.join('')}</ul>
+      <div class="card-foot actions"><a class="btn btn--ghost" href="https://discoveruni.gov.uk/course-details/${ukprn}/${encodeURI(duId)}/" rel="noopener">Course details<span class="visually-hidden"> for ${esc(title)} at ${esc(uname)} on Discover Uni</span></a><a class="btn" href="contact.html?course=${encodeURIComponent(`${title}, ${uname}`)}">Enquire<span class="visually-hidden"> about ${esc(title)} at ${esc(uname)}</span></a></div>
+    </div></article>`;
+  }
+
+  function renderMore() {
+    const next = matches.slice(shown, shown + PAGE);
+    list.insertAdjacentHTML('beforeend', next.map(card).join(''));
+    shown += next.length;
+    more.hidden = shown >= matches.length;
+    more.textContent = `Show more courses (${fmt(matches.length - shown)} more)`;
+  }
+
+  function apply() {
+    const f = new FormData(form);
+    const terms = norm(f.get('q')).trim().split(/\s+/).filter(Boolean);
+    const subj = f.get('subject') ? data.s.indexOf(f.get('subject')) : -1;
+    const uni = f.get('university') ? data.u.findIndex((u) => u[0] === f.get('university')) : -1;
+    const nation = f.get('nation') || '';
+    const placement = f.get('placement') === '1', abroad = f.get('abroad') === '1';
+    matches = [];
+    for (let i = 0; i < data.c.length; i++) {
+      const c = data.c[i];
+      if (uni >= 0 && c[1] !== uni) continue;
+      if (subj >= 0 && !c[2].includes(subj)) continue;
+      if (nation && data.u[c[1]][3] !== nation) continue;
+      if (placement && !c[4]) continue;
+      if (abroad && !c[5]) continue;
+      if (terms.length && !terms.every((t) => data.idx[i].includes(t))) continue;
+      matches.push(c);
+    }
+    list.innerHTML = '';
+    shown = 0;
+    renderMore();
+    count.textContent = `${fmt(matches.length)} ${matches.length === 1 ? 'course' : 'courses'} found`;
+    empty.hidden = matches.length > 0;
+    busy(false);
+  }
+
+  function schedule() {
+    if (!data) return;
+    busy(true);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      apply();
+      const url = new URL(location.href);
+      [...form.elements].forEach((el) => {
+        if (!el.name) return;
+        const v = el.type === 'checkbox' ? (el.checked ? el.value : '') : el.value;
+        if (v) url.searchParams.set(el.name, v); else url.searchParams.delete(el.name);
+      });
+      history.replaceState(null, '', url);
+    }, 160);
+  }
+
+  form.addEventListener('input', schedule);
+  form.addEventListener('change', schedule);
+  form.addEventListener('submit', (e) => { e.preventDefault(); clearTimeout(timer); if (data) apply(); });
+  more.addEventListener('click', () => {
+    const first = shown;
+    renderMore();
+    list.children[first]?.querySelector('a')?.focus({ preventScroll: false });
+  });
+  document.querySelector('[data-clear]')?.addEventListener('click', () => { form.reset(); schedule(); form.querySelector('input')?.focus(); });
+
+  fetch(new URL('data/courses.json', document.baseURI))
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then((d) => {
+      d.idx = d.c.map((c) => norm(`${c[0]} ${d.u[c[1]][1]} ${d.u[c[1]][2]} ${c[2].map((i) => d.s[i]).join(' ')}`));
+      data = d;
+      apply();
+    })
+    .catch(() => { busy(false); count.textContent = 'Courses could not be loaded'; failed.hidden = false; });
+}
+
 /* ---------------- Enquiry form: validation and success state ---------------- */
 function initEnquiry() {
   const form = document.querySelector('[data-enquiry]');
@@ -349,6 +460,7 @@ initTilt();
 initFaq();
 initJourney();
 initFilters();
+initCourses();
 initEnquiry();
 initLead();
 initGlobe();
