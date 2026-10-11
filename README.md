@@ -9,7 +9,7 @@ Static, multi-page site built from brief v2.1. No framework; a small Node build 
 - `src/js/main.js`: navigation, reveals, tilt, FAQ, filters, enquiry form, 3D tier choice
 - `src/js/globe/scene.js`: the Three.js globe (loaded on demand)
 - `src/js/globe/land.js`: generated land dots (`tools/gen-land.mjs`, Natural Earth 50m via world-atlas)
-- `src/data/universities.json`, `src/data/courses.json`: sample data (`tools/gen-data.mjs`)
+- `src/data/universities.json`, `src/data/courses.json`: real data from `tools/fetch-data.mjs`. Courses and providers come from Discover Uni (Office for Students, HESA and the UK funding bodies, Open Government Licence v3.0); websites, cities and founding years come from Wikidata, matched by UKPRN. Scope: full-time undergraduate courses at UK universities. The GitHub Actions workflow `.github/workflows/refresh-data.yml` re-runs the fetch every Monday and commits any changes, which redeploys the site.
 - `static/img/globe-*`: static render of the globe (`tools/render-static.mjs`)
 - `tests/verify.mjs`: automated checks; `reports/`: verification report and Lighthouse results
 - `dist/`: the built site, ready to upload to any static host

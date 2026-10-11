@@ -162,16 +162,27 @@ await withBrowser(GL_ARGS, async (b) => {
   const closedAgain = await p.$eval('.faq details', (d) => d.open);
   ok('FAQ expands and collapses by mouse and keyboard', !before && after && !closedAgain);
 
-  await p.goto(BASE + 'courses.html?level=Postgraduate&subject=Computing');
+  await p.goto(BASE + 'courses.html?subject=Computer%20science');
+  await p.waitForFunction(() => /found/.test(document.querySelector('[data-count]').textContent), null, { timeout: 15000 });
   const c1 = await p.textContent('[data-count]');
-  await p.fill('#c-q', 'data'); await p.waitForTimeout(400);
+  const subjectSet = await p.$eval('#c-subject', (s) => s.value);
+  await p.fill('#c-q', 'software'); await p.waitForTimeout(500);
   const c2 = await p.textContent('[data-count]');
-  const visible = await p.$$eval('[data-item]:not([hidden]) h3', (h) => h.map((x) => x.textContent));
-  await p.fill('#c-q', 'zzzz'); await p.waitForTimeout(400);
+  const visible = await p.$$eval('[data-course-results] h3', (h) => h.map((x) => x.textContent));
+  const firstLink = await p.getAttribute('[data-course-results] a[href*="discoveruni.gov.uk/course-details/"]', 'href');
+  const moreBefore = await p.$$eval('[data-course-results] .course-card', (x) => x.length);
+  await p.fill('#c-q', ''); await p.waitForTimeout(500);
+  const moreVisible = await p.isVisible('[data-more]');
+  if (moreVisible) await p.click('[data-more]');
+  const moreAfter = await p.$$eval('[data-course-results] .course-card', (x) => x.length);
+  await p.fill('#c-q', 'zzzz'); await p.waitForTimeout(500);
   const empty = await p.isVisible('[data-empty]');
-  await p.click('[data-clear]'); await p.waitForTimeout(400);
+  await p.click('[data-clear]'); await p.waitForTimeout(500);
   const c3 = await p.textContent('[data-count]');
-  ok('Course filters: URL prefill, live search, empty state and clear', /^\d/.test(c1) && visible.every((t) => /data/i.test(t)) && empty && c3.startsWith('36'), `${c1} → ${c2} → empty=${empty} → ${c3}`);
+  const total = Number(c3.replace(/[^\d]/g, ''));
+  ok('Course search on real data: URL prefill, live search, paging, empty state and clear',
+    /^\d/.test(c1) && subjectSet === 'Computer science' && visible.length > 0 && Number(c2.replace(/[^\d]/g, '')) < Number(c1.replace(/[^\d]/g, '')) && !!firstLink && moreVisible && moreAfter > moreBefore && empty && total > 10000,
+    `${c1} → ${c2} (${moreBefore} shown, ${moreAfter} after "Show more") → empty=${empty} → ${c3}; sample link ${firstLink}`);
 
   await p.goto(BASE + 'application-journey.html');
   await p.evaluate(() => document.querySelectorAll('.journey-step')[3].scrollIntoView({ block: 'center' })); await p.waitForTimeout(500);

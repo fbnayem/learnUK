@@ -87,7 +87,7 @@ Real-user targets (LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 at the 75th percen
 
 ## Placeholders to replace before launch
 
-- University and course data (`src/data/*.json`) is sample data. Names are real UK universities; course lists, fees and intakes are illustrative and labelled as such on the site.
+- University and course data (`src/data/*.json`) is real, from Discover Uni and Wikidata (see README). It covers full-time undergraduate courses only; fees, intakes and postgraduate courses are not in the official dataset, so the site does not show them.
 - Photo slots (dashed panels marked "Photo slot") need authentic photography, lit from the upper left to match the 3D scene.
 - Student testimonials, team profiles, About copy, contact email (`hello@learnuk.example`), privacy policy and terms.
 - The enquiry form validates and shows a success state but **sends nothing**. It needs a destination (email service, CRM or form backend).
