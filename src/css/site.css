@@ -424,7 +424,6 @@ body.menu-open { overflow: hidden; }
 .uni-head p { margin: 0; }
 .monogram { flex: none; width: 3rem; height: 3rem; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(140deg, var(--royal), var(--navy)); color: var(--white); font: 700 .95rem/1 var(--font-head); letter-spacing: .02em; }
 .uni-card .meta { margin-top: .8rem; }
-.site-link { position: relative; z-index: 2; color: var(--royal); font-weight: 600; font-size: .85rem; min-height: 44px; display: inline-flex; align-items: center; overflow-wrap: anywhere; }
 .sample-note svg { width: 1.2rem; height: 1.2rem; flex: none; margin-top: .15rem; color: var(--amber-text); }
 
 /* ---------- Journey ---------- */

@@ -169,7 +169,7 @@ await withBrowser(GL_ARGS, async (b) => {
   await p.fill('#c-q', 'software'); await p.waitForTimeout(500);
   const c2 = await p.textContent('[data-count]');
   const visible = await p.$$eval('[data-course-results] h3', (h) => h.map((x) => x.textContent));
-  const firstLink = await p.getAttribute('[data-course-results] a[href*="discoveruni.gov.uk/course-details/"]', 'href');
+  const firstLink = await p.getAttribute('[data-course-results] a[href^="contact.html?course="]', 'href');
   const moreBefore = await p.$$eval('[data-course-results] .course-card', (x) => x.length);
   await p.fill('#c-q', ''); await p.waitForTimeout(500);
   const moreVisible = await p.isVisible('[data-more]');

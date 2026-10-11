@@ -271,8 +271,8 @@ function initCourses() {
   const busy = (on) => { region.classList.toggle('is-loading', on); if (on) region.setAttribute('aria-busy', 'true'); else region.removeAttribute('aria-busy'); };
 
   function card(c) {
-    const [title, ui, subj, length, placement, abroad, campus, duId] = c;
-    const [, uname, city, , ukprn] = data.u[ui];
+    const [title, ui, subj, length, placement, abroad, campus] = c;
+    const [, uname, city] = data.u[ui];
     const tags = subj.slice(0, 2).map((i) => `<li class="tag">${esc(data.s[i])}</li>`);
     if (length) tags.push(`<li class="tag">${esc(length)}</li>`);
     if (placement) tags.push(`<li class="tag tag--royal">Placement year ${AVAIL[placement]}</li>`);
@@ -282,7 +282,7 @@ function initCourses() {
       <h3>${esc(title)}</h3>
       <p class="uni-line">${esc(where)}${campus ? ` <span class="visually-hidden">, campus:</span><small>(${esc(campus)})</small>` : ''}</p>
       <ul class="meta">${tags.join('')}</ul>
-      <div class="card-foot actions"><a class="btn btn--ghost" href="https://discoveruni.gov.uk/course-details/${ukprn}/${encodeURI(duId)}/" rel="noopener">Course details<span class="visually-hidden"> for ${esc(title)} at ${esc(uname)} on Discover Uni</span></a><a class="btn" href="contact.html?course=${encodeURIComponent(`${title}, ${uname}`)}">Enquire<span class="visually-hidden"> about ${esc(title)} at ${esc(uname)}</span></a></div>
+      <div class="card-foot actions"><a class="btn" href="contact.html?course=${encodeURIComponent(`${title}, ${uname}`)}">Enquire<span class="visually-hidden"> about ${esc(title)} at ${esc(uname)}</span></a></div>
     </div></article>`;
   }
 

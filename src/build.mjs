@@ -146,7 +146,7 @@ const pageHero = (crumb, eyebrow, h1, lede, extra = '') => `<section class="page
   </div>
 </section>`;
 
-const sourceNote = (what) => `<p class="source-note">${icon('info')}<span>${what} Source: <a href="https://discoveruni.gov.uk/">Discover Uni</a> (Office for Students, HESA and the UK funding bodies), Open Government Licence v3.0, with university websites and locations from <a href="https://www.wikidata.org/">Wikidata</a>. Updated ${dataDate}. Always check the details on the university’s own website before applying.</span></p>`;
+const sourceNote = (what) => `<p class="source-note">${icon('info')}<span>${what} Source: Discover Uni (Office for Students, HESA and the UK funding bodies), Open Government Licence v3.0, with university websites and locations from Wikidata. Updated ${dataDate}. Always check the details on the university’s own website before applying.</span></p>`;
 
 const ctaBand = (h = 'Not sure where to start?', p = 'Book a free consultation. We will talk through your goals, your grades and your budget, then suggest a shortlist that fits.') => `<section class="section"><div class="container"><div class="cta-band reveal">
   <div><h2>${h}</h2><p>${p}</p></div>
@@ -188,7 +188,7 @@ const FAQS = [
     ['Are there scholarships for international students?', 'Many universities offer scholarships or fee discounts, and there are government and external schemes too. We help you find the ones you are eligible for and meet their deadlines.'],
   ] },
   { group: 'Visas and arrival', items: [
-    ['Can you apply for my visa for me?', 'You make your own Student visa application. We give you a clear checklist and help you understand what each document is for. Always check the latest rules on <a href="https://www.gov.uk/student-visa">GOV.UK</a>.'],
+    ['Can you apply for my visa for me?', 'You make your own Student visa application. We give you a clear checklist and help you understand what each document is for. Always check the latest rules on GOV.UK.'],
     ['What is a CAS?', 'A Confirmation of Acceptance for Studies (CAS) is a reference number your university gives you once you have accepted an unconditional offer. You need it to apply for your Student visa.'],
     ['Will you help me find accommodation?', 'Yes. We explain the options, from university halls to private housing, and help you apply before you travel.'],
   ] },
@@ -197,13 +197,12 @@ const FAQS = [
 const faqList = (items, open = false) => `<div class="faq">${items.map(([q, a], i) => `<details${open && i === 0 ? ' open' : ''}><summary><span class="q">${q}</span><span class="chev">${icon('chevron')}</span></summary><div class="answer"><p>${a}</p></div></details>`).join('')}</div>`;
 
 const initials = (name) => name.replace(/^the\s+/i, '').replace(/\b(of|and|the|for|in|at|&)\b/gi, ' ').split(/[\s,'’-]+/).filter(Boolean).slice(0, 3).map((w) => w[0].toUpperCase()).join('');
-const hostOf = (url) => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; } };
 const uniCard = (u, i = 0) => `<article class="card uni-card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation || '')}" data-search="${esc([u.name, u.city, u.nation].filter(Boolean).join(' '))}">
   <div class="card-body">
     <div class="uni-head"><span class="monogram" aria-hidden="true">${esc(initials(u.name))}</span><div><h3><a class="card-link" href="courses.html?university=${u.slug}">${esc(u.name)}</a></h3>
     <p>${icon('pin', 'style="width:1em;height:1em;display:inline;vertical-align:-.125em;margin-right:.25rem"')}${esc([u.city, u.nation].filter(Boolean).join(', '))}</p></div></div>
     <ul class="meta">${u.nation ? `<li class="tag tag--royal">${esc(u.nation)}</li>` : ''}${u.founded && u.founded > 1000 ? `<li class="tag">Founded ${u.founded}</li>` : ''}</ul>
-    <div class="card-foot"><span><strong>${n(u.courseCount)}</strong> full-time undergraduate ${u.courseCount === 1 ? 'course' : 'courses'}</span>${u.website ? `<a class="site-link" href="${esc(u.website)}" rel="noopener">${esc(hostOf(u.website))}<span class="visually-hidden"> (official website of ${esc(u.name)})</span></a>` : ''}</div>
+    <div class="card-foot"><span><strong>${n(u.courseCount)}</strong> full-time undergraduate ${u.courseCount === 1 ? 'course' : 'courses'}</span></div>
   </div>
 </article>`;
 
@@ -369,7 +368,7 @@ pages.push({ file: 'application-journey.html', title: 'Application journey', des
   <div class="container" style="max-width:52rem">
     <div class="journey-wrap"><span class="journey-progress" aria-hidden="true"></span>
     <ol class="journey">${JOURNEY.map(([h, p, when]) => `<li class="journey-step"><span class="journey-num" aria-hidden="true"></span><div><p class="when">${when}</p><h2 style="font-size:var(--step-2)">${h}</h2><p>${p}</p></div></li>`).join('')}</ol></div>
-    <p class="sample-note" style="margin-top:var(--space-4)">${icon('info')}<span>Timings are typical and vary by course, university and nationality. Visa rules change, so always check the current requirements on <a href="https://www.gov.uk/student-visa">GOV.UK</a>.</span></p>
+    <p class="sample-note" style="margin-top:var(--space-4)">${icon('info')}<span>Timings are typical and vary by course, university and nationality. Visa rules change, so always check the current requirements on GOV.UK.</span></p>
   </div>
 </section>
 ${ctaBand('Ready for step one?', 'Your free consultation is the start of the journey. Tell us about your plans and we will map out the rest.')}` });
