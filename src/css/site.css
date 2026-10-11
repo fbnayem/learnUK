@@ -282,7 +282,10 @@ body.menu-open { overflow: hidden; }
 .globe-caption { position: absolute; left: 50%; bottom: 6%; transform: translateX(-50%); margin: 0; font-size: .8rem; color: var(--on-dark-soft); white-space: nowrap; }
 
 @media (max-width: 47.99em) {
-  .hero-inner { padding-block: var(--space-4) var(--space-4); }
+  .hero-inner { padding-block: 0 var(--space-4); }
+  /* Phones: the first screen is just the headline and intro; the form starts below it. */
+  .hero-intro { display: flex; flex-direction: column; justify-content: center; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); padding-block: var(--space-4); }
+  .hero h1 { font-size: clamp(2.75rem, 1.2rem + 9vw, 3.75rem); line-height: 1.05; }
   .hero-visual { width: min(100%, 22rem); margin-top: calc(-1 * var(--space-2)); }
 }
 @media (min-width: 48em) and (max-width: 63.99em) {
@@ -391,7 +394,13 @@ body.menu-open { overflow: hidden; }
 .icon-tile::after { content: ""; position: absolute; inset: 6px -6px -6px 6px; z-index: -1; border-radius: 14px; background: #D9DCF5; }
 .icon-tile svg { width: 1.5rem; height: 1.5rem; }
 .feature { padding: var(--space-4); background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--line); box-shadow: var(--shadow-1); display: grid; gap: var(--space-3); align-content: start; isolation: isolate; }
-.feature h3 { margin: 0; }
+.feature h3, .feature h4 { margin: 0; }
+.feature h4 { font-size: var(--step-1, 1.2rem); }
+.why-us { margin-top: var(--space-6, 4rem); }
+.why-us-head { max-width: 44rem; margin-bottom: var(--space-4); }
+.why-us-head h3 { font-size: var(--step-3, 1.8rem); }
+.why-us-head p { color: var(--ink-soft); margin: 0; }
+.why-us-cta { margin-top: var(--space-4); }
 .feature p { margin: 0; color: var(--ink-soft); }
 
 /* Placeholder photography: clearly marked slots that keep space reserved. */

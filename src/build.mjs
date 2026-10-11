@@ -163,6 +163,15 @@ const SERVICES = [
   ['plane', 'Pre-departure and arrival', 'Accommodation options, what to pack, and what to do in your first week in the UK.'],
 ];
 
+const WHY_US = [
+  ['heart', 'Free first consultation', 'Talk through your options with an adviser at no cost, and get honest advice before you commit to anything.'],
+  ['chat', 'Your own adviser, start to finish', 'One adviser gets to know your plans and stays with you from your shortlist to your first week, so you never have to explain things twice.'],
+  ['shield', 'Honest, student-first advice', 'We recommend courses that suit your grades, goals and budget, and we tell you plainly when something is not the right fit.'],
+  ['compass', 'Advice based on official data', `Our course search covers ${n(universities.length)} UK universities and ${n(courseTotal)} courses from official Discover Uni data, refreshed every week.`],
+  ['pound', 'Help with funding', 'We help you find scholarships, plan a realistic budget and, for home students, apply for UK student finance.'],
+  ['pin', 'A London office you can visit', 'Our team is based in Ilford, so your advice comes from people who know UK universities and student life first hand.'],
+]
+
 const JOURNEY = [
   ['Free consultation', 'Tell us what you want to study and where you are now. We explain your options and what each route involves.', 'Week 1'],
   ['Shortlist courses', 'We match you with courses and universities that fit your grades, budget and goals, and check entry requirements.', 'Weeks 1–3'],
@@ -224,9 +233,11 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
   body: `<section class="hero on-dark" aria-labelledby="hero-title">
   <div class="container hero-inner">
     <div class="hero-copy">
-      <p class="eyebrow hero-anim" data-d="1">UK university admissions support</p>
-      <h1 id="hero-title">Your journey to a <em>UK university</em> starts here</h1>
-      <p class="lede hero-anim" data-d="1">Wherever you are in the world, we help you choose the right course, apply with confidence and arrive ready to start.</p>
+      <div class="hero-intro">
+        <p class="eyebrow hero-anim" data-d="1">UK university admissions support</p>
+        <h1 id="hero-title">Your journey to a <em>UK university</em> starts here</h1>
+        <p class="lede hero-anim" data-d="1">Wherever you are in the world, we help you choose the right course, apply with confidence and arrive ready to start.</p>
+      </div>
       <div class="search-card hero-anim" data-d="2">
         <form data-lead novalidate aria-labelledby="lead-title" action="#" method="post">
           <p class="search-title" id="lead-title">Get a free call back</p>
@@ -252,7 +263,6 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
       </div>
       <div class="hero-actions hero-anim" data-d="3">
         <a class="btn btn--amber" href="contact.html">Book a free consultation ${icon('arrow')}</a>
-        <a class="btn btn--ghost-light" href="application-journey.html">How it works</a>
       </div>
       <ul class="hero-trust hero-anim" data-d="4">
         <li>${icon('check')} Free first consultation</li>
@@ -279,6 +289,11 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
       <div class="stat reveal" style="--i:1"><dt>for most taught master’s degrees</dt><dd>1 year</dd></div>
       <div class="stat reveal" style="--i:2"><dt>main intakes: September, with January on many courses</dt><dd>2 intakes</dd></div>
     </dl>
+    <div class="why-us">
+      <div class="why-us-head reveal"><h3 id="why-us-title">Why students choose Learn UK</h3><p>Studying abroad is a big decision. Here is what you get when you work with us.</p></div>
+      <div class="grid grid--3" role="list" aria-labelledby="why-us-title">${WHY_US.map(([ic, h, p], i) => `<div class="feature reveal" role="listitem" style="--i:${i % 3}"><div class="icon-tile">${icon(ic)}</div><h4>${h}</h4><p>${p}</p></div>`).join('')}</div>
+      <div class="why-us-cta reveal"><a class="btn" href="contact.html">Book a free consultation ${icon('arrow')}</a></div>
+    </div>
   </div>
 </section>
 
