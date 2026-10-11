@@ -173,7 +173,7 @@ const ctaBand = (h = 'Not sure where to start?', p = 'Book a free consultation. 
 /* ---------- Shared content ---------- */
 const SERVICES = [
   ['compass', 'Course and university matching', 'We shortlist courses that fit your grades, goals, budget and preferred city, and explain the trade-offs honestly.'],
-  ['doc', 'Application support', 'Help with UCAS and direct applications, personal statements, references and the documents universities ask for.'],
+  ['doc', 'Application support', 'Help with UCAS and direct applications, references and the documents universities ask for.'],
   ['chat', 'English language guidance', 'Which English tests your chosen universities accept, the scores they ask for, and how to prepare.'],
   ['pound', 'Scholarships and budgeting', 'Find scholarships you can apply for and plan a realistic budget for fees and living costs.'],
   ['passport', 'Student visa guidance', 'A clear checklist for your CAS, financial evidence and visa documents, so nothing holds up your application.'],
@@ -192,7 +192,7 @@ const WHY_US = [
 const JOURNEY = [
   ['Free consultation', 'Tell us what you want to study and where you are now. We explain your options and what each route involves.', 'Week 1'],
   ['Shortlist courses', 'We match you with courses and universities that fit your grades, budget and goals, and check entry requirements.', 'Weeks 1–3'],
-  ['Apply', 'Prepare your personal statement and documents, then apply through UCAS (undergraduate) or directly to universities (postgraduate).', 'Months before your intake'],
+  ['Apply', 'Write your personal statement and gather your documents, then apply through UCAS (undergraduate) or directly to universities (postgraduate).', 'Months before your intake'],
   ['Accept your offer', 'Meet any conditions, accept your offer and pay your deposit. Your university then issues your CAS.', 'After your offer'],
   ['Student visa', 'Use our checklist to gather your documents and complete your visa application with confidence.', 'Up to 6 months before your course'],
   ['Arrive in the UK', 'Pre-departure briefing, accommodation help and support through your first weeks on campus.', 'Your first term'],
@@ -205,7 +205,7 @@ const FAQS = [
     ['Can you help if I have not chosen a subject yet?', 'Yes. We will talk through your interests, strengths and career plans and show you how different courses lead to different options.'],
   ] },
   { group: 'Applications', items: [
-    ['How do I apply for an undergraduate course?', 'Most undergraduate applications go through UCAS, the UK’s central admissions service. We help you choose your courses, write your personal statement and check your application before you submit.'],
+    ['How do I apply for an undergraduate course?', 'Most undergraduate applications go through UCAS, the UK’s central admissions service. We help you choose your courses and check your application and documents before you submit.'],
     ['How do postgraduate applications work?', 'Most postgraduate applications go directly to each university. Requirements vary, so we check what each course asks for and help you prepare your documents.'],
     ['Do I need an English test?', 'Usually, unless you are from a majority English-speaking country or meet a university’s exemption rules. Universities set their own accepted tests and scores, and we will check them for each course on your shortlist.'],
   ] },
@@ -233,9 +233,9 @@ const FAQS = [
 // FAQs shown near the foot of each page, also published as FAQPage structured data.
 const PAGE_FAQS = {
   'index.html': { title: 'Questions students often ask', items: [
-    ['What does Learn UK do?', 'Learn UK is a UK university admissions service for international students. We help you choose a course and university, apply, prepare your Student visa documents and get ready to arrive.'],
+    ['What does Learn UK do?', 'Learn UK is a UK-based educational consultancy for students who want to study at a UK university. We help you choose a course and university, apply, prepare your Student visa documents and get ready to arrive.'],
     FAQS[0].items[0], FAQS[0].items[1], FAQS[1].items[0],
-    ['Where is Learn UK based?', `Our office is at ${CONTACT.address.join(', ')}. We advise students in the UK and around the world by phone, video call and email.`],
+    ['Where is Learn UK based?', `Learn UK is a UK-based educational consultancy. Our office is at ${CONTACT.address.join(', ')}, and we help students from the UK and around the world.`],
     FAQS[3].items[1],
   ] },
   'universities.html': { title: 'Questions about UK universities', items: [
@@ -261,13 +261,13 @@ const PAGE_FAQS = {
   ] },
   'services.html': { title: 'Questions about our services', items: [
     FAQS[0].items[0],
-    ['Do you help with personal statements?', 'Yes. We help you plan your personal statement, give feedback on your drafts and check your application before you submit it. The words must be your own.'],
+    ['Do you help with university applications?', 'Yes. We help you choose your courses, check the entry requirements and make sure your application and documents are complete before you submit.'],
     ['Do you help with Student visa applications?', 'We give you a clear checklist, explain each document and check you have everything before you apply. You submit the application yourself.'],
     ['Can you help me find scholarships?', 'Yes. We look for scholarships and fee discounts you are eligible for at the universities on your shortlist, and help you meet their deadlines.'],
-    ['Do you help students outside the UK?', 'Yes. Most of our consultations happen by phone or video call, so you can work with us wherever you live.'],
+    ['Do you help students outside the UK?', 'Yes. We help students in the UK and around the world. Consultations can happen by phone or video call, so you can work with us wherever you live.'],
   ] },
   'about.html': { title: 'Questions about Learn UK', items: [
-    ['Who is Learn UK?', 'Learn UK is a UK-based admissions service that helps international students choose, apply for and start the right course at a UK university.'],
+    ['Who is Learn UK?', 'Learn UK is a UK-based educational consultancy. We help students from the UK and around the world choose, apply for and start the right course at a UK university.'],
     ['Where is your office?', `Our office is at ${CONTACT.address.join(', ')}.`],
     ['How can I contact you?', `Email ${CONTACT.email}, call our office on ${CONTACT.landline.label} or our mobile on ${CONTACT.mobile.label}, or book a free consultation online.`],
     ['How do you choose which courses to recommend?', 'We start from your grades, goals, budget and preferred city, and use official course data to build a shortlist. We explain the trade-offs honestly, including when a course is not the right fit.'],
@@ -291,7 +291,7 @@ const faqSection = (file) => {
 const strip = (h) => h.replace(/<[^>]+>/g, '');
 const pageFaqItems = (file) => file === 'faqs.html' ? FAQS.flatMap((g) => g.items) : (PAGE_FAQS[file]?.items || []);
 const jsonLd = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
-const ORG_LD = { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: 'Learn UK', description: 'UK university admissions support for international students: course matching, applications, Student visa guidance and arrival support.', email: CONTACT.email, telephone: CONTACT.landline.tel, address: { '@type': 'PostalAddress', streetAddress: '210 Olympic House, 28-42 Clements Road', addressLocality: 'Ilford', addressRegion: 'Essex', postalCode: 'IG1 1BA', addressCountry: 'GB' } };
+const ORG_LD = { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: 'Learn UK', description: 'UK-based educational consultancy helping students from the UK and around the world study at UK universities: course matching, applications, Student visa guidance and arrival support.', email: CONTACT.email, telephone: CONTACT.landline.tel, address: { '@type': 'PostalAddress', streetAddress: '210 Olympic House, 28-42 Clements Road', addressLocality: 'Ilford', addressRegion: 'Essex', postalCode: 'IG1 1BA', addressCountry: 'GB' } };
 
 const faqList = (items, open = false) => `<div class="faq">${items.map(([q, a], i) => `<details${open && i === 0 ? ' open' : ''}><summary><span class="q">${q}</span><span class="chev">${icon('chevron')}</span></summary><div class="answer"><p>${a}</p></div></details>`).join('')}</div>`;
 
@@ -624,7 +624,7 @@ async function main() {
   // A plain-text summary for AI assistants and search tools (llmstxt.org format).
   writeFileSync(OUT + 'llms.txt', `# Learn UK
 
-> UK university admissions support for international students. Free first consultation; help with choosing a course, UCAS and direct applications, English tests, scholarships, Student visa documents and arrival. Office: ${CONTACT.address.join(', ')}. Email ${CONTACT.email}, phone ${CONTACT.landline.label}.
+> UK-based educational consultancy helping students from the UK and around the world study at UK universities. Free first consultation; help with choosing a course, UCAS and direct applications, English tests, scholarships, Student visa documents and arrival. Office: ${CONTACT.address.join(', ')}. Email ${CONTACT.email}, phone ${CONTACT.landline.label}.
 
 ## Pages
 
