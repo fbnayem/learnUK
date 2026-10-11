@@ -115,6 +115,13 @@ const footer = () => `<footer class="site-footer on-dark">
 
 let ASSET_V = '';
 function page({ file, title, description, body, preloadHero = false }) {
+  if (PAGE_FAQS[file] && file !== 'index.html') {
+    const cta = '<section class="section"><div class="container"><div class="cta-band';
+    const at = body.lastIndexOf(cta);
+    body = at >= 0 ? body.slice(0, at) + faqSection(file) + '\n' + body.slice(at) : body + '\n' + faqSection(file);
+  }
+  const faqs = pageFaqItems(file);
+  const ld = [ORG_LD, ...(faqs.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: strip(q), acceptedAnswer: { '@type': 'Answer', text: strip(a) } })) }] : [])].map(jsonLd).join('\n');
   const full = file === 'index.html' ? 'Learn UK | Study at a UK university' : `${title} | Learn UK`;
   return `<!doctype html>
 <html lang="en-GB" class="js">
@@ -133,6 +140,7 @@ ${preloadHero ? '<link rel="preload" as="image" href="assets/img/globe-720.avif"
 <meta property="og:title" content="${esc(full)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
+${ld}
 </head>
 <body>
 ${header(file)}
@@ -209,8 +217,81 @@ const FAQS = [
     ['Can you apply for my visa for me?', 'You make your own Student visa application. We give you a clear checklist and help you understand what each document is for. Always check the latest rules on GOV.UK.'],
     ['What is a CAS?', 'A Confirmation of Acceptance for Studies (CAS) is a reference number your university gives you once you have accepted an unconditional offer. You need it to apply for your Student visa.'],
     ['Will you help me find accommodation?', 'Yes. We explain the options, from university halls to private housing, and help you apply before you travel.'],
+    ['How much money do I need to show for my visa?', 'You need to show you can pay your course fees and a set amount for living costs for up to nine months. The monthly amount is higher if you study in London. Check the current figures on GOV.UK.'],
+    ['Do I need to pay for healthcare?', 'Most students pay the Immigration Health Surcharge as part of their visa application. It gives you access to the NHS while you study.'],
+  ] },
+  { group: 'Studying and living in the UK', items: [
+    ['How long does a UK degree take?', 'Most undergraduate degrees take three years in England, Wales and Northern Ireland, and four years in Scotland. Most taught master’s degrees take one year.'],
+    ['When do UK courses start?', 'Most courses start in September. Many universities also offer a January start on some courses.'],
+    ['Can I work while I study?', 'Most students on a Student visa studying at degree level can work up to 20 hours a week during term time and full time in the holidays. Your visa sets your exact limit, so check it before you take a job.'],
+    ['Can I stay in the UK after I graduate?', 'The Graduate route lets eligible students stay and work in the UK for a period after finishing their degree. The rules and length can change, so check GOV.UK for the current terms.'],
+    ['Can I bring my family?', 'Most students on taught courses, including most master’s courses, cannot bring family members as dependants. Some research postgraduate students can. Check the latest rules on GOV.UK.'],
+    ['Is the UK safe for international students?', 'UK university cities are generally welcoming to international students, and universities offer support services, from welcome weeks to student advice teams. We help you get to know your city before you arrive.'],
   ] },
 ];
+
+// FAQs shown near the foot of each page, also published as FAQPage structured data.
+const PAGE_FAQS = {
+  'index.html': { title: 'Questions students often ask', items: [
+    ['What does Learn UK do?', 'Learn UK is a UK university admissions service for international students. We help you choose a course and university, apply, prepare your Student visa documents and get ready to arrive.'],
+    FAQS[0].items[0], FAQS[0].items[1], FAQS[1].items[0],
+    ['Where is Learn UK based?', `Our office is at ${CONTACT.address.join(', ')}. We advise students in the UK and around the world by phone, video call and email.`],
+    FAQS[3].items[1],
+  ] },
+  'universities.html': { title: 'Questions about UK universities', items: [
+    ['How many universities are listed here?', `We list ${universities.length} UK universities that offer full-time undergraduate courses, across England, Scotland, Wales and Northern Ireland. The list comes from Discover Uni, the official UK site for comparing courses, and is refreshed every week.`],
+    ['How do I choose the right UK university?', 'Start with the course, not the name. Compare entry requirements, how the course is taught and assessed, placement and study abroad options, the city and your budget. An adviser can help you weigh these for your own grades and goals.'],
+    ['Is a degree in Scotland different?', 'Most undergraduate degrees in Scotland take four years, compared with three years in England, Wales and Northern Ireland. The first year is broader, and some students with strong qualifications can join in the second year.'],
+    ['What is the Russell Group?', 'The Russell Group is an association of 24 research-intensive UK universities. Many excellent universities are not members, so membership is only one thing to consider when you choose.'],
+    ['Can I apply to more than one university?', 'Yes. Through UCAS you can apply for up to five undergraduate courses in one application, at the same or different universities.'],
+  ] },
+  'courses.html': { title: 'Questions about UK courses', items: [
+    ['How many courses can I search here?', `${n(courseTotal)} full-time undergraduate courses at UK universities, taken from official Discover Uni data and refreshed every week.`],
+    ['Are postgraduate courses included?', 'No. This search covers full-time undergraduate courses only. Postgraduate, foundation and pathway courses are not listed, but our advisers can search them with you.'],
+    ['What is a placement year?', 'A placement or sandwich year is a year working in industry, usually between your second and final year. It adds a year to your degree and can make a big difference to your career prospects.'],
+    ['What does a year abroad mean?', 'Some courses include a year studying at a partner university in another country. Tick Year abroad available in the search to find these courses. Each course card shows whether the year abroad is optional or compulsory.'],
+    ['How do I ask about a course?', 'Select Enquire on any course and tell us a little about yourself. An adviser will check the entry requirements and help you decide whether to apply.'],
+  ] },
+  'application-journey.html': { title: 'Questions about applying', items: [
+    ['How long does the whole process take?', 'Most students start 9 to 12 months before their course. That leaves time to choose courses, take an English test if needed, apply, meet your offer conditions and get your visa.'],
+    ['What are the UCAS deadlines?', 'Applications for Oxford, Cambridge and most medicine, dentistry and veterinary courses close in mid-October, the year before you start. The main deadline for most other courses is in January. Many universities accept international applications later, but popular courses can fill up.'],
+    ['What is the difference between a conditional and an unconditional offer?', 'A conditional offer means you still need to meet requirements, such as final grades or an English test score. An unconditional offer means you have a place once you accept it.'],
+    ['When can I apply for my Student visa?', 'Once your university gives you a CAS. You can apply up to six months before your course starts if you are outside the UK. Check the current rules on GOV.UK before you apply.'],
+    ['When should I travel to the UK?', 'Your visa sets the earliest date you can arrive, usually up to a week before a short course or up to a month before a longer one. Plan to arrive before your university’s welcome week.'],
+  ] },
+  'services.html': { title: 'Questions about our services', items: [
+    FAQS[0].items[0],
+    ['Do you help with personal statements?', 'Yes. We help you plan your personal statement, give feedback on your drafts and check your application before you submit it. The words must be your own.'],
+    ['Do you help with Student visa applications?', 'We give you a clear checklist, explain each document and check you have everything before you apply. You submit the application yourself.'],
+    ['Can you help me find scholarships?', 'Yes. We look for scholarships and fee discounts you are eligible for at the universities on your shortlist, and help you meet their deadlines.'],
+    ['Do you help students outside the UK?', 'Yes. Most of our consultations happen by phone or video call, so you can work with us wherever you live.'],
+  ] },
+  'about.html': { title: 'Questions about Learn UK', items: [
+    ['Who is Learn UK?', 'Learn UK is a UK-based admissions service that helps international students choose, apply for and start the right course at a UK university.'],
+    ['Where is your office?', `Our office is at ${CONTACT.address.join(', ')}.`],
+    ['How can I contact you?', `Email ${CONTACT.email}, call our office on ${CONTACT.landline.label} or our mobile on ${CONTACT.mobile.label}, or book a free consultation online.`],
+    ['How do you choose which courses to recommend?', 'We start from your grades, goals, budget and preferred city, and use official course data to build a shortlist. We explain the trade-offs honestly, including when a course is not the right fit.'],
+  ] },
+  'contact.html': { title: 'Before you book', items: [
+    ['Is the consultation online or in person?', 'Your free consultation is online or by phone, so you can join from anywhere.'],
+    ['What should I have ready for my consultation?', 'Your latest grades or transcripts, any English test results, the subjects you are interested in and a rough idea of your budget. It is fine if you are not sure about some of these yet.'],
+    ['Can I call instead of filling in the form?', `Yes. Call our office on ${CONTACT.landline.label}, our mobile on ${CONTACT.mobile.label}, or email ${CONTACT.email}.`],
+    ['Do I have to use your services after the consultation?', 'No. The first consultation is free and there is no obligation to continue.'],
+  ] },
+};
+const faqSection = (file) => {
+  const f = PAGE_FAQS[file];
+  return `<section class="section" aria-labelledby="page-faq-title">
+  <div class="container split">
+    <div class="reveal"><p class="eyebrow">FAQs</p><h2 id="page-faq-title">${f.title}</h2><p class="lede">Can’t find your answer? Ask us in a free consultation.</p><a class="text-link" href="faqs.html">All FAQs ${icon('arrow')}</a></div>
+    <div class="reveal">${faqList(f.items)}</div>
+  </div>
+</section>`;
+};
+const strip = (h) => h.replace(/<[^>]+>/g, '');
+const pageFaqItems = (file) => file === 'faqs.html' ? FAQS.flatMap((g) => g.items) : (PAGE_FAQS[file]?.items || []);
+const jsonLd = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
+const ORG_LD = { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: 'Learn UK', description: 'UK university admissions support for international students: course matching, applications, Student visa guidance and arrival support.', email: CONTACT.email, telephone: CONTACT.landline.tel, address: { '@type': 'PostalAddress', streetAddress: '210 Olympic House, 28-42 Clements Road', addressLocality: 'Ilford', addressRegion: 'Essex', postalCode: 'IG1 1BA', addressCountry: 'GB' } };
 
 const faqList = (items, open = false) => `<div class="faq">${items.map(([q, a], i) => `<details${open && i === 0 ? ' open' : ''}><summary><span class="q">${q}</span><span class="chev">${icon('chevron')}</span></summary><div class="answer"><p>${a}</p></div></details>`).join('')}</div>`;
 
@@ -335,12 +416,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
   </div>
 </section>
 
-<section class="section" aria-labelledby="faq-title">
-  <div class="container split">
-    <div class="reveal"><p class="eyebrow">FAQs</p><h2 id="faq-title">Questions students often ask</h2><p class="lede">Can’t find your answer? Ask us in a free consultation.</p><a class="text-link" href="faqs.html">All FAQs ${icon('arrow')}</a></div>
-    <div class="reveal">${faqList([FAQS[0].items[0], FAQS[0].items[1], FAQS[1].items[0], FAQS[3].items[1]])}</div>
-  </div>
-</section>
+${faqSection('index.html')}
 ${ctaBand()}` });
 
 pages.push({ file: 'universities.html', title: 'Universities', description: `Explore all ${universities.length} UK universities by nation and city, with official course data from Discover Uni.`,
@@ -545,6 +621,19 @@ async function main() {
   writeFileSync(OUT + 'data/courses.json', JSON.stringify(client));
 
   for (const p of pages) writeFileSync(OUT + p.file, page(p));
+  // A plain-text summary for AI assistants and search tools (llmstxt.org format).
+  writeFileSync(OUT + 'llms.txt', `# Learn UK
+
+> UK university admissions support for international students. Free first consultation; help with choosing a course, UCAS and direct applications, English tests, scholarships, Student visa documents and arrival. Office: ${CONTACT.address.join(', ')}. Email ${CONTACT.email}, phone ${CONTACT.landline.label}.
+
+## Pages
+
+${pages.map((p) => `- [${p.title}](${p.file}): ${p.description}`).join('\n')}
+
+## Frequently asked questions
+
+${FAQS.flatMap((g) => g.items).map(([q, a]) => `- ${strip(q)} ${strip(a)}`).join('\n')}
+`);
   console.log('Built', pages.length, 'pages to dist/');
 }
 main();
