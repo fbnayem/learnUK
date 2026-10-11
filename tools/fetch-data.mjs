@@ -59,11 +59,12 @@ console.log(`Discover Uni: ${details.length} full-time course records`);
 
 // 4. Wikidata facts for each provider, matched by UKPRN.
 const ukprns = [...new Set(details.map((d) => String(d.institutionId)))];
-const sparql = `SELECT ?ukprn ?item ?website ?placeLabel ?inLondon ?isUni ?founded WHERE {
+const sparql = `SELECT ?ukprn ?item ?itemLabel ?website ?placeLabel ?hqLabel ?inLondon ?isUni ?founded WHERE {
   VALUES ?ukprn { ${ukprns.map((u) => `"${u}"`).join(' ')} }
   ?item wdt:P4971 ?ukprn .
   OPTIONAL { ?item wdt:P856 ?website . }
-  OPTIONAL { ?item wdt:P131 ?place . }
+  OPTIONAL { ?item wdt:P131 ?place . ?place wdt:P31/wdt:P279* wd:Q486972 . }
+  OPTIONAL { ?item wdt:P159 ?hq . }
   OPTIONAL { ?item wdt:P571 ?founded . }
   BIND(EXISTS { ?item wdt:P131* wd:Q84 } || EXISTS { ?item wdt:P131* wd:Q23306 } AS ?inLondon)
   BIND(EXISTS { ?item wdt:P31/wdt:P279* wd:Q3918 } AS ?isUni)
@@ -73,7 +74,9 @@ const wd = await http('https://query.wikidata.org/sparql', { method: 'POST', hea
 const facts = new Map();
 for (const b of wd.results.bindings) {
   const k = Number(b.ukprn.value);
-  const f = facts.get(k) || { websites: new Set(), places: new Set(), founded: [] };
+  const f = facts.get(k) || { websites: new Set(), places: new Set(), hqs: new Set(), founded: [] };
+  if (b.itemLabel && !/^Q\d+$/.test(b.itemLabel.value)) f.label = b.itemLabel.value;
+  if (b.hqLabel && !/^Q\d+$/.test(b.hqLabel.value)) f.hqs.add(b.hqLabel.value);
   if (b.website) f.websites.add(b.website.value);
   if (b.placeLabel && !/^Q\d+$/.test(b.placeLabel.value)) f.places.add(b.placeLabel.value);
   if (b.founded) f.founded.push(Number(b.founded.value.slice(0, 5).replace('+', '')));
@@ -83,6 +86,16 @@ for (const b of wd.results.bindings) {
   facts.set(k, f);
 }
 console.log(`Wikidata: matched ${facts.size} of ${ukprns.length} providers`);
+
+// Places Wikidata does not record (checked against each university's own contact page).
+const CITY_OVERRIDES = { 'Arden University': 'Coventry', 'Hartpury University': 'Gloucester', 'Northeastern University London': 'London',
+  'University College of Estate Management': 'Reading', 'University of London institute in Paris': 'Paris' };
+// Discover Uni sometimes lists a legal name in capitals; prefer a readable form.
+const tidyName = (name, f) => {
+  if (name !== name.toUpperCase()) return name;
+  if (f?.label) return f.label;
+  return name.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\b(Of|And|The|For|In|At)\b/g, (w) => w.toLowerCase()).replace(/^the /, 'The ');
+};
 
 // 5. Keep universities: Wikidata says it is a university, or "University" is in its name.
 const byUni = new Map();
@@ -96,11 +109,13 @@ const pickSite = (set) => [...set].sort((a, b) => a.length - b.length)[0] || nul
 const universities = [];
 for (const u of byUni.values()) {
   const f = facts.get(u.ukprn);
-  if (!(f?.isUni || /\buniversity\b/i.test(u.name))) continue;
-  const city = f?.inLondon ? 'London' : [...(f?.places || [])].sort()[0] || null;
+  const looksLikeUni = /\buniversity\b/i.test(u.name) && !/^university cent(re|er)\b/i.test(u.name);
+  if (!(f?.isUni || looksLikeUni)) continue;
+  const name = tidyName(u.name, f);
+  const city = f?.inLondon ? 'London' : CITY_OVERRIDES[name] || [...(f?.places || [])].sort()[0] || [...(f?.hqs || [])].sort()[0] || null;
   universities.push({
-    slug: slugify(u.name.replace(/^the\s+/i, '')),
-    name: u.name,
+    slug: slugify(name.replace(/^the\s+/i, '')),
+    name,
     ukprn: u.ukprn,
     city,
     nation: nationOf.get(u.ukprn) || null,
