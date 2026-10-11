@@ -1,210 +1,1739 @@
 {
-  "meta": {
-    "note": "Sample data for design and development only. Fees, intakes and course availability are illustrative and must be replaced with verified university information before launch.",
-    "updated": "2026-10-10"
+ "meta": {
+  "updated": "2026-10-11",
+  "source": {
+   "courses": "Discover Uni (Office for Students, HESA and the UK higher education funding bodies), Open Government Licence v3.0",
+   "facts": "Wikidata (CC0), matched by UK Provider Reference Number",
+   "scope": "Full-time undergraduate courses listed on Discover Uni at UK universities"
+  }
+ },
+ "universities": [
+  {
+   "slug": "university-of-aberdeen",
+   "name": "University of Aberdeen",
+   "ukprn": 10007783,
+   "city": "Aberdeen City",
+   "nation": "Scotland",
+   "website": "https://abdn.ac.uk/",
+   "founded": 1495,
+   "wikidata": "Q270532",
+   "courseCount": 385
   },
-  "universities": [
-    {
-      "slug": "manchester",
-      "name": "The University of Manchester",
-      "city": "Manchester",
-      "area": "North West England",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 4,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at The University of Manchester"
-      }
-    },
-    {
-      "slug": "birmingham",
-      "name": "University of Birmingham",
-      "city": "Birmingham",
-      "area": "West Midlands",
-      "nation": "England",
-      "setting": "Campus",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 3,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Birmingham"
-      }
-    },
-    {
-      "slug": "leeds",
-      "name": "University of Leeds",
-      "city": "Leeds",
-      "area": "Yorkshire",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 2,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Leeds"
-      }
-    },
-    {
-      "slug": "nottingham",
-      "name": "University of Nottingham",
-      "city": "Nottingham",
-      "area": "East Midlands",
-      "nation": "England",
-      "setting": "Campus",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 4,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Nottingham"
-      }
-    },
-    {
-      "slug": "sheffield",
-      "name": "The University of Sheffield",
-      "city": "Sheffield",
-      "area": "Yorkshire",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 2,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at The University of Sheffield"
-      }
-    },
-    {
-      "slug": "newcastle",
-      "name": "Newcastle University",
-      "city": "Newcastle upon Tyne",
-      "area": "North East England",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 4,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at Newcastle University"
-      }
-    },
-    {
-      "slug": "bristol",
-      "name": "University of Bristol",
-      "city": "Bristol",
-      "area": "South West England",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 2,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Bristol"
-      }
-    },
-    {
-      "slug": "coventry",
-      "name": "Coventry University",
-      "city": "Coventry",
-      "area": "West Midlands",
-      "nation": "England",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 3,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at Coventry University"
-      }
-    },
-    {
-      "slug": "hertfordshire",
-      "name": "University of Hertfordshire",
-      "city": "Hatfield",
-      "area": "East of England",
-      "nation": "England",
-      "setting": "Campus",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 4,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Hertfordshire"
-      }
-    },
-    {
-      "slug": "glasgow",
-      "name": "University of Glasgow",
-      "city": "Glasgow",
-      "area": "Scotland",
-      "nation": "Scotland",
-      "setting": "City",
-      "intakes": [
-        "September"
-      ],
-      "courseCount": 2,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at University of Glasgow"
-      }
-    },
-    {
-      "slug": "cardiff",
-      "name": "Cardiff University",
-      "city": "Cardiff",
-      "area": "Wales",
-      "nation": "Wales",
-      "setting": "City",
-      "intakes": [
-        "January",
-        "September"
-      ],
-      "courseCount": 4,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at Cardiff University"
-      }
-    },
-    {
-      "slug": "queens-belfast",
-      "name": "Queen's University Belfast",
-      "city": "Belfast",
-      "area": "Northern Ireland",
-      "nation": "Northern Ireland",
-      "setting": "City",
-      "intakes": [
-        "September"
-      ],
-      "courseCount": 2,
-      "photo": {
-        "status": "placeholder",
-        "brief": "Authentic photo of students on campus at Queen's University Belfast"
-      }
-    }
-  ]
+  {
+   "slug": "abertay-university",
+   "name": "Abertay University",
+   "ukprn": 10007849,
+   "city": "Dundee City",
+   "nation": "Scotland",
+   "website": "http://www.abertay.ac.uk/",
+   "founded": 1888,
+   "wikidata": "Q1505925",
+   "courseCount": 51
+  },
+  {
+   "slug": "aberystwyth-university",
+   "name": "Aberystwyth University",
+   "ukprn": 10007856,
+   "city": "Aberystwyth",
+   "nation": "Wales",
+   "website": "https://www.aber.ac.uk/en/",
+   "founded": 1872,
+   "wikidata": "Q319761",
+   "courseCount": 309
+  },
+  {
+   "slug": "anglia-ruskin-university",
+   "name": "Anglia Ruskin University",
+   "ukprn": 10000291,
+   "city": "Essex",
+   "nation": "England",
+   "website": "https://aru.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q540751",
+   "courseCount": 419
+  },
+  {
+   "slug": "arden-university",
+   "name": "Arden University",
+   "ukprn": 10005451,
+   "city": "Coventry",
+   "nation": "England",
+   "website": null,
+   "founded": null,
+   "wikidata": null,
+   "courseCount": 25
+  },
+  {
+   "slug": "arts-university-bournemouth",
+   "name": "Arts University Bournemouth",
+   "ukprn": 10000385,
+   "city": "Bournemouth, Christchurch and Poole",
+   "nation": "England",
+   "website": "http://aub.ac.uk/",
+   "founded": 1885,
+   "wikidata": "Q7714615",
+   "courseCount": 52
+  },
+  {
+   "slug": "arts-university-plymouth",
+   "name": "Arts University Plymouth",
+   "ukprn": 10005127,
+   "city": "Plymouth",
+   "nation": "England",
+   "website": "http://www.plymouthart.ac.uk",
+   "founded": 1856,
+   "wikidata": "Q7205783",
+   "courseCount": 28
+  },
+  {
+   "slug": "aston-university",
+   "name": "Aston University",
+   "ukprn": 10007759,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "http://www.aston.ac.uk/",
+   "founded": 1895,
+   "wikidata": "Q750066",
+   "courseCount": 103
+  },
+  {
+   "slug": "bangor-university",
+   "name": "Bangor University",
+   "ukprn": 10007857,
+   "city": "Gwynedd",
+   "nation": "Wales",
+   "website": "https://www.bangor.ac.uk/",
+   "founded": 1884,
+   "wikidata": "Q790029",
+   "courseCount": 205
+  },
+  {
+   "slug": "university-of-bath",
+   "name": "University of Bath",
+   "ukprn": 10007850,
+   "city": "Bath",
+   "nation": "England",
+   "website": "http://www.bath.ac.uk/",
+   "founded": 1966,
+   "wikidata": "Q1422458",
+   "courseCount": 196
+  },
+  {
+   "slug": "bath-spa-university",
+   "name": "Bath Spa University",
+   "ukprn": 10000571,
+   "city": "Bath",
+   "nation": "England",
+   "website": "https://bathspa.ac.uk/",
+   "founded": 1975,
+   "wikidata": "Q3091754",
+   "courseCount": 208
+  },
+  {
+   "slug": "university-of-bedfordshire",
+   "name": "University of Bedfordshire",
+   "ukprn": 10007152,
+   "city": "Luton",
+   "nation": "England",
+   "website": "https://beds.ac.uk/",
+   "founded": 1882,
+   "wikidata": "Q3047150",
+   "courseCount": 202
+  },
+  {
+   "slug": "birkbeck-university-of-london",
+   "name": "Birkbeck, University of London",
+   "ukprn": 10007760,
+   "city": "London",
+   "nation": "England",
+   "website": "https://bbk.ac.uk",
+   "founded": 1823,
+   "wikidata": "Q375606",
+   "courseCount": 186
+  },
+  {
+   "slug": "university-of-birmingham",
+   "name": "University of Birmingham",
+   "ukprn": 10006840,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "https://birmingham.ac.uk/",
+   "founded": 1900,
+   "wikidata": "Q223429",
+   "courseCount": 260
+  },
+  {
+   "slug": "birmingham-city-university",
+   "name": "Birmingham City University",
+   "ukprn": 10007140,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "http://www.bcu.ac.uk",
+   "founded": 1971,
+   "wikidata": "Q3547145",
+   "courseCount": 180
+  },
+  {
+   "slug": "blackpool-and-the-fylde-college",
+   "name": "Blackpool and The Fylde College",
+   "ukprn": 10000754,
+   "city": "Blackpool",
+   "nation": "England",
+   "website": "http://www.blackpool.ac.uk",
+   "founded": 1892,
+   "wikidata": "Q16984484",
+   "courseCount": 26
+  },
+  {
+   "slug": "bournemouth-university",
+   "name": "Bournemouth University",
+   "ukprn": 10000824,
+   "city": "Bournemouth, Christchurch and Poole",
+   "nation": "England",
+   "website": "http://www.bournemouth.ac.uk",
+   "founded": 1992,
+   "wikidata": "Q3182943",
+   "courseCount": 143
+  },
+  {
+   "slug": "bpp-university",
+   "name": "BPP University",
+   "ukprn": 10031982,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.bpp.com/university",
+   "founded": 1992,
+   "wikidata": "Q4836273",
+   "courseCount": 5
+  },
+  {
+   "slug": "university-of-bradford",
+   "name": "University of Bradford",
+   "ukprn": 10007785,
+   "city": "Bradford",
+   "nation": "England",
+   "website": "http://www.brad.ac.uk/",
+   "founded": 1832,
+   "wikidata": "Q954035",
+   "courseCount": 133
+  },
+  {
+   "slug": "university-of-brighton",
+   "name": "University of Brighton",
+   "ukprn": 10000886,
+   "city": "Brighton and Hove",
+   "nation": "England",
+   "website": "http://www.bton.ac.uk",
+   "founded": 1992,
+   "wikidata": "Q3056813",
+   "courseCount": 130
+  },
+  {
+   "slug": "university-of-bristol",
+   "name": "University of Bristol",
+   "ukprn": 10007786,
+   "city": "Bristol",
+   "nation": "England",
+   "website": "https://bristol.ac.uk",
+   "founded": 1909,
+   "wikidata": "Q459506",
+   "courseCount": 222
+  },
+  {
+   "slug": "brunel-university-of-london",
+   "name": "Brunel University of London",
+   "ukprn": 10000961,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.brunel.ac.uk/",
+   "founded": 1966,
+   "wikidata": "Q932411",
+   "courseCount": 224
+  },
+  {
+   "slug": "university-of-buckingham",
+   "name": "University of Buckingham",
+   "ukprn": 10007787,
+   "city": "Buckingham",
+   "nation": "England",
+   "website": "https://www.buckingham.ac.uk/",
+   "founded": 1976,
+   "wikidata": "Q2010561",
+   "courseCount": 28
+  },
+  {
+   "slug": "buckinghamshire-new-university",
+   "name": "Buckinghamshire New University",
+   "ukprn": 10000975,
+   "city": "High Wycombe",
+   "nation": "England",
+   "website": "http://www.bcuc.ac.uk",
+   "founded": 1999,
+   "wikidata": "Q448403",
+   "courseCount": 131
+  },
+  {
+   "slug": "university-of-cambridge",
+   "name": "University of Cambridge",
+   "ukprn": 10007788,
+   "city": "Cambridgeshire",
+   "nation": "England",
+   "website": "https://www.cam.ac.uk/",
+   "founded": 1209,
+   "wikidata": "Q35794",
+   "courseCount": 33
+  },
+  {
+   "slug": "canterbury-christ-church-university",
+   "name": "Canterbury Christ Church University",
+   "ukprn": 10001143,
+   "city": "Canterbury",
+   "nation": "England",
+   "website": "https://www.canterbury.ac.uk",
+   "founded": 2005,
+   "wikidata": "Q3182956",
+   "courseCount": 158
+  },
+  {
+   "slug": "cardiff-metropolitan-university",
+   "name": "Cardiff Metropolitan University",
+   "ukprn": 10007854,
+   "city": "Cardiff",
+   "nation": "Wales",
+   "website": "http://www.cardiffmet.ac.uk",
+   "founded": 1996,
+   "wikidata": "Q5038449",
+   "courseCount": 96
+  },
+  {
+   "slug": "cardiff-university",
+   "name": "Cardiff University",
+   "ukprn": 10007814,
+   "city": "Cardiff",
+   "nation": "Wales",
+   "website": "https://cardiff.ac.uk/",
+   "founded": 1883,
+   "wikidata": "Q1035745",
+   "courseCount": 223
+  },
+  {
+   "slug": "university-of-chester",
+   "name": "University of Chester",
+   "ukprn": 10007848,
+   "city": "Chester",
+   "nation": "England",
+   "website": "https://www.chester.ac.uk/",
+   "founded": 1839,
+   "wikidata": "Q762243",
+   "courseCount": 216
+  },
+  {
+   "slug": "university-of-chichester",
+   "name": "University of Chichester",
+   "ukprn": 10007137,
+   "city": "Chichester",
+   "nation": "England",
+   "website": "https://www.chi.ac.uk/",
+   "founded": 1839,
+   "wikidata": "Q3551577",
+   "courseCount": 44
+  },
+  {
+   "slug": "city-university-of-london",
+   "name": "City, University of London",
+   "ukprn": 10001478,
+   "city": "London",
+   "nation": "England",
+   "website": "http://web.city.ac.uk/",
+   "founded": 1894,
+   "wikidata": "Q1094046",
+   "courseCount": 111
+  },
+  {
+   "slug": "courtauld-institute-of-art",
+   "name": "Courtauld Institute of Art",
+   "ukprn": 10007761,
+   "city": "London",
+   "nation": "England",
+   "website": "https://courtauld.ac.uk/gallery/",
+   "founded": 1932,
+   "wikidata": "Q734266",
+   "courseCount": 1
+  },
+  {
+   "slug": "coventry-university",
+   "name": "Coventry University",
+   "ukprn": 10001726,
+   "city": "Coventry",
+   "nation": "England",
+   "website": "https://www.coventry.ac.uk/",
+   "founded": 1970,
+   "wikidata": "Q1138080",
+   "courseCount": 339
+  },
+  {
+   "slug": "university-of-cumbria",
+   "name": "University of Cumbria",
+   "ukprn": 10007842,
+   "city": "Carlisle",
+   "nation": "England",
+   "website": "http://www.cumbria.ac.uk",
+   "founded": 2007,
+   "wikidata": "Q1861974",
+   "courseCount": 80
+  },
+  {
+   "slug": "de-montfort-university",
+   "name": "De Montfort University",
+   "ukprn": 10001883,
+   "city": "Leicester",
+   "nation": "England",
+   "website": "http://www.dmu.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q3551402",
+   "courseCount": 106
+  },
+  {
+   "slug": "university-of-derby",
+   "name": "University of Derby",
+   "ukprn": 10007851,
+   "city": "Derby",
+   "nation": "England",
+   "website": "https://www.derby.ac.uk",
+   "founded": 1851,
+   "wikidata": "Q3183295",
+   "courseCount": 249
+  },
+  {
+   "slug": "university-of-dundee",
+   "name": "University of Dundee",
+   "ukprn": 10007852,
+   "city": "Dundee City",
+   "nation": "Scotland",
+   "website": "http://www.dundee.ac.uk/",
+   "founded": 1881,
+   "wikidata": "Q1249005",
+   "courseCount": 187
+  },
+  {
+   "slug": "durham-university",
+   "name": "Durham University",
+   "ukprn": 10007143,
+   "city": "Durham",
+   "nation": "England",
+   "website": "https://durham.ac.uk",
+   "founded": 1832,
+   "wikidata": "Q458393",
+   "courseCount": 141
+  },
+  {
+   "slug": "university-of-east-anglia",
+   "name": "University of East Anglia",
+   "ukprn": 10007789,
+   "city": "Norwich",
+   "nation": "England",
+   "website": "https://www.uea.ac.uk/",
+   "founded": 1963,
+   "wikidata": "Q1045828",
+   "courseCount": 352
+  },
+  {
+   "slug": "university-of-east-london-higher-education-corporation",
+   "name": "The University of East London Higher Education Corporation",
+   "ukprn": 10007144,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.uel.ac.uk/",
+   "founded": 1970,
+   "wikidata": "Q1345942",
+   "courseCount": 107
+  },
+  {
+   "slug": "edge-hill-university",
+   "name": "Edge Hill University",
+   "ukprn": 10007823,
+   "city": "Ormskirk",
+   "nation": "England",
+   "website": "https://edgehill.ac.uk/",
+   "founded": 2006,
+   "wikidata": "Q937482",
+   "courseCount": 131
+  },
+  {
+   "slug": "university-of-edinburgh",
+   "name": "University of Edinburgh",
+   "ukprn": 10007790,
+   "city": "Edinburgh",
+   "nation": "Scotland",
+   "website": "https://www.ed.ac.uk",
+   "founded": 1583,
+   "wikidata": "Q160302",
+   "courseCount": 351
+  },
+  {
+   "slug": "edinburgh-napier-university",
+   "name": "Edinburgh Napier University",
+   "ukprn": 10007772,
+   "city": "Edinburgh",
+   "nation": "Scotland",
+   "website": "https://www.napier.ac.uk/",
+   "founded": 1965,
+   "wikidata": "Q1277357",
+   "courseCount": 83
+  },
+  {
+   "slug": "university-of-essex",
+   "name": "University of Essex",
+   "ukprn": 10007791,
+   "city": "Essex",
+   "nation": "England",
+   "website": "http://www.essex.ac.uk",
+   "founded": 1965,
+   "wikidata": "Q1075104",
+   "courseCount": 543
+  },
+  {
+   "slug": "university-of-exeter",
+   "name": "University of Exeter",
+   "ukprn": 10007792,
+   "city": "Exeter",
+   "nation": "England",
+   "website": "http://info.ex.ac.uk/",
+   "founded": 1955,
+   "wikidata": "Q1414861",
+   "courseCount": 221
+  },
+  {
+   "slug": "falmouth-university",
+   "name": "Falmouth University",
+   "ukprn": 10008640,
+   "city": "Falmouth",
+   "nation": "England",
+   "website": "http://www.falmouth.ac.uk/",
+   "founded": 1902,
+   "wikidata": "Q5432602",
+   "courseCount": 150
+  },
+  {
+   "slug": "university-of-glasgow",
+   "name": "University of Glasgow",
+   "ukprn": 10007794,
+   "city": "Glasgow City",
+   "nation": "Scotland",
+   "website": "https://gla.ac.uk/",
+   "founded": 1451,
+   "wikidata": "Q192775",
+   "courseCount": 685
+  },
+  {
+   "slug": "glasgow-caledonian-university",
+   "name": "Glasgow Caledonian University",
+   "ukprn": 10007762,
+   "city": "Glasgow City",
+   "nation": "Scotland",
+   "website": "https://www.gcu.ac.uk/",
+   "founded": 1993,
+   "wikidata": "Q1353139",
+   "courseCount": 58
+  },
+  {
+   "slug": "glasgow-school-of-art",
+   "name": "Glasgow School of Art.",
+   "ukprn": 10002681,
+   "city": "Glasgow City",
+   "nation": "Scotland",
+   "website": "https://www.gsa.ac.uk/",
+   "founded": 1845,
+   "wikidata": "Q748106",
+   "courseCount": 17
+  },
+  {
+   "slug": "university-of-gloucestershire",
+   "name": "University of Gloucestershire",
+   "ukprn": 10007145,
+   "city": "Cheltenham",
+   "nation": "England",
+   "website": "http://www.glos.ac.uk/",
+   "founded": 2001,
+   "wikidata": "Q1816872",
+   "courseCount": 150
+  },
+  {
+   "slug": "goldsmiths-university-of-london",
+   "name": "Goldsmiths, University of London",
+   "ukprn": 10002718,
+   "city": "London",
+   "nation": "England",
+   "website": "https://gold.ac.uk",
+   "founded": 1891,
+   "wikidata": "Q528231",
+   "courseCount": 70
+  },
+  {
+   "slug": "university-of-greater-manchester",
+   "name": "University of Greater Manchester",
+   "ukprn": 10006841,
+   "city": "Bolton",
+   "nation": "England",
+   "website": "https://www.bolton.ac.uk/",
+   "founded": 1982,
+   "wikidata": "Q1683230",
+   "courseCount": 128
+  },
+  {
+   "slug": "university-of-greenwich-part-of-london-and-south-east-university-group",
+   "name": "University of Greenwich (Part of London and South East University Group)",
+   "ukprn": 10007146,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.gre.ac.uk/",
+   "founded": 1890,
+   "wikidata": "Q1896148",
+   "courseCount": 122
+  },
+  {
+   "slug": "guildhall-school-of-music-and-drama",
+   "name": "Guildhall School of Music and Drama",
+   "ukprn": 10007825,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.gsmd.ac.uk",
+   "founded": 1880,
+   "wikidata": "Q1419737",
+   "courseCount": 4
+  },
+  {
+   "slug": "harper-adams-university",
+   "name": "Harper Adams University",
+   "ukprn": 10040812,
+   "city": "Newport",
+   "nation": "England",
+   "website": "http://www.haac.ac.uk/",
+   "founded": 1901,
+   "wikidata": "Q5663364",
+   "courseCount": 53
+  },
+  {
+   "slug": "hartpury-university",
+   "name": "Hartpury University",
+   "ukprn": 10080811,
+   "city": "Gloucester",
+   "nation": "England",
+   "website": null,
+   "founded": null,
+   "wikidata": null,
+   "courseCount": 55
+  },
+  {
+   "slug": "health-sciences-university",
+   "name": "Health Sciences University",
+   "ukprn": 10000163,
+   "city": "Bournemouth",
+   "nation": "England",
+   "website": "http://www.aecc.ac.uk",
+   "founded": 1965,
+   "wikidata": "Q4763618",
+   "courseCount": 12
+  },
+  {
+   "slug": "heriot-watt-university",
+   "name": "Heriot-Watt University",
+   "ukprn": 10007764,
+   "city": "Edinburgh",
+   "nation": "Scotland",
+   "website": "https://www.hw.ac.uk/",
+   "founded": 1821,
+   "wikidata": "Q1610024",
+   "courseCount": 93
+  },
+  {
+   "slug": "university-of-hertfordshire",
+   "name": "University of Hertfordshire",
+   "ukprn": 10007147,
+   "city": "Hatfield",
+   "nation": "England",
+   "website": "https://www.herts.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q1745633",
+   "courseCount": 115
+  },
+  {
+   "slug": "university-of-huddersfield",
+   "name": "University of Huddersfield",
+   "ukprn": 10007148,
+   "city": "Huddersfield",
+   "nation": "England",
+   "website": "http://hud.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q3056815",
+   "courseCount": 157
+  },
+  {
+   "slug": "university-of-hull",
+   "name": "University of Hull",
+   "ukprn": 10007149,
+   "city": "Kingston upon Hull",
+   "nation": "England",
+   "website": "https://www.hull.ac.uk/",
+   "founded": 1927,
+   "wikidata": "Q1474019",
+   "courseCount": 246
+  },
+  {
+   "slug": "imperial-college-london",
+   "name": "Imperial College London",
+   "ukprn": 10003270,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.imperial.ac.uk/",
+   "founded": 1907,
+   "wikidata": "Q189022",
+   "courseCount": 84
+  },
+  {
+   "slug": "keele-university",
+   "name": "Keele University",
+   "ukprn": 10007767,
+   "city": "Newcastle-under-Lyme",
+   "nation": "England",
+   "website": "https://www.keele.ac.uk/",
+   "founded": 1949,
+   "wikidata": "Q1737734",
+   "courseCount": 305
+  },
+  {
+   "slug": "university-of-kent-part-of-london-and-south-east-university-group",
+   "name": "University of Kent (Part of London and South East University Group)",
+   "ukprn": 10007150,
+   "city": "Kent",
+   "nation": "England",
+   "website": "https://www.kent.ac.uk",
+   "founded": 1965,
+   "wikidata": "Q1516684",
+   "courseCount": 156
+  },
+  {
+   "slug": "king-s-college-london",
+   "name": "King's College London",
+   "ukprn": 10003645,
+   "city": "London",
+   "nation": "England",
+   "website": "https://kcl.ac.uk/",
+   "founded": 1829,
+   "wikidata": "Q245247",
+   "courseCount": 137
+  },
+  {
+   "slug": "kingston-university",
+   "name": "Kingston University",
+   "ukprn": 10003678,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.kingston.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q2503809",
+   "courseCount": 241
+  },
+  {
+   "slug": "university-of-lancashire",
+   "name": "University of Lancashire",
+   "ukprn": 10007141,
+   "city": "Preston",
+   "nation": "England",
+   "website": "http://www.uclan.ac.uk/",
+   "founded": 1828,
+   "wikidata": "Q1857773",
+   "courseCount": 223
+  },
+  {
+   "slug": "university-of-lancaster",
+   "name": "University of Lancaster",
+   "ukprn": 10007768,
+   "city": "Lancaster",
+   "nation": "England",
+   "website": "http://www.lancs.ac.uk/",
+   "founded": 1964,
+   "wikidata": "Q262854",
+   "courseCount": 459
+  },
+  {
+   "slug": "university-of-law",
+   "name": "The University of Law",
+   "ukprn": 10039956,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "http://www.college-of-law.co.uk",
+   "founded": 2012,
+   "wikidata": "Q9357897",
+   "courseCount": 43
+  },
+  {
+   "slug": "university-of-leeds",
+   "name": "University of Leeds",
+   "ukprn": 10007795,
+   "city": "Leeds",
+   "nation": "England",
+   "website": "https://leeds.ac.uk/",
+   "founded": 1904,
+   "wikidata": "Q503424",
+   "courseCount": 294
+  },
+  {
+   "slug": "leeds-arts-university",
+   "name": "Leeds Arts University",
+   "ukprn": 10003854,
+   "city": "Leeds",
+   "nation": "England",
+   "website": "http://www.leeds-art.ac.uk/",
+   "founded": 1846,
+   "wikidata": "Q3228965",
+   "courseCount": 46
+  },
+  {
+   "slug": "leeds-beckett-university",
+   "name": "Leeds Beckett University",
+   "ukprn": 10003861,
+   "city": null,
+   "nation": "England",
+   "website": "http://www.leedsbeckett.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q2392351",
+   "courseCount": 134
+  },
+  {
+   "slug": "leeds-trinity-university",
+   "name": "Leeds Trinity University",
+   "ukprn": 10003863,
+   "city": "Leeds",
+   "nation": "England",
+   "website": "http://www.leedstrinity.ac.uk/",
+   "founded": 1966,
+   "wikidata": "Q1849271",
+   "courseCount": 73
+  },
+  {
+   "slug": "university-of-leicester",
+   "name": "University of Leicester",
+   "ukprn": 10007796,
+   "city": "Leicester",
+   "nation": "England",
+   "website": "https://le.ac.uk",
+   "founded": 1921,
+   "wikidata": "Q1333399",
+   "courseCount": 207
+  },
+  {
+   "slug": "university-of-lincoln",
+   "name": "University of Lincoln",
+   "ukprn": 10007151,
+   "city": "Lincoln",
+   "nation": "England",
+   "website": "http://www.lincoln.ac.uk/",
+   "founded": 1996,
+   "wikidata": "Q2738646",
+   "courseCount": 173
+  },
+  {
+   "slug": "lincoln-bishop-university",
+   "name": "Lincoln Bishop University",
+   "ukprn": 10007811,
+   "city": "Lincoln",
+   "nation": "England",
+   "website": "http://www.lincolnbishop.ac.uk",
+   "founded": 1862,
+   "wikidata": "Q4917580",
+   "courseCount": 86
+  },
+  {
+   "slug": "university-of-liverpool",
+   "name": "University of Liverpool",
+   "ukprn": 10006842,
+   "city": "Liverpool",
+   "nation": "England",
+   "website": "https://liverpool.ac.uk/",
+   "founded": 1903,
+   "wikidata": "Q499510",
+   "courseCount": 230
+  },
+  {
+   "slug": "liverpool-hope-university",
+   "name": "Liverpool Hope University",
+   "ukprn": 10003956,
+   "city": "Liverpool",
+   "nation": "England",
+   "website": "http://www.hope.ac.uk/",
+   "founded": 1844,
+   "wikidata": "Q1818020",
+   "courseCount": 143
+  },
+  {
+   "slug": "liverpool-institute-for-performing-arts",
+   "name": "Liverpool Institute for Performing Arts",
+   "ukprn": 10003945,
+   "city": "Liverpool",
+   "nation": "England",
+   "website": "http://www.lipa.ac.uk/",
+   "founded": 1996,
+   "wikidata": "Q1668871",
+   "courseCount": 19
+  },
+  {
+   "slug": "liverpool-john-moores-university",
+   "name": "Liverpool John Moores University",
+   "ukprn": 10003957,
+   "city": "Liverpool",
+   "nation": "England",
+   "website": "http://www.ljmu.ac.uk/",
+   "founded": 1823,
+   "wikidata": "Q1627967",
+   "courseCount": 176
+  },
+  {
+   "slug": "university-of-london",
+   "name": "University of London",
+   "ukprn": 10007797,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.london.ac.uk/",
+   "founded": 1836,
+   "wikidata": "Q170027",
+   "courseCount": 20
+  },
+  {
+   "slug": "university-of-london-institute-in-paris",
+   "name": "University of London institute in Paris",
+   "ukprn": 10007812,
+   "city": "Paris",
+   "nation": "England",
+   "website": null,
+   "founded": null,
+   "wikidata": null,
+   "courseCount": 6
+  },
+  {
+   "slug": "london-metropolitan-university",
+   "name": "London Metropolitan University",
+   "ukprn": 10004048,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.londonmet.ac.uk",
+   "founded": 2002,
+   "wikidata": "Q1869028",
+   "courseCount": 96
+  },
+  {
+   "slug": "london-school-of-economics-and-political-science",
+   "name": "London School of Economics and Political Science",
+   "ukprn": 10004063,
+   "city": "London",
+   "nation": "England",
+   "website": "https://lse.ac.uk",
+   "founded": 1895,
+   "wikidata": "Q174570",
+   "courseCount": 43
+  },
+  {
+   "slug": "london-south-bank-university",
+   "name": "London South Bank University",
+   "ukprn": 10004078,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.lsbu.ac.uk/",
+   "founded": 1892,
+   "wikidata": "Q289348",
+   "courseCount": 95
+  },
+  {
+   "slug": "loughborough-university",
+   "name": "Loughborough University",
+   "ukprn": 10004113,
+   "city": "Loughborough",
+   "nation": "England",
+   "website": "https://www.lboro.ac.uk/",
+   "founded": 1909,
+   "wikidata": "Q1434547",
+   "courseCount": 270
+  },
+  {
+   "slug": "university-of-manchester",
+   "name": "University of Manchester",
+   "ukprn": 10007798,
+   "city": "Manchester",
+   "nation": "England",
+   "website": "https://manchester.ac.uk",
+   "founded": 1824,
+   "wikidata": "Q230899",
+   "courseCount": 289
+  },
+  {
+   "slug": "manchester-metropolitan-university",
+   "name": "Manchester Metropolitan University",
+   "ukprn": 10004180,
+   "city": "Manchester",
+   "nation": "England",
+   "website": "http://www.mmu.ac.uk/",
+   "founded": 1842,
+   "wikidata": "Q1888771",
+   "courseCount": 220
+  },
+  {
+   "slug": "middlesex-university",
+   "name": "Middlesex University",
+   "ukprn": 10004351,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.mdx.ac.uk",
+   "founded": 1973,
+   "wikidata": "Q1760791",
+   "courseCount": 75
+  },
+  {
+   "slug": "newcastle-university",
+   "name": "Newcastle University",
+   "ukprn": 10007799,
+   "city": "Newcastle upon Tyne",
+   "nation": "England",
+   "website": "https://www.ncl.ac.uk/",
+   "founded": 1963,
+   "wikidata": "Q837164",
+   "courseCount": 136
+  },
+  {
+   "slug": "newman-university",
+   "name": "Newman University",
+   "ukprn": 10007832,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "http://www.newman.ac.uk/",
+   "founded": 1968,
+   "wikidata": "Q4710828",
+   "courseCount": 52
+  },
+  {
+   "slug": "university-of-northampton",
+   "name": "University of Northampton",
+   "ukprn": 10007138,
+   "city": "Northamptonshire",
+   "nation": "England",
+   "website": "http://www.nene.ac.uk/",
+   "founded": 1975,
+   "wikidata": "Q3123462",
+   "courseCount": 153
+  },
+  {
+   "slug": "northeastern-university-london",
+   "name": "Northeastern University London",
+   "ukprn": 10048199,
+   "city": "London",
+   "nation": "England",
+   "website": null,
+   "founded": null,
+   "wikidata": null,
+   "courseCount": 9
+  },
+  {
+   "slug": "university-of-northumbria-at-newcastle",
+   "name": "University of Northumbria at Newcastle",
+   "ukprn": 10001282,
+   "city": "Newcastle upon Tyne",
+   "nation": "England",
+   "website": "http://www.unn.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q2503794",
+   "courseCount": 206
+  },
+  {
+   "slug": "norwich-university-of-the-arts",
+   "name": "Norwich University of the Arts",
+   "ukprn": 10004775,
+   "city": "Norwich",
+   "nation": "England",
+   "website": "https://www.nua.ac.uk/",
+   "founded": 1845,
+   "wikidata": "Q3695681",
+   "courseCount": 113
+  },
+  {
+   "slug": "university-of-nottingham",
+   "name": "University of Nottingham",
+   "ukprn": 10007154,
+   "city": "Nottingham",
+   "nation": "England",
+   "website": "https://www.nottingham.ac.uk/",
+   "founded": 1881,
+   "wikidata": "Q472316",
+   "courseCount": 198
+  },
+  {
+   "slug": "nottingham-trent-university",
+   "name": "Nottingham Trent University",
+   "ukprn": 10004797,
+   "city": "Nottingham",
+   "nation": "England",
+   "website": "http://www.ntu.ac.uk/",
+   "founded": 1970,
+   "wikidata": "Q2002619",
+   "courseCount": 374
+  },
+  {
+   "slug": "oxford-brookes-university",
+   "name": "Oxford Brookes University",
+   "ukprn": 10004930,
+   "city": "Oxford",
+   "nation": "England",
+   "website": "https://www.brookes.ac.uk/",
+   "founded": 1865,
+   "wikidata": "Q132478",
+   "courseCount": 195
+  },
+  {
+   "slug": "oxford-university",
+   "name": "Oxford University",
+   "ukprn": 10007774,
+   "city": "Oxford",
+   "nation": "England",
+   "website": "https://ox.ac.uk/",
+   "founded": 1096,
+   "wikidata": "Q34433",
+   "courseCount": 230
+  },
+  {
+   "slug": "university-of-plymouth",
+   "name": "University of Plymouth",
+   "ukprn": 10007801,
+   "city": "Plymouth",
+   "nation": "England",
+   "website": "https://www.plymouth.ac.uk",
+   "founded": 1992,
+   "wikidata": "Q1711558",
+   "courseCount": 192
+  },
+  {
+   "slug": "plymouth-marjon-university",
+   "name": "Plymouth Marjon University",
+   "ukprn": 10037449,
+   "city": "Plymouth",
+   "nation": "England",
+   "website": "http://marjon.ac.uk",
+   "founded": 1923,
+   "wikidata": "Q7894637",
+   "courseCount": 40
+  },
+  {
+   "slug": "university-of-portsmouth",
+   "name": "University of Portsmouth",
+   "ukprn": 10007155,
+   "city": "Portsmouth",
+   "nation": "England",
+   "website": "https://port.ac.uk",
+   "founded": 1869,
+   "wikidata": "Q2744209",
+   "courseCount": 203
+  },
+  {
+   "slug": "queen-margaret-university-edinburgh",
+   "name": "Queen Margaret University, Edinburgh",
+   "ukprn": 10005337,
+   "city": "East Lothian",
+   "nation": "Scotland",
+   "website": "http://www.qmu.ac.uk",
+   "founded": 1875,
+   "wikidata": "Q915989",
+   "courseCount": 28
+  },
+  {
+   "slug": "queen-mary-university-of-london",
+   "name": "Queen Mary University of London",
+   "ukprn": 10007775,
+   "city": "London",
+   "nation": "England",
+   "website": "https://qmul.ac.uk",
+   "founded": 1882,
+   "wikidata": "Q195668",
+   "courseCount": 306
+  },
+  {
+   "slug": "queen-s-university-belfast",
+   "name": "Queen's University Belfast",
+   "ukprn": 10005343,
+   "city": "Belfast",
+   "nation": "Northern Ireland",
+   "website": "https://qub.ac.uk/",
+   "founded": 1845,
+   "wikidata": "Q877925",
+   "courseCount": 234
+  },
+  {
+   "slug": "ravensbourne-university-london",
+   "name": "Ravensbourne University London",
+   "ukprn": 10005389,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.ravensbourne.ac.uk/",
+   "founded": 1962,
+   "wikidata": "Q7296496",
+   "courseCount": 66
+  },
+  {
+   "slug": "university-of-reading",
+   "name": "University of Reading",
+   "ukprn": 10007802,
+   "city": "Reading",
+   "nation": "England",
+   "website": "http://www.rdg.ac.uk/",
+   "founded": 1926,
+   "wikidata": "Q1432632",
+   "courseCount": 269
+  },
+  {
+   "slug": "regent-s-university",
+   "name": "Regent's University",
+   "ukprn": 10086591,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.regents.ac.uk/",
+   "founded": 1984,
+   "wikidata": "Q7308066",
+   "courseCount": 44
+  },
+  {
+   "slug": "richmond-the-american-international-university-in-london",
+   "name": "Richmond, The American International University in London",
+   "ukprn": 10005470,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.richmond.ac.uk",
+   "founded": 1972,
+   "wikidata": "Q7330738",
+   "courseCount": 20
+  },
+  {
+   "slug": "robert-gordon-university",
+   "name": "Robert Gordon University",
+   "ukprn": 10005500,
+   "city": "Aberdeen City",
+   "nation": "Scotland",
+   "website": "http://www.rgu.ac.uk/",
+   "founded": 1750,
+   "wikidata": "Q1788342",
+   "courseCount": 72
+  },
+  {
+   "slug": "roehampton-university",
+   "name": "Roehampton University",
+   "ukprn": 10007776,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.roehampton.ac.uk/",
+   "founded": 1975,
+   "wikidata": "Q939607",
+   "courseCount": 86
+  },
+  {
+   "slug": "royal-academy-of-music",
+   "name": "Royal Academy of Music",
+   "ukprn": 10007835,
+   "city": "London",
+   "nation": "England",
+   "website": "https://ram.ac.uk",
+   "founded": 1822,
+   "wikidata": "Q1144673",
+   "courseCount": 3
+  },
+  {
+   "slug": "royal-agricultural-university",
+   "name": "Royal Agricultural University",
+   "ukprn": 10005545,
+   "city": "Gloucestershire",
+   "nation": "England",
+   "website": "http://www.rau.ac.uk",
+   "founded": 1842,
+   "wikidata": "Q3445856",
+   "courseCount": 26
+  },
+  {
+   "slug": "royal-central-school-of-speech-and-drama",
+   "name": "Royal Central School of Speech and Drama",
+   "ukprn": 10007816,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.cssd.ac.uk/",
+   "founded": 1906,
+   "wikidata": "Q981195",
+   "courseCount": 8
+  },
+  {
+   "slug": "royal-college-of-music",
+   "name": "Royal College of Music",
+   "ukprn": 10007778,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.rcm.ac.uk/",
+   "founded": 1882,
+   "wikidata": "Q304985",
+   "courseCount": 1
+  },
+  {
+   "slug": "royal-holloway-university-of-london",
+   "name": "Royal Holloway, University of London",
+   "ukprn": 10005553,
+   "city": "Surrey",
+   "nation": "England",
+   "website": "https://royalholloway.ac.uk/",
+   "founded": 1879,
+   "wikidata": "Q1202039",
+   "courseCount": 241
+  },
+  {
+   "slug": "university-of-salford",
+   "name": "University of Salford",
+   "ukprn": 10007156,
+   "city": "Salford",
+   "nation": "England",
+   "website": "http://www.salford.ac.uk/",
+   "founded": 1896,
+   "wikidata": "Q2738622",
+   "courseCount": 200
+  },
+  {
+   "slug": "screen-and-film-school",
+   "name": "Screen & Film School",
+   "ukprn": 10037544,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.bimm.ac.uk/",
+   "founded": 2001,
+   "wikidata": "Q4967681",
+   "courseCount": 22
+  },
+  {
+   "slug": "university-of-sheffield",
+   "name": "University of Sheffield",
+   "ukprn": 10007157,
+   "city": "Sheffield",
+   "nation": "England",
+   "website": "https://sheffield.ac.uk/",
+   "founded": 1905,
+   "wikidata": "Q823917",
+   "courseCount": 176
+  },
+  {
+   "slug": "sheffield-hallam-university",
+   "name": "Sheffield Hallam University",
+   "ukprn": 10005790,
+   "city": "Sheffield",
+   "nation": "England",
+   "website": "http://www.shu.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q1752117",
+   "courseCount": 120
+  },
+  {
+   "slug": "soas-university-of-london",
+   "name": "SOAS University of London",
+   "ukprn": 10007780,
+   "city": "London",
+   "nation": "England",
+   "website": "https://soas.ac.uk",
+   "founded": 1916,
+   "wikidata": "Q220144",
+   "courseCount": 232
+  },
+  {
+   "slug": "solihull-college",
+   "name": "Solihull College",
+   "ukprn": 10005946,
+   "city": "Solihull",
+   "nation": "England",
+   "website": "http://www.solihull.ac.uk",
+   "founded": 1954,
+   "wikidata": "Q7558060",
+   "courseCount": 5
+  },
+  {
+   "slug": "university-of-south-wales-prifysgol-de-cymru",
+   "name": "University of South Wales/Prifysgol De Cymru",
+   "ukprn": 10007793,
+   "city": "Wales",
+   "nation": "Wales",
+   "website": "http://www.southwales.ac.uk/",
+   "founded": 2013,
+   "wikidata": "Q1971174",
+   "courseCount": 186
+  },
+  {
+   "slug": "university-of-southampton",
+   "name": "University of Southampton",
+   "ukprn": 10007158,
+   "city": "Southampton",
+   "nation": "England",
+   "website": "https://southampton.ac.uk/",
+   "founded": 1862,
+   "wikidata": "Q76473",
+   "courseCount": 333
+  },
+  {
+   "slug": "southampton-solent-university",
+   "name": "Southampton Solent University",
+   "ukprn": 10006022,
+   "city": "Southampton",
+   "nation": "England",
+   "website": "http://www.solent.ac.uk",
+   "founded": 2005,
+   "wikidata": "Q2065695",
+   "courseCount": 87
+  },
+  {
+   "slug": "university-of-st-andrews",
+   "name": "University of St Andrews",
+   "ukprn": 10007803,
+   "city": "St Andrews",
+   "nation": "Scotland",
+   "website": "https://st-andrews.ac.uk",
+   "founded": 1413,
+   "wikidata": "Q216273",
+   "courseCount": 1019
+  },
+  {
+   "slug": "st-mary-s-university-college",
+   "name": "St Mary's University College",
+   "ukprn": 10008026,
+   "city": "Belfast",
+   "nation": "Northern Ireland",
+   "website": "https://www.stmarys-belfast.ac.uk",
+   "founded": 1985,
+   "wikidata": "Q7590448",
+   "courseCount": 3
+  },
+  {
+   "slug": "st-mary-s-university-twickenham",
+   "name": "St Mary's University, Twickenham",
+   "ukprn": 10007843,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.stmarys.ac.uk/",
+   "founded": 1850,
+   "wikidata": "Q2321391",
+   "courseCount": 114
+  },
+  {
+   "slug": "university-of-staffordshire",
+   "name": "University of Staffordshire",
+   "ukprn": 10006299,
+   "city": "Stoke-on-Trent",
+   "nation": "England",
+   "website": "http://www.staffs.ac.uk/",
+   "founded": 1971,
+   "wikidata": "Q1534573",
+   "courseCount": 212
+  },
+  {
+   "slug": "university-of-stirling",
+   "name": "University of Stirling",
+   "ukprn": 10007804,
+   "city": "Stirling",
+   "nation": "Scotland",
+   "website": "http://www.stir.ac.uk",
+   "founded": 1967,
+   "wikidata": "Q963530",
+   "courseCount": 167
+  },
+  {
+   "slug": "stranmillis-university-college",
+   "name": "Stranmillis University College",
+   "ukprn": 10008010,
+   "city": "Belfast",
+   "nation": "Northern Ireland",
+   "website": "http://www.stran.ac.uk",
+   "founded": 1922,
+   "wikidata": "Q7621650",
+   "courseCount": 7
+  },
+  {
+   "slug": "university-of-strathclyde",
+   "name": "University of Strathclyde",
+   "ukprn": 10007805,
+   "city": "Glasgow City",
+   "nation": "Scotland",
+   "website": "https://www.strath.ac.uk/",
+   "founded": 1796,
+   "wikidata": "Q1859178",
+   "courseCount": 229
+  },
+  {
+   "slug": "university-of-suffolk",
+   "name": "University of Suffolk",
+   "ukprn": 10014001,
+   "city": "Ipswich",
+   "nation": "England",
+   "website": "https://uos.ac.uk/",
+   "founded": 2007,
+   "wikidata": "Q24661246",
+   "courseCount": 49
+  },
+  {
+   "slug": "university-of-sunderland",
+   "name": "University of Sunderland",
+   "ukprn": 10007159,
+   "city": "Sunderland",
+   "nation": "England",
+   "website": "http://www.sunderland.ac.uk/",
+   "founded": 1901,
+   "wikidata": "Q1094742",
+   "courseCount": 107
+  },
+  {
+   "slug": "university-of-surrey",
+   "name": "University of Surrey",
+   "ukprn": 10007160,
+   "city": "Guildford",
+   "nation": "England",
+   "website": "https://www.surrey.ac.uk/",
+   "founded": 1966,
+   "wikidata": "Q546976",
+   "courseCount": 288
+  },
+  {
+   "slug": "university-of-sussex",
+   "name": "University of Sussex",
+   "ukprn": 10007806,
+   "city": "Sussex House",
+   "nation": "England",
+   "website": "https://www.sussex.ac.uk/",
+   "founded": 1961,
+   "wikidata": "Q1161297",
+   "courseCount": 209
+  },
+  {
+   "slug": "swansea-university",
+   "name": "Swansea University",
+   "ukprn": 10007855,
+   "city": "Swansea",
+   "nation": "Wales",
+   "website": "http://www.swansea.ac.uk/",
+   "founded": 1920,
+   "wikidata": "Q1420500",
+   "courseCount": 494
+  },
+  {
+   "slug": "teesside-university",
+   "name": "Teesside University",
+   "ukprn": 10007161,
+   "city": "Middlesbrough",
+   "nation": "England",
+   "website": "http://www.tees.ac.uk/",
+   "founded": 1930,
+   "wikidata": "Q3695910",
+   "courseCount": 155
+  },
+  {
+   "slug": "university-of-the-arts-london",
+   "name": "University of the Arts, London",
+   "ukprn": 10007162,
+   "city": "London",
+   "nation": "England",
+   "website": "https://www.arts.ac.uk/",
+   "founded": 1986,
+   "wikidata": "Q2065666",
+   "courseCount": 94
+  },
+  {
+   "slug": "university-of-the-highlands-and-islands",
+   "name": "University of the Highlands and Islands",
+   "ukprn": 10007114,
+   "city": "Highland",
+   "nation": "Scotland",
+   "website": "http://www.uhi.ac.uk",
+   "founded": 2011,
+   "wikidata": "Q1470817",
+   "courseCount": 151
+  },
+  {
+   "slug": "university-of-the-west-of-scotland",
+   "name": "University of the West of Scotland",
+   "ukprn": 10007800,
+   "city": "Renfrewshire",
+   "nation": "Scotland",
+   "website": "http://www.uws.ac.uk/",
+   "founded": 2007,
+   "wikidata": "Q1296153",
+   "courseCount": 76
+  },
+  {
+   "slug": "ulster-university",
+   "name": "Ulster University",
+   "ukprn": 10007807,
+   "city": "Coleraine",
+   "nation": "Northern Ireland",
+   "website": "https://www.ulster.ac.uk/",
+   "founded": 1984,
+   "wikidata": "Q2096524",
+   "courseCount": 171
+  },
+  {
+   "slug": "university-college-birmingham",
+   "name": "University College Birmingham",
+   "ukprn": 10000712,
+   "city": "Birmingham",
+   "nation": "England",
+   "website": "http://www.ucb.ac.uk",
+   "founded": 1957,
+   "wikidata": "Q7894613",
+   "courseCount": 61
+  },
+  {
+   "slug": "university-college-of-estate-management",
+   "name": "University College of Estate Management",
+   "ukprn": 10008173,
+   "city": "Reading",
+   "nation": "England",
+   "website": null,
+   "founded": null,
+   "wikidata": null,
+   "courseCount": 5
+  },
+  {
+   "slug": "university-for-the-creative-arts",
+   "name": "University for the Creative Arts",
+   "ukprn": 10006427,
+   "city": "Farnham",
+   "nation": "England",
+   "website": "http://www.uca.ac.uk",
+   "founded": 2005,
+   "wikidata": "Q2598272",
+   "courseCount": 123
+  },
+  {
+   "slug": "uwe-bristol",
+   "name": "UWE, Bristol",
+   "ukprn": 10007164,
+   "city": "Stoke Gifford",
+   "nation": "England",
+   "website": "https://www.uwe.ac.uk/",
+   "founded": 1970,
+   "wikidata": "Q2002520",
+   "courseCount": 154
+  },
+  {
+   "slug": "university-of-wales-trinity-saint-david",
+   "name": "University of Wales: Trinity Saint David",
+   "ukprn": 10007858,
+   "city": "Carmarthenshire",
+   "nation": "Wales",
+   "website": "http://www.uwtsd.ac.uk/",
+   "founded": 2010,
+   "wikidata": "Q3551774",
+   "courseCount": 228
+  },
+  {
+   "slug": "university-of-warwick",
+   "name": "University of Warwick",
+   "ukprn": 10007163,
+   "city": "Coventry",
+   "nation": "England",
+   "website": "https://warwick.ac.uk/",
+   "founded": 1965,
+   "wikidata": "Q865528",
+   "courseCount": 185
+  },
+  {
+   "slug": "university-of-west-london",
+   "name": "University of West London",
+   "ukprn": 10006566,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.uwl.ac.uk/",
+   "founded": 1990,
+   "wikidata": "Q2007778",
+   "courseCount": 221
+  },
+  {
+   "slug": "university-of-westminster",
+   "name": "University of Westminster",
+   "ukprn": 10007165,
+   "city": "London",
+   "nation": "England",
+   "website": "http://www.westminster.ac.uk",
+   "founded": 1838,
+   "wikidata": "Q1247544",
+   "courseCount": 167
+  },
+  {
+   "slug": "wiltshire-college-and-university-centre",
+   "name": "Wiltshire College and University Centre",
+   "ukprn": 10007527,
+   "city": "Trowbridge",
+   "nation": "England",
+   "website": "https://www.wiltshire.ac.uk/",
+   "founded": 2002,
+   "wikidata": "Q67149348",
+   "courseCount": 8
+  },
+  {
+   "slug": "university-of-winchester",
+   "name": "University of Winchester",
+   "ukprn": 10003614,
+   "city": "Winchester",
+   "nation": "England",
+   "website": "http://www.wkac.ac.uk/",
+   "founded": 2005,
+   "wikidata": "Q3551690",
+   "courseCount": 85
+  },
+  {
+   "slug": "university-of-wolverhampton",
+   "name": "University of Wolverhampton",
+   "ukprn": 10007166,
+   "city": "Wolverhampton",
+   "nation": "England",
+   "website": "https://www.wlv.ac.uk/",
+   "founded": 1992,
+   "wikidata": "Q1816202",
+   "courseCount": 231
+  },
+  {
+   "slug": "university-of-worcester",
+   "name": "University of Worcester",
+   "ukprn": 10007139,
+   "city": "Worcester",
+   "nation": "England",
+   "website": "https://worcester.ac.uk/",
+   "founded": 2005,
+   "wikidata": "Q3036648",
+   "courseCount": 156
+  },
+  {
+   "slug": "wrexham-university",
+   "name": "Wrexham University",
+   "ukprn": 10007833,
+   "city": "Wrexham County",
+   "nation": "Wales",
+   "website": "http://www.wrexham.ac.uk/",
+   "founded": 2008,
+   "wikidata": "Q3400501",
+   "courseCount": 59
+  },
+  {
+   "slug": "university-of-york",
+   "name": "University of York",
+   "ukprn": 10007167,
+   "city": "York",
+   "nation": "England",
+   "website": "https://york.ac.uk/",
+   "founded": 1963,
+   "wikidata": "Q967165",
+   "courseCount": 268
+  },
+  {
+   "slug": "york-st-john-university",
+   "name": "York St John University",
+   "ukprn": 10007713,
+   "city": "York",
+   "nation": "England",
+   "website": "http://www.yorksj.ac.uk/",
+   "founded": 1841,
+   "wikidata": "Q8055565",
+   "courseCount": 152
+  }
+ ]
 }
