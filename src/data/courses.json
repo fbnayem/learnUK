@@ -1,0 +1,485 @@
+{
+  "meta": {
+    "note": "Sample data for design and development only. Fees, intakes and course availability are illustrative and must be replaced with verified university information before launch.",
+    "updated": "2026-10-10"
+  },
+  "courses": [
+    {
+      "id": "manchester-bsc-business-management",
+      "title": "BSc Business Management",
+      "university": "manchester",
+      "subject": "Business",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 19500,
+      "foundationAvailable": true
+    },
+    {
+      "id": "coventry-bsc-business-management",
+      "title": "BSc Business Management",
+      "university": "coventry",
+      "subject": "Business",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "newcastle-msc-international-business",
+      "title": "MSc International Business",
+      "university": "newcastle",
+      "subject": "Business",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "manchester-msc-international-business",
+      "title": "MSc International Business",
+      "university": "manchester",
+      "subject": "Business",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 27000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "cardiff-mba",
+      "title": "MBA",
+      "university": "cardiff",
+      "subject": "Business",
+      "level": "Postgraduate",
+      "duration": "12–15 months",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "newcastle-mba",
+      "title": "MBA",
+      "university": "newcastle",
+      "subject": "Business",
+      "level": "Postgraduate",
+      "duration": "12–15 months",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 22500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "nottingham-bsc-computer-science",
+      "title": "BSc Computer Science",
+      "university": "nottingham",
+      "subject": "Computing",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 19500,
+      "foundationAvailable": true
+    },
+    {
+      "id": "cardiff-bsc-computer-science",
+      "title": "BSc Computer Science",
+      "university": "cardiff",
+      "subject": "Computing",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "hertfordshire-msc-data-science",
+      "title": "MSc Data Science",
+      "university": "hertfordshire",
+      "subject": "Computing",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "nottingham-msc-data-science",
+      "title": "MSc Data Science",
+      "university": "nottingham",
+      "subject": "Computing",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 27000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "birmingham-msc-artificial-intelligence",
+      "title": "MSc Artificial Intelligence",
+      "university": "birmingham",
+      "subject": "Computing",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "hertfordshire-msc-artificial-intelligence",
+      "title": "MSc Artificial Intelligence",
+      "university": "hertfordshire",
+      "subject": "Computing",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 22500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "bristol-meng-mechanical-engineering",
+      "title": "MEng Mechanical Engineering",
+      "university": "bristol",
+      "subject": "Engineering",
+      "level": "Undergraduate",
+      "duration": "4 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 19500,
+      "foundationAvailable": true
+    },
+    {
+      "id": "birmingham-meng-mechanical-engineering",
+      "title": "MEng Mechanical Engineering",
+      "university": "birmingham",
+      "subject": "Engineering",
+      "level": "Undergraduate",
+      "duration": "4 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "queens-belfast-beng-civil-engineering",
+      "title": "BEng Civil Engineering",
+      "university": "queens-belfast",
+      "subject": "Engineering",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 21750,
+      "foundationAvailable": false
+    },
+    {
+      "id": "bristol-beng-civil-engineering",
+      "title": "BEng Civil Engineering",
+      "university": "bristol",
+      "subject": "Engineering",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "sheffield-msc-renewable-energy-engineering",
+      "title": "MSc Renewable Energy Engineering",
+      "university": "sheffield",
+      "subject": "Engineering",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "queens-belfast-msc-renewable-energy-engineering",
+      "title": "MSc Renewable Energy Engineering",
+      "university": "queens-belfast",
+      "subject": "Engineering",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 22500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "glasgow-bsc-nursing-adult",
+      "title": "BSc Nursing (Adult)",
+      "university": "glasgow",
+      "subject": "Health",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 19500,
+      "foundationAvailable": true
+    },
+    {
+      "id": "sheffield-bsc-nursing-adult",
+      "title": "BSc Nursing (Adult)",
+      "university": "sheffield",
+      "subject": "Health",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "leeds-msc-public-health",
+      "title": "MSc Public Health",
+      "university": "leeds",
+      "subject": "Health",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "glasgow-msc-public-health",
+      "title": "MSc Public Health",
+      "university": "glasgow",
+      "subject": "Health",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 27000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "coventry-bsc-biomedical-science",
+      "title": "BSc Biomedical Science",
+      "university": "coventry",
+      "subject": "Health",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 24000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "leeds-bsc-biomedical-science",
+      "title": "BSc Biomedical Science",
+      "university": "leeds",
+      "subject": "Health",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 21000,
+      "foundationAvailable": true
+    },
+    {
+      "id": "manchester-llb-law",
+      "title": "LLB Law",
+      "university": "manchester",
+      "subject": "Law",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 19500,
+      "foundationAvailable": true
+    },
+    {
+      "id": "coventry-llb-law",
+      "title": "LLB Law",
+      "university": "coventry",
+      "subject": "Law",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "newcastle-llm-international-commercial-law",
+      "title": "LLM International Commercial Law",
+      "university": "newcastle",
+      "subject": "Law",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 23250,
+      "foundationAvailable": false
+    },
+    {
+      "id": "manchester-llm-international-commercial-law",
+      "title": "LLM International Commercial Law",
+      "university": "manchester",
+      "subject": "Law",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 27000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "cardiff-ba-graphic-design",
+      "title": "BA Graphic Design",
+      "university": "cardiff",
+      "subject": "Arts & Design",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 24000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "newcastle-ba-graphic-design",
+      "title": "BA Graphic Design",
+      "university": "newcastle",
+      "subject": "Arts & Design",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 21000,
+      "foundationAvailable": true
+    },
+    {
+      "id": "nottingham-ma-media-and-communication",
+      "title": "MA Media and Communication",
+      "university": "nottingham",
+      "subject": "Arts & Design",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 21000,
+      "foundationAvailable": false
+    },
+    {
+      "id": "cardiff-ma-media-and-communication",
+      "title": "MA Media and Communication",
+      "university": "cardiff",
+      "subject": "Arts & Design",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 24750,
+      "foundationAvailable": false
+    },
+    {
+      "id": "hertfordshire-bsc-accounting-and-finance",
+      "title": "BSc Accounting and Finance",
+      "university": "hertfordshire",
+      "subject": "Finance",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 21750,
+      "foundationAvailable": false
+    },
+    {
+      "id": "nottingham-bsc-accounting-and-finance",
+      "title": "BSc Accounting and Finance",
+      "university": "nottingham",
+      "subject": "Finance",
+      "level": "Undergraduate",
+      "duration": "3 years",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "birmingham-msc-finance-and-investment",
+      "title": "MSc Finance and Investment",
+      "university": "birmingham",
+      "subject": "Finance",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "September"
+      ],
+      "feeFromGBP": 25500,
+      "foundationAvailable": false
+    },
+    {
+      "id": "hertfordshire-msc-finance-and-investment",
+      "title": "MSc Finance and Investment",
+      "university": "hertfordshire",
+      "subject": "Finance",
+      "level": "Postgraduate",
+      "duration": "1 year",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "feeFromGBP": 22500,
+      "foundationAvailable": false
+    }
+  ]
+}

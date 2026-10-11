@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "note": "Sample data for design and development only. Fees, intakes and course availability are illustrative and must be replaced with verified university information before launch.",
+    "updated": "2026-10-10"
+  },
+  "universities": [
+    {
+      "slug": "manchester",
+      "name": "The University of Manchester",
+      "city": "Manchester",
+      "area": "North West England",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 4,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at The University of Manchester"
+      }
+    },
+    {
+      "slug": "birmingham",
+      "name": "University of Birmingham",
+      "city": "Birmingham",
+      "area": "West Midlands",
+      "nation": "England",
+      "setting": "Campus",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 3,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Birmingham"
+      }
+    },
+    {
+      "slug": "leeds",
+      "name": "University of Leeds",
+      "city": "Leeds",
+      "area": "Yorkshire",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 2,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Leeds"
+      }
+    },
+    {
+      "slug": "nottingham",
+      "name": "University of Nottingham",
+      "city": "Nottingham",
+      "area": "East Midlands",
+      "nation": "England",
+      "setting": "Campus",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 4,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Nottingham"
+      }
+    },
+    {
+      "slug": "sheffield",
+      "name": "The University of Sheffield",
+      "city": "Sheffield",
+      "area": "Yorkshire",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 2,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at The University of Sheffield"
+      }
+    },
+    {
+      "slug": "newcastle",
+      "name": "Newcastle University",
+      "city": "Newcastle upon Tyne",
+      "area": "North East England",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 4,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at Newcastle University"
+      }
+    },
+    {
+      "slug": "bristol",
+      "name": "University of Bristol",
+      "city": "Bristol",
+      "area": "South West England",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 2,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Bristol"
+      }
+    },
+    {
+      "slug": "coventry",
+      "name": "Coventry University",
+      "city": "Coventry",
+      "area": "West Midlands",
+      "nation": "England",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 3,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at Coventry University"
+      }
+    },
+    {
+      "slug": "hertfordshire",
+      "name": "University of Hertfordshire",
+      "city": "Hatfield",
+      "area": "East of England",
+      "nation": "England",
+      "setting": "Campus",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 4,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Hertfordshire"
+      }
+    },
+    {
+      "slug": "glasgow",
+      "name": "University of Glasgow",
+      "city": "Glasgow",
+      "area": "Scotland",
+      "nation": "Scotland",
+      "setting": "City",
+      "intakes": [
+        "September"
+      ],
+      "courseCount": 2,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at University of Glasgow"
+      }
+    },
+    {
+      "slug": "cardiff",
+      "name": "Cardiff University",
+      "city": "Cardiff",
+      "area": "Wales",
+      "nation": "Wales",
+      "setting": "City",
+      "intakes": [
+        "January",
+        "September"
+      ],
+      "courseCount": 4,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at Cardiff University"
+      }
+    },
+    {
+      "slug": "queens-belfast",
+      "name": "Queen's University Belfast",
+      "city": "Belfast",
+      "area": "Northern Ireland",
+      "nation": "Northern Ireland",
+      "setting": "City",
+      "intakes": [
+        "September"
+      ],
+      "courseCount": 2,
+      "photo": {
+        "status": "placeholder",
+        "brief": "Authentic photo of students on campus at Queen's University Belfast"
+      }
+    }
+  ]
+}

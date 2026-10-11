@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-10T23:08:10.197Z",
+  "browser": "Chromium 141 (Playwright 1.56, headless, SwiftShader WebGL)",
+  "results": [
+    {
+      "name": "No horizontal overflow on 8 pages × 9 widths",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "No horizontal overflow with 200% text size at 320 and 375px",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "No horizontal overflow at 200% browser zoom (1280px window)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Desktop with WebGL gets the enhanced tier and loads 3D",
+      "pass": true,
+      "detail": "tier=enhanced, 3D requests=1"
+    },
+    {
+      "name": "Globe pause control is visible and toggles",
+      "pass": true,
+      "detail": "true/false"
+    },
+    {
+      "name": "WebGL context loss shows the static visual automatically",
+      "pass": true,
+      "detail": "false|static|1|false"
+    },
+    {
+      "name": "Capable phone (Pixel 7 emulation) gets the simplified tier",
+      "pass": true,
+      "detail": "tier=simplified, reason=capable-phone, 3D requests=1"
+    },
+    {
+      "name": "Reduced motion gets the static tier and never downloads 3D",
+      "pass": true,
+      "detail": "tier=static, 3D requests=0"
+    },
+    {
+      "name": "Data saver gets the static tier and never downloads 3D",
+      "pass": true,
+      "detail": "tier=static, 3D requests=0"
+    },
+    {
+      "name": "Low-end device gets the static tier and never downloads 3D",
+      "pass": true,
+      "detail": "tier=static, 3D requests=0"
+    },
+    {
+      "name": "Software WebGL (SwiftShader) gets the static tier and never downloads 3D",
+      "pass": true,
+      "detail": "static/software-renderer, 3D requests=0"
+    },
+    {
+      "name": "No WebGL: static tier, fallback image shown, 3D never downloaded",
+      "pass": true,
+      "detail": "tier=static, image loaded=true, 3D requests=0"
+    },
+    {
+      "name": "Headline, search and consultation button work before 3D loads",
+      "pass": true,
+      "detail": "h1 opacity=1, CTA visible=true, search → \"2 courses found\" in 1383ms"
+    },
+    {
+      "name": "Study dropdown opens with keyboard, Escape closes and returns focus",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "FAQ expands and collapses by mouse and keyboard",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Course filters: URL prefill, live search, empty state and clear",
+      "pass": true,
+      "detail": "4 courses found → 2 courses found → empty=true → 36 courses found"
+    },
+    {
+      "name": "Application journey highlights the step in view",
+      "pass": true,
+      "detail": "active step index=3"
+    },
+    {
+      "name": "No script errors or console errors during interaction tests",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Mobile menu opens by touch, makes page inert, closes with Escape",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Touch targets at least 44×44 px (excluding inline text links)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Enquiry by keyboard: error summary, field links, validation, success state",
+      "pass": true,
+      "detail": "summary focused=true, errors=5, bad email caught=true, success={\"shown\":true,\"focus\":\"H2\",\"name\":\"Amina\"}"
+    },
+    {
+      "name": "Enquiry by touch (Pixel 7 emulation) reaches the success state",
+      "pass": true,
+      "detail": "visual viewport 839px"
+    },
+    {
+      "name": "axe-core: no WCAG 2.2 AA or best-practice violations (8 pages, desktop and mobile)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "Cumulative layout shift on home load ≤ 0.1 (lab)",
+      "pass": true,
+      "detail": "CLS=0.0000"
+    }
+  ]
+}
