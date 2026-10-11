@@ -350,7 +350,7 @@ pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(co
       <div class="field"><label for="c-nation">Nation</label><select class="select" id="c-nation" name="nation">${options(nations, 'All nations')}</select></div>
       <div class="field field--check"><label class="check"><input type="checkbox" name="placement" value="1"> Placement year available</label><label class="check"><input type="checkbox" name="abroad" value="1"> Year abroad available</label></div>
     </form>
-    <div data-results-region class="is-loading" aria-busy="true">
+    <div data-results-region class="is-fetching" aria-busy="true">
       <div class="results-bar"><p class="results-count" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span data-count>Loading ${n(courseTotal)} courses…</span></p><button class="btn btn--ghost" type="button" data-clear>Clear filters</button></div>
       <h2 class="visually-hidden">Courses</h2>
       <div class="course-row results" data-course-results></div>
@@ -517,7 +517,12 @@ async function main() {
   if (existsSync(ROOT + 'static/img')) for (const f of readdirSync(ROOT + 'static/img')) copyFileSync(ROOT + 'static/img/' + f, OUT + 'assets/img/' + f);
   copyFileSync(SRC + 'data/universities.json', OUT + 'data/universities.json');
   // The courses page loads one compact file: universities by index, subjects by index, then courses.
-  const client = { updated: dataMeta.updated, u: universities.map((u) => [u.slug, u.name, u.city || '', u.nation || '', u.ukprn]), s: subjects, c: courseData.courses };
+  // Default order: by subject of the course name, ignoring the award (BA, BSc (Hons) ...) and stray quote marks.
+  const AWARD = /^(?:(?:BA|BSc|BEng|BMus|BEd|BN|BNurs|BMid|BDes|BFA|BTh|BSW|BAcc|BBA|BM|BArch|BDS|BVSc|BVetMed|BVMS|BMedSci|LLB|MA|MSc|MEng|MSci|MChem|MPhys|MMath|MPharm|MBiol|MComp|MArts|MDes|MArch|MNurs|MOst|MChiro|MGeol|MEnv|MPlan|MSW|MB|MBBS|MBChB|FdA|FdSc|FdEng|HND|HNC|DipHE|CertHE)\b\.?\s*(?:\([A-Za-z]{2,8}\))?\s*(?:[/&,]\s*)?)+/;
+  const tidyTitle = (t) => t.replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
+  const sortKey = (t) => t.replace(AWARD, '').toLowerCase();
+  const clientCourses = courseData.courses.map((c) => [tidyTitle(c[0]), ...c.slice(1)]).sort((a, b) => sortKey(a[0]).localeCompare(sortKey(b[0])) || a[0].localeCompare(b[0]));
+  const client = { updated: dataMeta.updated, u: universities.map((u) => [u.slug, u.name, u.city || '', u.nation || '', u.ukprn]), s: subjects, c: clientCourses };
   writeFileSync(OUT + 'data/courses.json', JSON.stringify(client));
 
   for (const p of pages) writeFileSync(OUT + p.file, page(p));

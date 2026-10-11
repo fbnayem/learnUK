@@ -35,6 +35,9 @@ const post = (path, body) => http(API + path, { method: 'POST', headers: { 'Cont
 const BASE_QUERY = { query: '', selectedInstitutions: [], modeFullTime: false, modePartTime: false, locOnCampus: false, locDistanceLearning: false,
   regionScotland: false, regionWales: false, regionNorthernIreland: false, regionEngland: false, postcodeQuery: null, cityQuery: null };
 
+// Provider names: Discover Uni shows trading names; keep the legal name for acronyms such as "UCL".
+const legalName = new Map((await http(API + '/institutions?language=en')).map((i) => [i.name.trim(), (i.legal_name || '').trim()]));
+
 // 1. Every undergraduate course on Discover Uni (id = UKPRN/KISCOURSEID/mode).
 const all = await post('/search/', BASE_QUERY);
 console.log(`Discover Uni: ${all.length} courses listed`);
@@ -106,7 +109,8 @@ const CITY_OVERRIDES = { 'Arden University': 'Coventry', 'Hartpury University': 
   'University of the Highlands and Islands': 'Inverness', 'University of the West of Scotland': 'Paisley', 'UWE, Bristol': 'Bristol',
   'University of Wales: Trinity Saint David': 'Carmarthen', 'Wrexham University': 'Wrexham' };
 // Discover Uni sometimes lists a legal name in capitals; prefer a readable form.
-const tidyName = (raw, f) => {
+const tidyName = (raw0, f) => {
+  const raw = /^[A-Z]{2,6}$/.test(raw0.trim()) && legalName.get(raw0.trim()) ? legalName.get(raw0.trim()) : raw0;
   const name = raw.replace(/\s*\(part of [^)]*\)\s*$/i, '').replace(/\.$/, '').trim();
   if (name !== name.toUpperCase()) return name;
   if (f?.label) return f.label;
@@ -135,7 +139,8 @@ const universities = [];
 for (const u of byUni.values()) {
   const f = facts.get(u.ukprn);
   // "University Centre" and further education colleges are not universities, even when Wikidata files them under one.
-  const looksLikeUni = /\buniversity\b(?!\s+cent(re|er))/i.test(u.name);
+  const uniWord = /\buniversity\b(?!\s+cent(re|er))/i, legal = legalName.get(u.name) || '';
+  const looksLikeUni = uniWord.test(u.name) || (uniWord.test(legal) && !/\blimited$/i.test(legal));
   const isCollege = /\bcollege\s*$|\bcollege and\b|\buniversity cent(re|er)\b/i.test(u.name);
   if (!(looksLikeUni || (f?.isUni && !isCollege))) continue;
   const name = tidyName(u.name, f);

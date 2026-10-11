@@ -351,9 +351,10 @@ function initCourses() {
     .then((d) => {
       d.idx = d.c.map((c) => norm(`${c[0]} ${d.u[c[1]][1]} ${d.u[c[1]][2]} ${c[2].map((i) => d.s[i]).join(' ')}`));
       data = d;
+      region.classList.remove('is-fetching');
       apply();
     })
-    .catch(() => { busy(false); count.textContent = 'Courses could not be loaded'; failed.hidden = false; });
+    .catch(() => { region.classList.remove('is-fetching'); busy(false); count.textContent = 'Courses could not be loaded'; failed.hidden = false; });
 }
 
 /* ---------------- Enquiry form: validation and success state ---------------- */

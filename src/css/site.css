@@ -476,7 +476,7 @@ body.menu-open { overflow: hidden; }
 .results-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: var(--space-3); min-height: 2.75rem; }
 .results-count { font-weight: 600; margin: 0; display: inline-flex; align-items: center; gap: .6rem; }
 .spinner { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 2.5px solid #D9DCF5; border-top-color: var(--royal); opacity: 0; transition: opacity var(--t-fast); animation: spin .7s linear infinite; }
-.is-loading .spinner { opacity: 1; }
+.is-loading .spinner, .is-fetching .spinner { opacity: 1; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .results { transition: opacity var(--t-fast) var(--ease-out); }
 .is-loading .results { opacity: .55; }
