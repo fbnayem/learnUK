@@ -446,12 +446,6 @@ pages.push({ file: 'about.html', title: 'About us', description: 'Learn UK helps
     </div>
   </div>
 </section>
-<section class="section">
-  <div class="container">
-    <div class="section-head reveal"><div><p class="eyebrow">Our team</p><h2>Meet the advisers</h2><p>Team profiles will appear here.</p></div></div>
-    <div class="grid grid--4">${['Adviser portrait', 'Adviser portrait', 'Adviser portrait', 'Adviser portrait'].map((b, i) => `<figure class="reveal" style="--i:${i};margin:0">${photo(b, '4 / 5')}<figcaption style="margin-top:.6rem"><strong>Name</strong><br><span style="color:var(--ink-soft)">Role and languages spoken</span></figcaption></figure>`).join('')}</div>
-  </div>
-</section>
 ${ctaBand()}` });
 
 pages.push({ file: 'faqs.html', title: 'FAQs', description: 'Answers to common questions about studying in the UK: applications, costs, scholarships, visas and arrival.',
