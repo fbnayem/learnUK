@@ -225,14 +225,29 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
       <p class="eyebrow hero-anim" data-d="1">UK university admissions support</p>
       <h1 id="hero-title">Your journey to a <em>UK university</em> starts here</h1>
       <p class="lede hero-anim" data-d="1">Wherever you are in the world, we help you choose the right course, apply with confidence and arrive ready to start.</p>
-      <form class="search-card hero-anim" data-d="2" action="courses.html" method="get" role="search" aria-labelledby="search-title">
-        <p class="search-title" id="search-title">Find your course</p>
-        <div class="search-grid">
-          <div class="field"><label for="hero-q">Subject or course</label><input class="input" id="hero-q" name="q" type="search" placeholder="For example, nursing" autocomplete="off" enterkeyhint="search"></div>
-          <div class="field"><label for="hero-level">Level</label><select class="select" id="hero-level" name="level"><option value="">Any level</option><option>Undergraduate</option><option>Postgraduate</option></select></div>
-          <button class="btn" type="submit">${icon('search')} Search</button>
+      <div class="search-card hero-anim" data-d="2">
+        <form data-lead novalidate aria-labelledby="lead-title" action="#" method="post">
+          <p class="search-title" id="lead-title">Get a free call back</p>
+          <p class="lead-hint" id="lead-hint">Leave your details and an adviser will contact you.</p>
+          <div class="search-grid">
+            <div class="field">
+              <label for="lead-phone">Phone or WhatsApp</label>
+              <input class="input" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+880 1711 000000" required aria-describedby="lead-hint lead-phone-error">
+              <p class="error" id="lead-phone-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter a phone number, including your country code</span></p>
+            </div>
+            <div class="field">
+              <label for="lead-email">Email address</label>
+              <input class="input" id="lead-email" name="email" type="email" pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@email.com" required aria-describedby="lead-email-error">
+              <p class="error" id="lead-email-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter an email address, like name@example.com</span></p>
+            </div>
+            <button class="btn" type="submit"><span data-label>Request a call</span> ${icon('arrow')}</button>
+          </div>
+        </form>
+        <div class="lead-success" data-lead-success hidden tabindex="-1">
+          <span class="lead-tick">${icon('check')}</span>
+          <div><p class="search-title">Thanks, we will be in touch</p><p class="lead-hint">An adviser will contact you soon. <span class="preview-note">Preview: this form is not connected yet, so nothing was sent.</span></p></div>
         </div>
-      </form>
+      </div>
       <div class="hero-actions hero-anim" data-d="3">
         <a class="btn btn--amber" href="contact.html">Book a free consultation ${icon('arrow')}</a>
         <a class="btn btn--ghost-light" href="application-journey.html">How it works</a>

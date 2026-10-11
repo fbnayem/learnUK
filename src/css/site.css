@@ -249,7 +249,15 @@ body.menu-open { overflow: hidden; }
 }
 .search-card legend, .search-card .search-title { font: 700 1.05rem/1.2 var(--font-head); margin-bottom: .6rem; padding: 0; }
 .search-grid { display: grid; gap: .6rem; }
-@media (min-width: 40em) { .search-grid { grid-template-columns: 1.5fr 1fr auto; align-items: end; } }
+@media (min-width: 40em) { .search-grid { grid-template-columns: 1fr 1.15fr auto; align-items: start; } .search-grid .btn { margin-top: 1.85rem; } }
+.lead-hint { margin: -.3rem 0 .8rem; font-size: .9rem; color: var(--ink-soft); }
+.lead-success { display: flex; gap: .9rem; align-items: flex-start; }
+.lead-success .lead-hint { margin: 0; }
+.lead-success:focus { outline: none; }
+.lead-tick { flex: none; width: 2.5rem; height: 2.5rem; border-radius: 50%; display: grid; place-items: center; background: var(--royal); color: var(--white); }
+.lead-tick svg { width: 1.3rem; height: 1.3rem; }
+.preview-note { display: block; margin-top: .3rem; color: var(--amber-text); font-weight: 500; }
+.js .lead-success:not([hidden]) { animation: rise var(--t-slow) var(--ease-out) both; }
 
 /* The visual column: static render first, real-time canvas on top when it is ready. */
 .hero-visual {

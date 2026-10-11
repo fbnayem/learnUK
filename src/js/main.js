@@ -312,6 +312,35 @@ function initEnquiry() {
   if (p.get('course')) { const el = form.querySelector('[name="interest"]'); if (el) el.value = p.get('course'); }
 }
 
+/* ---------------- Hero lead form: phone and email only ---------------- */
+function initLead() {
+  const form = document.querySelector('[data-lead]');
+  if (!form) return;
+  const done = document.querySelector('[data-lead-success]');
+  const fields = [...form.querySelectorAll('input')];
+  const check = (input) => {
+    const ok = input.value.trim() !== '' && input.checkValidity();
+    input.closest('.field').classList.toggle('is-invalid', !ok);
+    input.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  };
+  fields.forEach((f) => {
+    f.addEventListener('blur', () => { if (f.value) check(f); });
+    f.addEventListener('input', () => { if (f.closest('.field').classList.contains('is-invalid')) check(f); });
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bad = fields.filter((f) => !check(f));
+    if (bad.length) { bad[0].focus(); return; }
+    const btn = form.querySelector('[type="submit"]');
+    btn.setAttribute('aria-busy', 'true');
+    btn.querySelector('[data-label]').textContent = 'Sending…';
+    // Not connected to a backend yet: the lead is not sent anywhere.
+    console.info('[Learn UK] Lead captured locally (no backend configured):', Object.fromEntries(new FormData(form).entries()));
+    setTimeout(() => { form.hidden = true; done.hidden = false; done.focus(); }, 400);
+  });
+}
+
 /* ---------------- Boot ---------------- */
 window.__lukReady = true;
 initNav();
@@ -321,4 +350,5 @@ initFaq();
 initJourney();
 initFilters();
 initEnquiry();
+initLead();
 initGlobe();

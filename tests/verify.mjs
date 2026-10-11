@@ -125,12 +125,18 @@ await withBrowser(GL_ARGS, async (b) => {
   await p.goto(BASE, { waitUntil: 'domcontentloaded' });
   await p.locator('#hero-title').waitFor({ state: 'visible' });
   const h1Opacity = await p.$eval('#hero-title', (e) => getComputedStyle(e).opacity);
-  await p.fill('#hero-q', 'nursing');
-  await p.selectOption('#hero-level', 'Undergraduate');
   const ctaVisible = await p.locator('.hero-actions a[href="contact.html"]').isVisible();
-  await Promise.all([p.waitForURL(/courses\.html/), p.click('.search-card button[type=submit]')]);
-  const count = await p.textContent('[data-count]');
-  ok('Headline, search and consultation button work before 3D loads', h1Opacity === '1' && ctaVisible && /\d+ courses? found/.test(count), `h1 opacity=${h1Opacity}, CTA visible=${ctaVisible}, search → "${count.trim()}" in ${Date.now() - t0}ms`);
+  await p.click('[data-lead] button[type=submit]');
+  const blankFocus = await p.evaluate(() => document.activeElement.id);
+  await p.fill('#lead-phone', '+44 7700 900123');
+  await p.fill('#lead-email', 'amina@example');
+  await p.click('[data-lead] button[type=submit]');
+  const badEmail = await p.getAttribute('#lead-email', 'aria-invalid');
+  await p.fill('#lead-email', 'amina@example.com');
+  await p.click('[data-lead] button[type=submit]');
+  await p.locator('[data-lead-success]').waitFor({ state: 'visible' });
+  const okFocus = await p.evaluate(() => document.activeElement.matches('[data-lead-success]'));
+  ok('Headline, lead form and consultation button work before 3D loads', h1Opacity === '1' && ctaVisible && blankFocus === 'lead-phone' && badEmail === 'true' && okFocus, `h1 opacity=${h1Opacity}, CTA visible=${ctaVisible}, empty submit focuses ${blankFocus}, bad email invalid=${badEmail}, success shown+focused=${okFocus} in ${Date.now() - t0}ms`);
 });
 
 // 4. Interactions: navigation, menus, FAQ, filters, journey.
