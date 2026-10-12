@@ -13,7 +13,16 @@ const axeSrc = readFileSync(new URL('../node_modules/axe-core/axe.min.js', impor
 const results = [];
 const ok = (name, pass, detail = '') => { results.push({ name, pass, detail }); console.log(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`); };
 
-async function withBrowser(args, fn) { const b = await chromium.launch({ executablePath: EXE, args }); try { return await fn(b); } finally { await b.close(); } }
+// Enquiries go to FormSubmit; tests answer those requests locally so nothing is ever sent.
+const SENT = [];
+const stubForms = (ctx) => ctx.route('https://formsubmit.co/**', (r) => { SENT.push(r.request().postDataJSON()); r.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: '{"success":"true"}' }); });
+async function withBrowser(args, fn) {
+  const b = await chromium.launch({ executablePath: EXE, args });
+  const newContext = b.newContext.bind(b);
+  b.newContext = async (o) => { const c = await newContext(o); await stubForms(c); return c; };
+  b.newPage = async (o) => (await b.newContext(o)).newPage();
+  try { return await fn(b); } finally { await b.close(); }
+}
 // The test machine renders WebGL in software, which the site correctly sends to the static tier.
 // To check the tier logic for real GPUs, these tests report a hardware renderer name.
 const fakeGpu = () => { for (const C of [WebGLRenderingContext, WebGL2RenderingContext]) { const g = C.prototype.getParameter; C.prototype.getParameter = function (k) { return k === 0x9246 ? 'ANGLE (Test GPU)' : g.call(this, k); }; } };

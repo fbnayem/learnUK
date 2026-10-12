@@ -387,6 +387,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
         <form data-lead novalidate aria-labelledby="lead-title" action="#" method="post">
           <p class="search-title" id="lead-title">Get a free call back</p>
           <p class="lead-hint" id="lead-hint">Leave your details and an adviser will contact you. See our <a href="privacy.html">privacy policy</a>.</p>
+          <p class="lead-error" data-lead-error role="alert" tabindex="-1" hidden>Sorry, your request did not send. Please try again, or call <a href="tel:${CONTACT.landline.tel}">${CONTACT.landline.label}</a>.</p>
           <div class="search-grid">
             <div class="field">
               <label for="lead-phone">Phone or WhatsApp</label>
@@ -403,7 +404,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
         </form>
         <div class="lead-success" data-lead-success hidden tabindex="-1">
           <span class="lead-tick">${icon('check')}</span>
-          <div><p class="search-title">Thanks, we will be in touch</p><p class="lead-hint">An adviser will contact you soon. <span class="preview-note">Preview: this form is not connected yet, so nothing was sent.</span></p></div>
+          <div><p class="search-title">Thanks, we will be in touch</p><p class="lead-hint">An adviser will contact you soon.</p></div>
         </div>
       </div>
       <div class="hero-actions hero-anim" data-d="3">
@@ -597,7 +598,7 @@ legalPage('privacy.html', 'Privacy policy', 'How Learn UK collects, uses and pro
   ['What we collect', `<p>We only collect the information you give us when you fill in a form on this website, email us, call us or message us. This can include:</p><ul><li>your name, email address and phone or WhatsApp number</li><li>the country you live in</li><li>the level and subject you want to study, and when you want to start</li><li>anything else you choose to tell us in your message or during a consultation, such as your qualifications and study plans</li></ul><p>We do not ask for sensitive information such as health details through this website. Please do not send us passport or financial documents unless an adviser asks for them.</p>`],
   ['How we use it', `<p>We use your information to:</p><ul><li>reply to your enquiry and arrange your free consultation</li><li>give you advice and support with choosing a course, applying and preparing to study in the UK, if you decide to work with us</li><li>keep a record of our conversations so you do not have to repeat yourself</li></ul><p>We do not sell your personal data, and we do not send you marketing unless you have asked us to.</p>`],
   ['Our legal basis', `<p>Under UK data protection law (the UK GDPR and the Data Protection Act 2018), we use your data because you have asked us to contact you or to take steps before working with you, and because we have a legitimate interest in responding to enquiries about our services. Where we rely on your consent, you can withdraw it at any time by contacting us.</p>`],
-  ['Who we share it with', `<p>We only share your information when we need to:</p><ul><li>with universities or UCAS, when you ask us to help with an application, and only the details that application needs</li><li>with service providers who help us run our business, such as email and website hosting, who may only use it to provide their service to us</li><li>if the law requires us to</li></ul><p>Some of our service providers may store data outside the UK. When they do, we make sure there are safeguards in place that UK law recognises.</p>`],
+  ['Who we share it with', `<p>We only share your information when we need to:</p><ul><li>with universities or UCAS, when you ask us to help with an application, and only the details that application needs</li><li>with service providers who help us run our business, who may only use it to provide their service to us. These include FormSubmit, which delivers the forms on this website to our email inbox, our email provider and our website host</li><li>if the law requires us to</li></ul><p>Some of our service providers may store data outside the UK. When they do, we make sure there are safeguards in place that UK law recognises.</p>`],
   ['How long we keep it', `<p>If you make an enquiry but do not go on to work with us, we keep your details for up to two years after we were last in touch, then delete them. If you work with us, we keep your records for up to six years after our support ends, so we can answer questions and meet our legal obligations.</p>`],
   ['Your rights', `<p>You have the right to:</p><ul><li>ask for a copy of the personal data we hold about you</li><li>ask us to correct or delete it</li><li>ask us to limit how we use it, or object to how we use it</li><li>ask us to move it to another organisation</li><li>withdraw your consent at any time, where we rely on consent</li></ul><p>To use any of these rights, email <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>. We will reply within one month.</p>`],
   ['Cookies', `<p>This website does not use advertising or tracking cookies. It does not set any cookies of its own. Our website host may keep short-term technical logs, such as IP addresses, to keep the site secure and working.</p>`],
@@ -661,7 +662,6 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
         <div class="tick">${icon('check')}</div>
         <h2 tabindex="-1">Thank you, <span data-first-name></span></h2>
         <p>Your enquiry is ready. An adviser will be in touch to arrange your consultation.</p>
-        <p class="sample-note" style="text-align:left">${icon('info')}<span><strong>Preview only:</strong> this form is not connected yet, so the enquiry was not sent.</span></p>
         <button class="btn btn--ghost" type="button" data-reset-enquiry>Send another enquiry</button>
       </div>
     </div>

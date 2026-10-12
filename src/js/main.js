@@ -357,6 +357,20 @@ function initCourses() {
     .catch(() => { region.classList.remove('is-fetching'); busy(false); count.textContent = 'Courses could not be loaded'; failed.hidden = false; });
 }
 
+/* ---------------- Sending enquiries ---------------- */
+// Both forms post to FormSubmit, which emails each enquiry to Learn UK.
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/info@learnuk.co.uk';
+async function sendEnquiry(subject, data) {
+  const res = await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ _subject: subject, _template: 'table', ...data, page: location.href }),
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok || String(body.success) !== 'true') throw new Error(body.message || 'Send failed');
+}
+const SEND_ERROR = 'Sorry, your enquiry did not send. Please try again, or email info@learnuk.co.uk or call 020 8036 1199.';
+
 /* ---------------- Enquiry form: validation and success state ---------------- */
 function initEnquiry() {
   const form = document.querySelector('[data-enquiry]');
@@ -401,16 +415,22 @@ function initEnquiry() {
     const btn = form.querySelector('[type="submit"]');
     btn.setAttribute('aria-busy', 'true');
     btn.querySelector('[data-label]').textContent = 'Sending…';
-    // Not connected to a backend yet: the enquiry is not sent anywhere.
     const data = Object.fromEntries(new FormData(form).entries());
-    console.info('[Learn UK] Enquiry captured locally (no backend configured):', data);
-    setTimeout(() => {
+    delete data.consent;
+    sendEnquiry(`New consultation request: ${data.name}`, data).then(() => {
       form.hidden = true;
       success.hidden = false;
       success.querySelector('[data-first-name]').textContent = String(data.name || '').trim().split(/\s+/)[0] || 'there';
       success.classList.add('is-shown');
       success.querySelector('h2').focus();
-    }, 450);
+    }).catch(() => {
+      summary.hidden = false;
+      summary.querySelector('ul').innerHTML = `<li>${SEND_ERROR}</li>`;
+      summary.focus();
+    }).finally(() => {
+      btn.removeAttribute('aria-busy');
+      btn.querySelector('[data-label]').textContent = 'Send enquiry';
+    });
   });
   summary?.addEventListener('click', (e) => {
     const a = e.target.closest('a'); if (!a) return;
@@ -447,9 +467,14 @@ function initLead() {
     const btn = form.querySelector('[type="submit"]');
     btn.setAttribute('aria-busy', 'true');
     btn.querySelector('[data-label]').textContent = 'Sending…';
-    // Not connected to a backend yet: the lead is not sent anywhere.
-    console.info('[Learn UK] Lead captured locally (no backend configured):', Object.fromEntries(new FormData(form).entries()));
-    setTimeout(() => { form.hidden = true; done.hidden = false; done.focus(); }, 400);
+    const err = form.querySelector('[data-lead-error]');
+    err.hidden = true;
+    sendEnquiry('New call-back request', Object.fromEntries(new FormData(form).entries())).then(() => {
+      form.hidden = true; done.hidden = false; done.focus();
+    }).catch(() => { err.hidden = false; err.focus(); }).finally(() => {
+      btn.removeAttribute('aria-busy');
+      btn.querySelector('[data-label]').textContent = 'Request a call';
+    });
   });
 }
 
