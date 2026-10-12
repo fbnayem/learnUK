@@ -7,7 +7,7 @@ const SRC = 'assets-src/photos', OUT = 'static/img/photos', WIDTHS = [480, 800, 
 mkdirSync(OUT, { recursive: true });
 const only = process.argv.slice(2);
 // Card photos are shown small, so they stop at 1200px wide.
-const maxW = (name) => (/^(why|service)-/.test(name) ? 1200 : Infinity);
+const maxW = (name) => (/^(why|service|uni)-/.test(name) ? 1200 : Infinity);
 for (const file of readdirSync(SRC).filter((f) => f.endsWith('.jpg'))) {
   const name = file.replace(/\.jpg$/, '');
   if (only.length && !only.includes(name)) continue;

@@ -10,6 +10,9 @@ const LOGO = ROOT + 'static/logo/';
 
 const { universities, meta: dataMeta } = JSON.parse(readFileSync(SRC + 'data/universities.json'));
 const courseData = JSON.parse(readFileSync(SRC + 'data/courses.json'));
+// Scene photo for each university card (a typical setting, not the campus itself).
+const UNI_IMAGES = JSON.parse(readFileSync(SRC + 'data/uni-images.json'));
+const uniImage = (u) => UNI_IMAGES[u.slug] || ({ Scotland: 'uni-scotland-1', Wales: 'uni-wales', 'Northern Ireland': 'uni-ni' })[u.nation] || 'uni-city-1';
 // Corrections to the source data: current official names, and clearer locations. Applied on every build, so the weekly data refresh keeps them.
 const UNI_FIX = {
   'The University of East London Higher Education Corporation': { name: 'University of East London' },
@@ -96,7 +99,7 @@ const icon = (n, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="cu
 // Responsive photo from static/img/photos (made by tools/gen-photos.mjs).
 const PHOTO_W = { 'study-documents': [480, 800, 1200], card: [480, 800, 1200], default: [480, 800, 1200, 1536] };
 const pic = (name, alt, sizes, { w = 1536, h = 1024, cls = '', eager = false } = {}) => {
-  const ws = PHOTO_W[name] || (/^(why|service)-/.test(name) ? PHOTO_W.card : PHOTO_W.default);
+  const ws = PHOTO_W[name] || (/^(why|service|uni)-/.test(name) ? PHOTO_W.card : PHOTO_W.default);
   const set = (ext) => ws.map((x) => `assets/img/photos/${name}-${x}.${ext} ${x}w`).join(', ');
   return `<picture class="photo ${cls}"><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${set('webp')}" sizes="${sizes}"><img src="assets/img/photos/${name}-800.jpg" width="${w}" height="${h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
 };
@@ -368,6 +371,7 @@ const NATIONS = [
   ['Northern Ireland', 'Northern Ireland has two universities, Queen’s University Belfast and Ulster University, and two university colleges for teacher education. Most bachelor’s degrees take three years.'],
 ];
 const uniCard = (u, i = 0) => `<article class="card uni-card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation || '')}" data-search="${esc([u.name, u.formerName, u.city, u.nation, ...u.topSubjects].filter(Boolean).join(' '))}">
+  <div class="card-media uni-media">${pic(uniImage(u), '', '(min-width: 64em) 23rem, (min-width: 48em) 45vw, 92vw')}</div>
   <div class="card-body">
     <div class="uni-head"><span class="monogram" aria-hidden="true">${esc(initials(u.name))}</span><div><h3><a class="card-link" href="courses.html?university=${u.slug}">${esc(u.name)}</a></h3>
     <p>${icon('pin', 'style="width:1em;height:1em;display:inline;vertical-align:-.125em;margin-right:.25rem"')}${esc([u.city, u.nation].filter(Boolean).join(', '))}</p></div></div>
@@ -499,6 +503,7 @@ pages.push({ file: 'universities.html', title: 'Universities', description: `Exp
       <div class="results-bar"><p class="results-count" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span data-count>${universities.length} universities found</span></p></div>
       <h2 class="visually-hidden">Universities</h2>
       <div class="grid grid--3 results">${universities.map(uniCard).join('')}</div>
+      <p class="photo-note">Card photos show typical student life in each kind of setting. They are not photos of the universities themselves.</p>
       <div class="empty-state" data-empty hidden><p><strong>No universities match those filters.</strong></p><p>Try a different city or clear a filter. Or <a href="contact.html">ask an adviser</a> to suggest options.</p></div>
     </div>
   </div>
