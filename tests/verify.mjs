@@ -193,6 +193,18 @@ await withBrowser(GL_ARGS, async (b) => {
     /^\d/.test(c1) && subjectSet === 'Computer science' && visible.length > 0 && Number(c2.replace(/[^\d]/g, '')) < Number(c1.replace(/[^\d]/g, '')) && !!firstLink && moreVisible && moreAfter > moreBefore && empty && total > 10000,
     `${c1} → ${c2} (${moreBefore} shown, ${moreAfter} after "Show more") → empty=${empty} → ${c3}; sample link ${firstLink}`);
 
+  // The Enquire link carries the course to the enquiry form, which shows it and sends it.
+  await p.goto(BASE + firstLink);
+  const sel = await p.evaluate(() => ({
+    shown: !document.querySelector('[data-selected-course]').hidden,
+    title: document.querySelector('[data-course-title]').textContent,
+    uni: document.querySelector('input[name="selected_university"]')?.value || '',
+    interest: document.querySelector('#interest').value,
+    level: document.querySelector('#level').value,
+  }));
+  ok('Enquire on a course shows that course on the enquiry form and adds it to the enquiry',
+    sel.shown && sel.title === new URL(BASE + firstLink).searchParams.get('course') && !!sel.uni && sel.interest.startsWith(sel.title) && sel.level === 'Undergraduate', JSON.stringify(sel));
+
   await p.goto(BASE + 'application-journey.html');
   await p.evaluate(() => document.querySelectorAll('.journey-step')[3].scrollIntoView({ block: 'center' })); await p.waitForTimeout(500);
   const active = await p.$$eval('.journey-step', (s) => s.findIndex((x) => x.classList.contains('is-active')));

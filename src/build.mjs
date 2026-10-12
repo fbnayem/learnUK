@@ -656,6 +656,12 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
   <div class="container contact-layout">
     <div class="panel">
       <form data-enquiry novalidate aria-labelledby="form-title" action="#" method="post">
+        <section class="selected-course" data-selected-course aria-labelledby="sc-title" hidden>
+          <p class="eyebrow" id="sc-title">The course you are asking about</p>
+          <h2 class="selected-course-title" data-course-title></h2>
+          <dl class="selected-course-meta"></dl>
+          <p class="selected-course-actions"><a href="courses.html">Choose a different course</a><button type="button" class="link-btn" data-clear-course>Remove this course</button></p>
+        </section>
         <h2 id="form-title" style="font-size:var(--step-2)">Your details</h2>
         <p style="color:var(--ink-soft)">All fields are required unless marked optional.</p>
         <div class="error-summary" data-error-summary tabindex="-1" role="alert" hidden><h2>There is a problem</h2><ul></ul></div>

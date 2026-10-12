@@ -271,7 +271,7 @@ function initCourses() {
   const busy = (on) => { region.classList.toggle('is-loading', on); if (on) region.setAttribute('aria-busy', 'true'); else region.removeAttribute('aria-busy'); };
 
   function card(c) {
-    const [title, ui, subj, length, placement, abroad, campus] = c;
+    const [title, ui, subj, length, placement, abroad, campus, ref] = c;
     const [, uname, city] = data.u[ui];
     const tags = subj.slice(0, 2).map((i) => `<li class="tag">${esc(data.s[i])}</li>`);
     if (length) tags.push(`<li class="tag">${esc(length)}</li>`);
@@ -282,7 +282,7 @@ function initCourses() {
       <h3>${esc(title)}</h3>
       <p class="uni-line">${esc(where)}${campus ? ` <span class="visually-hidden">, campus:</span><small>(${esc(campus)})</small>` : ''}</p>
       <ul class="meta">${tags.join('')}</ul>
-      <div class="card-foot actions"><a class="btn" href="contact.html?course=${encodeURIComponent(`${title}, ${uname}`)}">Enquire<span class="visually-hidden"> about ${esc(title)} at ${esc(uname)}</span></a></div>
+      <div class="card-foot actions"><a class="btn" href="contact.html?${new URLSearchParams(Object.entries({ course: title, university: uname, city, campus, length, subject: subj.map((i) => data.s[i]).join(', '), placement: placement ? AVAIL[placement] : '', abroad: abroad ? AVAIL[abroad] : '', ref }).filter(([, v]) => v))}">Enquire<span class="visually-hidden"> about ${esc(title)} at ${esc(uname)}</span></a></div>
     </div></article>`;
   }
 
@@ -417,7 +417,7 @@ function initEnquiry() {
     btn.querySelector('[data-label]').textContent = 'Sending…';
     const data = Object.fromEntries(new FormData(form).entries());
     delete data.consent;
-    sendEnquiry(`New consultation request: ${data.name}`, data).then(() => {
+    sendEnquiry(data.selected_course ? `Course enquiry: ${data.selected_course}${data.selected_university ? `, ${data.selected_university}` : ''} (${data.name})` : `New consultation request: ${data.name}`, data).then(() => {
       form.hidden = true;
       success.hidden = false;
       success.querySelector('[data-first-name]').textContent = String(data.name || '').trim().split(/\s+/)[0] || 'there';
@@ -439,9 +439,37 @@ function initEnquiry() {
   document.querySelector('[data-reset-enquiry]')?.addEventListener('click', () => {
     form.reset(); form.hidden = false; success.hidden = true; form.querySelector('input')?.focus();
   });
-  // Prefill course of interest from a "Enquire" link.
+  // A course's "Enquire" button brings its details here: show them, and send them with the enquiry.
   const p = new URLSearchParams(location.search);
-  if (p.get('course')) { const el = form.querySelector('[name="interest"]'); if (el) el.value = p.get('course'); }
+  const panel = document.querySelector('[data-selected-course]');
+  if (p.get('course') && panel) {
+    const course = p.get('course'), uni = p.get('university') || '';
+    const rows = [
+      ['University', [uni, p.get('city')].filter(Boolean).join(', ')],
+      ['Campus', p.get('campus')],
+      ['Subject', p.get('subject')],
+      ['Length', p.get('length')],
+      ['Placement year', p.get('placement')],
+      ['Year abroad', p.get('abroad')],
+    ].filter(([, v]) => v);
+    panel.querySelector('[data-course-title]').textContent = course;
+    panel.querySelector('dl').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join('');
+    panel.querySelectorAll('dd').forEach((dd, i) => { dd.textContent = rows[i][1]; });
+    panel.hidden = false;
+    const fields = { selected_course: course, selected_university: uni, ...Object.fromEntries(rows.slice(1).map(([k, v]) => ['selected_' + k.toLowerCase().replace(/ /g, '_'), v])), discover_uni_ref: p.get('ref') || '' };
+    const hidden = Object.entries(fields).filter(([, v]) => v).map(([k, v]) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; form.append(i); return i; });
+    const interest = form.querySelector('[name="interest"]');
+    if (interest && !interest.value) interest.value = uni ? `${course}, ${uni}` : course;
+    const level = form.querySelector('[name="level"]');
+    if (level && !level.value) level.value = 'Undergraduate';
+    panel.querySelector('[data-clear-course]').addEventListener('click', () => {
+      hidden.forEach((i) => i.remove());
+      if (interest) interest.value = '';
+      panel.hidden = true;
+      history.replaceState(null, '', location.pathname);
+      form.querySelector('input')?.focus();
+    });
+  }
 }
 
 /* ---------------- Hero lead form: phone and email only ---------------- */

@@ -645,3 +645,17 @@ body.menu-open { overflow: hidden; }
 .feature--photo .icon-tile::after { display: none; }
 .feature-media .photo { border-radius: 0; }
 @media (prefers-reduced-motion: reduce) { .feature-media img { transition: none; } .feature--photo:hover .feature-media img { transform: none; } }
+
+/* ---------- Selected course on the enquiry form ---------- */
+.selected-course { margin: 0 0 var(--space-4); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); background: #EEF0FC; border: 1px solid #D9DCF5; }
+.selected-course .eyebrow { margin: 0 0 .3rem; }
+.selected-course-title { font-size: var(--step-1); margin: 0 0 .6rem; }
+.selected-course-meta { display: grid; gap: .35rem 1.2rem; margin: 0 0 .8rem; font-size: .95rem; }
+@media (min-width: 40em) { .selected-course-meta { grid-template-columns: 1fr 1fr; } }
+.selected-course-meta div { display: flex; gap: .4rem; flex-wrap: wrap; }
+.selected-course-meta dt { color: var(--ink-soft); }
+.selected-course-meta dt::after { content: ":"; }
+.selected-course-meta dd { margin: 0; font-weight: 600; color: var(--ink); }
+.selected-course-actions { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; margin: 0; font-size: .95rem; }
+.selected-course-actions a, .link-btn { color: var(--royal); text-decoration: underline; text-underline-offset: .2em; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
