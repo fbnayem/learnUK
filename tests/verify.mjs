@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const BASE = process.env.BASE || 'http://localhost:4173/';
 const EXE = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 const GL_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
-const PAGES = ['index.html', 'universities.html', 'courses.html', 'application-journey.html', 'services.html', 'about.html', 'faqs.html', 'contact.html'];
+const PAGES = ['index.html', 'universities.html', 'courses.html', 'application-journey.html', 'services.html', 'about.html', 'faqs.html', 'contact.html', 'privacy.html', 'terms.html'];
 const WIDTHS = [320, 375, 390, 768, 1024, 1440, 1920, 540, 1200];
 const axeSrc = readFileSync(new URL('../node_modules/axe-core/axe.min.js', import.meta.url), 'utf8');
 
@@ -227,6 +227,7 @@ await withBrowser(GL_ARGS, async (b) => {
   await p.keyboard.press('Tab'); await p.keyboard.press('Tab'); await p.keyboard.type('MSc Data Science');
   await p.keyboard.press('Tab'); await p.keyboard.type('I would like a January start.');
   await p.keyboard.press('Tab'); await p.keyboard.press('Space');
+  await p.keyboard.press('Tab'); // privacy policy link in the consent label
   await p.keyboard.press('Tab'); await p.keyboard.press('Enter');
   await p.waitForTimeout(200);
   const emailErr = await p.$eval('#email', (e) => e.getAttribute('aria-invalid'));

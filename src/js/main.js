@@ -367,7 +367,7 @@ function initEnquiry() {
   const messages = {
     name: 'Enter your full name',
     email: 'Enter an email address in the correct format, like name@example.com',
-    phone: 'Enter a UK phone number, like 07700 900123',
+    phone: 'Enter a phone number with your country code, like +44 7700 900123',
     country: 'Select the country you live in',
     level: 'Select the level you want to study',
     consent: 'Tick the box to let us contact you about your enquiry',

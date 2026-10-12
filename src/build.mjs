@@ -10,6 +10,47 @@ const LOGO = ROOT + 'static/logo/';
 
 const { universities, meta: dataMeta } = JSON.parse(readFileSync(SRC + 'data/universities.json'));
 const courseData = JSON.parse(readFileSync(SRC + 'data/courses.json'));
+// Corrections to the source data: current official names, and clearer locations. Applied on every build, so the weekly data refresh keeps them.
+const UNI_FIX = {
+  'The University of East London Higher Education Corporation': { name: 'University of East London' },
+  'Oxford University': { name: 'University of Oxford' },
+  'University of Lancaster': { name: 'Lancaster University' },
+  'University of Northumbria at Newcastle': { name: 'Northumbria University' },
+  'Roehampton University': { name: 'University of Roehampton' },
+  'University of South Wales/Prifysgol De Cymru': { name: 'University of South Wales' },
+  'Southampton Solent University': { name: 'Solent University' },
+  'University of Wales: Trinity Saint David': { name: 'University of Wales Trinity Saint David' },
+  'UWE, Bristol': { name: 'University of the West of England, Bristol' },
+  'University of the Arts, London': { name: 'University of the Arts London' },
+  'City, University of London': { name: 'City St George’s, University of London' },
+  "Regent's University": { name: 'Regent’s University London' },
+  'Richmond, The American International University in London': { name: 'Richmond American University London' },
+  "St Mary's University College": { name: 'St Mary’s University College, Belfast' },
+  'University of London institute in Paris': { name: 'University of London Institute in Paris', city: 'Paris, France', nation: '' },
+  'Harper Adams University': { city: 'Newport, Shropshire' },
+  'Ulster University': { city: 'Belfast, Coleraine and Derry~Londonderry' },
+  'The University of Law': { city: 'London and other UK cities' },
+};
+for (const u of universities) {
+  const fix = UNI_FIX[u.name];
+  if (fix) Object.assign(u, { formerName: fix.name ? u.name : undefined }, fix);
+  u.name = u.name.replace(/'/g, '’');
+}
+// Per-university facts from the course data: top subjects, placement years, years abroad, course lengths.
+{
+  const stats = universities.map(() => ({ subj: new Map(), placement: 0, abroad: 0, len: new Map() }));
+  for (const c of courseData.courses) {
+    const st = stats[c[1]]; if (!st) continue;
+    for (const s of c[2]) st.subj.set(s, (st.subj.get(s) || 0) + 1);
+    if (c[4]) st.placement++; if (c[5]) st.abroad++;
+    if (c[3]) st.len.set(c[3], (st.len.get(c[3]) || 0) + 1);
+  }
+  universities.forEach((u, i) => {
+    const st = stats[i];
+    u.topSubjects = [...st.subj].sort((a, b) => b[1] - a[1]).slice(0, 3).map(([s]) => courseData.subjects[s].replace(/ \(non-specific\)/, ''));
+    u.subjectCount = st.subj.size; u.placement = st.placement; u.abroad = st.abroad;
+  });
+}
 const { subjects } = courseData;
 const courseTotal = courseData.courses.length;
 const n = (x) => x.toLocaleString('en-GB');
@@ -51,7 +92,6 @@ const P = {
 };
 const icon = (n, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" ${extra}>${P[n]}</svg>`;
 
-const photo = (brief, ar = '4 / 3', extra = '') => `<div class="photo-slot" style="--ar:${ar}" role="img" aria-label="Photo placeholder: ${esc(brief)}" ${extra}><span>${icon('camera')}<b>Photo slot</b>${esc(brief)}</span></div>`;
 
 // Responsive photo from static/img/photos (made by tools/gen-photos.mjs).
 const PHOTO_W = { 'study-documents': [480, 800, 1200], default: [480, 800, 1200, 1536] };
@@ -103,13 +143,13 @@ const footer = () => `<footer class="site-footer on-dark">
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="assets/img/learn-uk-wordmark-white.svg" alt="Learn UK" width="160" height="31" loading="lazy">
-        <p>Guidance for international students, from first question to first day at a UK university.</p>
+        <p>A UK-based educational consultancy helping students from the UK and around the world, from first question to first day at a UK university.</p>
       </div>
       <div><h2>Study</h2><ul><li><a href="universities.html">Universities</a></li><li><a href="courses.html">Courses</a></li><li><a href="application-journey.html">Application journey</a></li></ul></div>
       <div><h2>Learn UK</h2><ul><li><a href="services.html">Services</a></li><li><a href="about.html">About us</a></li><li><a href="faqs.html">FAQs</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div><h2>Talk to us</h2><ul><li><a href="contact.html">Book a free consultation</a></li><li><a href="mailto:${CONTACT.email}">${CONTACT.email}</a></li><li><a href="tel:${CONTACT.landline.tel}">Office: ${CONTACT.landline.label}</a></li><li><a href="tel:${CONTACT.mobile.tel}">Mobile: ${CONTACT.mobile.label}</a></li></ul><address class="footer-address">${CONTACT.address.join('<br>')}</address></div>
     </div>
-    <div class="footer-base"><span>© 2026 Learn UK. All rights reserved.</span><span>Privacy policy and terms: to be added before launch.</span></div>
+    <div class="footer-base"><span>© 2026 Learn UK. All rights reserved.</span><span class="footer-legal"><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms of use</a></span></div>
   </div>
 </footer>`;
 
@@ -182,11 +222,11 @@ const SERVICES = [
 
 const WHY_US = [
   ['heart', 'Free first consultation', 'Talk through your options with an adviser at no cost, and get honest advice before you commit to anything.'],
-  ['chat', 'Your own adviser, start to finish', 'One adviser gets to know your plans and stays with you from your shortlist to your first week, so you never have to explain things twice.'],
+  ['chat', 'Support from start to finish', 'We stay with you from your first question to your first week, so you always know what comes next and who to ask.'],
   ['shield', 'Honest, student-first advice', 'We recommend courses that suit your grades, goals and budget, and we tell you plainly when something is not the right fit.'],
   ['compass', 'Advice based on official data', `Our course search covers ${n(universities.length)} UK universities and ${n(courseTotal)} courses from official Discover Uni data, refreshed every week.`],
-  ['pound', 'Help with funding', 'We help you find scholarships, plan a realistic budget and, for home students, apply for UK student finance.'],
-  ['pin', 'A London office you can visit', 'Our team is based in Ilford, so your advice comes from people who know UK universities and student life first hand.'],
+  ['pound', 'Help with funding', 'We help you find scholarships you can apply for and plan a realistic budget for tuition fees and living costs.'],
+  ['pin', 'A UK-based team', 'Our office is in Ilford, east London, so your advice comes from people who know UK universities and student life first hand.'],
 ]
 
 const JOURNEY = [
@@ -296,11 +336,26 @@ const ORG_LD = { '@context': 'https://schema.org', '@type': 'EducationalOrganiza
 const faqList = (items, open = false) => `<div class="faq">${items.map(([q, a], i) => `<details${open && i === 0 ? ' open' : ''}><summary><span class="q">${q}</span><span class="chev">${icon('chevron')}</span></summary><div class="answer"><p>${a}</p></div></details>`).join('')}</div>`;
 
 const initials = (name) => name.replace(/^the\s+/i, '').replace(/\b(of|and|the|for|in|at|&)\b/gi, ' ').split(/[\s,'’-]+/).filter(Boolean).slice(0, 3).map((w) => w[0].toUpperCase()).join('');
-const uniCard = (u, i = 0) => `<article class="card uni-card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation || '')}" data-search="${esc([u.name, u.city, u.nation].filter(Boolean).join(' '))}">
+const CHOOSE = [
+  ['compass', 'Start with the course', 'Two courses with the same name can be very different. Compare the modules, how you are assessed and whether there is a placement year or a year abroad.'],
+  ['cap', 'Check the entry requirements', 'Look at the grades, subjects and English test scores each course asks for, and make sure your qualifications are accepted.'],
+  ['pound', 'Plan the full cost', 'Add up tuition fees, rent and living costs. Costs are higher in London, and fees for international students vary a lot between universities.'],
+  ['pin', 'Think about the city', 'Big city or campus town, near family or somewhere new. Where you live for three or four years matters as much as the university.'],
+  ['heart', 'Look at student support', 'Check the help on offer for international students, accommodation guarantees for first-year students, and careers support.'],
+  ['chat', 'Get a second opinion', 'An adviser can check your shortlist against your grades and budget and point out options you may have missed.'],
+];
+const NATIONS = [
+  ['England', 'Most UK universities are in England, from large city universities to specialist arts and music schools. Most bachelor’s degrees take three years, and many offer a placement year or a foundation year.'],
+  ['Scotland', 'A Scottish honours degree usually takes four years, with a broader first year so you can try more than one subject. Scotland has four of the UK’s oldest universities: St Andrews, Glasgow, Aberdeen and Edinburgh.'],
+  ['Wales', 'Welsh universities offer degrees in English, and some courses can also be studied partly or fully in Welsh. Most bachelor’s degrees take three years.'],
+  ['Northern Ireland', 'Northern Ireland has two universities, Queen’s University Belfast and Ulster University, and two university colleges for teacher education. Most bachelor’s degrees take three years.'],
+];
+const uniCard = (u, i = 0) => `<article class="card uni-card reveal" style="--i:${i % 3}" data-tilt data-item data-nation="${esc(u.nation || '')}" data-search="${esc([u.name, u.formerName, u.city, u.nation, ...u.topSubjects].filter(Boolean).join(' '))}">
   <div class="card-body">
     <div class="uni-head"><span class="monogram" aria-hidden="true">${esc(initials(u.name))}</span><div><h3><a class="card-link" href="courses.html?university=${u.slug}">${esc(u.name)}</a></h3>
     <p>${icon('pin', 'style="width:1em;height:1em;display:inline;vertical-align:-.125em;margin-right:.25rem"')}${esc([u.city, u.nation].filter(Boolean).join(', '))}</p></div></div>
-    <ul class="meta">${u.nation ? `<li class="tag tag--royal">${esc(u.nation)}</li>` : ''}${u.founded && u.founded > 1000 ? `<li class="tag">Founded ${u.founded}</li>` : ''}</ul>
+    <ul class="meta">${u.nation ? `<li class="tag tag--royal">${esc(u.nation)}</li>` : ''}${u.subjectCount > 1 ? `<li class="tag">${u.subjectCount} subject areas</li>` : ''}${u.placement ? `<li class="tag">${n(u.placement)} with a placement year</li>` : ''}${u.abroad ? `<li class="tag">${n(u.abroad)} with a year abroad</li>` : ''}</ul>
+    ${u.topSubjects.length ? `<p class="uni-subjects"><span>${u.topSubjects.length > 1 ? 'Most courses in' : 'Courses in'}</span> ${esc(u.topSubjects.join(', '))}</p>` : ''}
     <div class="card-foot"><span><strong>${n(u.courseCount)}</strong> full-time undergraduate ${u.courseCount === 1 ? 'course' : 'courses'}</span></div>
   </div>
 </article>`;
@@ -331,12 +386,12 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
       <div class="search-card hero-anim" data-d="2">
         <form data-lead novalidate aria-labelledby="lead-title" action="#" method="post">
           <p class="search-title" id="lead-title">Get a free call back</p>
-          <p class="lead-hint" id="lead-hint">Leave your details and an adviser will contact you.</p>
+          <p class="lead-hint" id="lead-hint">Leave your details and an adviser will contact you. See our <a href="privacy.html">privacy policy</a>.</p>
           <div class="search-grid">
             <div class="field">
               <label for="lead-phone">Phone or WhatsApp</label>
-              <input class="input" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="07700 900123" required aria-describedby="lead-hint lead-phone-error">
-              <p class="error" id="lead-phone-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter a UK phone number, like 07700 900123</span></p>
+              <input class="input" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+44 7700 900123" required aria-describedby="lead-hint lead-phone-error">
+              <p class="error" id="lead-phone-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span>Enter a phone number with your country code, like +44 7700 900123</span></p>
             </div>
             <div class="field">
               <label for="lead-email">Email address</label>
@@ -409,12 +464,6 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
   </div>
 </section>
 
-<section class="section section--mist" aria-labelledby="stories-title">
-  <div class="container">
-    <div class="section-head reveal"><div><p class="eyebrow">Student stories</p><h2 id="stories-title">Students who made the journey</h2><p>Real stories from Learn UK students will appear here once they have given permission.</p></div></div>
-    <div class="grid grid--3">${[1, 2, 3].map((n, i) => `<figure class="quote reveal" style="--i:${i}">${photo('Student portrait', '1')}<div><blockquote><p>Placeholder for a real student testimonial, quoted in their own words with their permission.</p></blockquote><figcaption>Student name, course and university</figcaption></div></figure>`).join('')}</div>
-  </div>
-</section>
 
 ${faqSection('index.html')}
 ${ctaBand()}` });
@@ -436,13 +485,24 @@ pages.push({ file: 'universities.html', title: 'Universities', description: `Exp
     </div>
   </div>
 </section>
+<section class="section" aria-labelledby="choose-title">
+  <div class="container">
+    <div class="section-head reveal"><div><p class="eyebrow">Choosing a university</p><h2 id="choose-title">How to choose the right UK university</h2><p>Rankings are only part of the picture. These are the questions we work through with every student.</p></div></div>
+    <div class="grid grid--3">${CHOOSE.map(([ic, h, p], i) => `<div class="feature reveal" style="--i:${i % 3}"><div class="icon-tile">${icon(ic)}</div><h3>${h}</h3><p>${p}</p></div>`).join('')}</div>
+  </div>
+</section>
+<section class="section section--mist" aria-labelledby="nations-title">
+  <div class="container">
+    <div class="section-head reveal"><div><p class="eyebrow">Across the UK</p><h2 id="nations-title">Studying in England, Scotland, Wales and Northern Ireland</h2><p>The UK has four nations, and each has its own higher education system. Here is what changes from one to the next.</p></div></div>
+    <div class="grid grid--2">${NATIONS.map(([nat, p], i) => `<div class="feature reveal" style="--i:${i % 2}"><h3>${nat} <span class="nation-count">${universities.filter((u) => u.nation === nat).length} listed</span></h3><p>${p}</p></div>`).join('')}</div>
+  </div>
+</section>
 ${ctaBand('Want help choosing?', 'An adviser can shortlist universities for your subject, grades and budget.')}` });
 
 pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(courseTotal)} full-time undergraduate courses at UK universities, from official Discover Uni data.`,
   body: `${pageHero('Courses', 'Study', 'Search UK courses', `Every full-time undergraduate course at UK universities listed on Discover Uni: ${n(courseTotal)} courses. Filter by subject, university and nation.`, '', ['library'])}
 <section class="section section--mist">
   <div class="container">
-    ${sourceNote('Full-time undergraduate courses only. Postgraduate courses are not in this official dataset; ask an adviser and we will search them with you.')}
     <form class="filters" data-course-search data-filter-form-courses aria-label="Filter courses" action="courses.html" method="get">
       <div class="field"><label for="c-q">Search</label><input class="input" id="c-q" name="q" type="search" placeholder="For example, computer science" autocomplete="off" enterkeyhint="search"></div>
       <div class="field"><label for="c-subject">Subject</label><select class="select" id="c-subject" name="subject">${options(subjects, 'All subjects')}</select></div>
@@ -459,6 +519,7 @@ pages.push({ file: 'courses.html', title: 'Courses', description: `Search ${n(co
       <div class="empty-state" data-empty hidden><p><strong>No courses match those filters.</strong></p><p>Try a broader search or clear a filter. Or <a href="contact.html">ask an adviser</a> about courses not listed here.</p></div>
       <div class="empty-state" data-load-error hidden><p><strong>The course list did not load.</strong></p><p>Check your connection and <a href="courses.html">try again</a>, or <a href="contact.html">ask an adviser</a>.</p></div>
     </div>
+    ${sourceNote('Full-time undergraduate courses only. Postgraduate courses are not in this official dataset; ask an adviser and we will search them with you.')}
   </div>
 </section>
 ${ctaBand('Can’t see your course?', 'Postgraduate, foundation and pathway courses are not in this list. Our advisers can search them with you.')}` });
@@ -493,7 +554,6 @@ pages.push({ file: 'services.html', title: 'Services', description: 'Course matc
         <li>${icon('check')}<span>Straight answers about costs, entry requirements and timings.</span></li>
         <li>${icon('check')}<span>Updates by email, phone or messaging, whichever you prefer.</span></li>
       </ul>
-      <p class="hint" style="margin-top:var(--space-3);font-size:.9rem;color:var(--ink-soft)">Service list and visa wording to be confirmed by Learn UK, including any regulatory requirements for immigration advice.</p>
     </div>
   </div>
 </section>
@@ -507,7 +567,7 @@ pages.push({ file: 'about.html', title: 'About us', description: 'Learn UK helps
       <p class="eyebrow">Our mission</p>
       <h2>The right course, not just any course</h2>
       <p>Learn UK guides international students through choosing, applying for and starting a degree at a UK university. We focus on fit: the course, the city and the budget that suit each student.</p>
-      <p>Placeholder copy: Learn UK to add its story, founding year, team size, offices and university relationships.</p>
+      <p>We are based in Ilford, east London, and work with students in the UK and around the world: school leavers, people returning to study, and graduates looking for a master’s. Every first consultation is free, and we will always tell you plainly whether a course, a university or a budget is realistic.</p>
     </div>
     <div class="reveal">${pic('advice-session', 'An adviser and a student talking through her plans at a desk', '(min-width: 64em) 36rem, 92vw')}</div>
   </div>
@@ -523,6 +583,37 @@ pages.push({ file: 'about.html', title: 'About us', description: 'Learn UK helps
   </div>
 </section>
 ${ctaBand()}` });
+
+const legalPage = (file, title, description, lede, sections) => pages.push({ file, title, description, body: `${pageHero(title, 'Legal', title, lede)}
+<section class="section">
+  <div class="container prose" style="max-width:46rem">
+    <p class="legal-updated">Last updated: 12 October 2026</p>
+    ${sections.map(([h, html]) => `<h2>${h}</h2>${html}`).join('\n    ')}
+  </div>
+</section>` });
+const addr = CONTACT.address.join(', ');
+legalPage('privacy.html', 'Privacy policy', 'How Learn UK collects, uses and protects your personal data when you use our website or contact us.', 'How we collect, use and protect your personal data.', [
+  ['Who we are', `<p>Learn UK is a UK-based educational consultancy. We are the controller of the personal data described in this policy. You can contact us at ${esc(addr)}, by email at <a href="mailto:${CONTACT.email}">${CONTACT.email}</a> or by phone on <a href="tel:${CONTACT.landline.tel}">${CONTACT.landline.label}</a>.</p>`],
+  ['What we collect', `<p>We only collect the information you give us when you fill in a form on this website, email us, call us or message us. This can include:</p><ul><li>your name, email address and phone or WhatsApp number</li><li>the country you live in</li><li>the level and subject you want to study, and when you want to start</li><li>anything else you choose to tell us in your message or during a consultation, such as your qualifications and study plans</li></ul><p>We do not ask for sensitive information such as health details through this website. Please do not send us passport or financial documents unless an adviser asks for them.</p>`],
+  ['How we use it', `<p>We use your information to:</p><ul><li>reply to your enquiry and arrange your free consultation</li><li>give you advice and support with choosing a course, applying and preparing to study in the UK, if you decide to work with us</li><li>keep a record of our conversations so you do not have to repeat yourself</li></ul><p>We do not sell your personal data, and we do not send you marketing unless you have asked us to.</p>`],
+  ['Our legal basis', `<p>Under UK data protection law (the UK GDPR and the Data Protection Act 2018), we use your data because you have asked us to contact you or to take steps before working with you, and because we have a legitimate interest in responding to enquiries about our services. Where we rely on your consent, you can withdraw it at any time by contacting us.</p>`],
+  ['Who we share it with', `<p>We only share your information when we need to:</p><ul><li>with universities or UCAS, when you ask us to help with an application, and only the details that application needs</li><li>with service providers who help us run our business, such as email and website hosting, who may only use it to provide their service to us</li><li>if the law requires us to</li></ul><p>Some of our service providers may store data outside the UK. When they do, we make sure there are safeguards in place that UK law recognises.</p>`],
+  ['How long we keep it', `<p>If you make an enquiry but do not go on to work with us, we keep your details for up to two years after we were last in touch, then delete them. If you work with us, we keep your records for up to six years after our support ends, so we can answer questions and meet our legal obligations.</p>`],
+  ['Your rights', `<p>You have the right to:</p><ul><li>ask for a copy of the personal data we hold about you</li><li>ask us to correct or delete it</li><li>ask us to limit how we use it, or object to how we use it</li><li>ask us to move it to another organisation</li><li>withdraw your consent at any time, where we rely on consent</li></ul><p>To use any of these rights, email <a href="mailto:${CONTACT.email}">${CONTACT.email}</a>. We will reply within one month.</p>`],
+  ['Cookies', `<p>This website does not use advertising or tracking cookies. It does not set any cookies of its own. Our website host may keep short-term technical logs, such as IP addresses, to keep the site secure and working.</p>`],
+  ['Making a complaint', `<p>If you are unhappy with how we have used your data, please contact us first so we can try to put it right. You also have the right to complain to the Information Commissioner’s Office (ICO), the UK’s data protection regulator, at ico.org.uk or on 0303 123 1113.</p>`],
+  ['Changes to this policy', `<p>We may update this policy from time to time. The date at the top shows when it last changed.</p>`],
+]);
+legalPage('terms.html', 'Terms of use', 'The terms that apply when you use the Learn UK website.', 'The terms that apply when you use this website.', [
+  ['About these terms', `<p>These terms apply to your use of this website, which is run by Learn UK, ${esc(addr)}. By using the website you agree to them. If you work with us, we will agree the details of our support with you separately.</p>`],
+  ['Information on this website', `<p>We aim to keep the information on this website accurate and up to date, but it is general guidance, not personal advice. University and course details come from official sources, mainly Discover Uni, and can change. Universities may change their courses, entry requirements and fees, and UK visa rules change regularly.</p><p>Always check the details on the university’s own website and the latest visa rules on GOV.UK before you make a decision or apply.</p>`],
+  ['No guarantee of a place or a visa', `<p>Universities decide who they offer places to, and UK Visas and Immigration decides visa applications. We cannot guarantee an offer, a scholarship or a visa.</p>`],
+  ['Using our content', `<p>The text, design and images on this website belong to Learn UK or are used with permission. You may view and print pages for your own personal use. Please do not copy or republish our content without our permission. Course data from Discover Uni is used under the Open Government Licence v3.0.</p>`],
+  ['Our liability', `<p>We are not responsible for any loss caused by relying on information on this website without checking it with the university or official source. Nothing in these terms limits our liability where it would be unlawful to do so.</p>`],
+  ['Your personal data', `<p>Our <a href="privacy.html">privacy policy</a> explains how we use any personal data you give us.</p>`],
+  ['Law', `<p>These terms are governed by the law of England and Wales, and the courts of England and Wales have jurisdiction.</p>`],
+  ['Contact us', `<p>If you have a question about these terms, email <a href="mailto:${CONTACT.email}">${CONTACT.email}</a> or call <a href="tel:${CONTACT.landline.tel}">${CONTACT.landline.label}</a>.</p>`],
+]);
 
 pages.push({ file: 'faqs.html', title: 'FAQs', description: 'Answers to common questions about studying in the UK: applications, costs, scholarships, visas and arrival.',
   body: `${pageHero('FAQs', 'FAQs', 'Your questions, answered', 'Common questions about applying to UK universities. If yours is not here, ask us.')}
@@ -553,14 +644,14 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
         <div class="form-grid form-grid--2">
           ${field('name', 'Full name', `<input class="input" id="name" name="name" type="text" autocomplete="name" required data-validate ${desc('name')}>`)}
           ${field('email', 'Email address', `<input class="input" id="email" name="email" type="email" pattern="[^@\\s]+@[^@\\s]+\\.[^@\\s]+" autocomplete="email" inputmode="email" spellcheck="false" required data-validate ${desc('email')}>`)}
-          ${field('phone', 'Phone or WhatsApp number (optional)', `<input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="07700 900123" data-validate ${desc('phone', true)}>`, { hint: 'A UK number, for example 07700 900123' })}
+          ${field('phone', 'Phone or WhatsApp number (optional)', `<input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+44 7700 900123" data-validate ${desc('phone', true)}>`, { hint: 'Include your country code, for example +44 7700 900123 or +880 1712 345678' })}
           ${field('country', 'Country you live in', `<select class="select" id="country" name="country" autocomplete="country-name" required data-validate ${desc('country')}><option value="">Select a country</option>${countries.map((c) => `<option>${c}</option>`).join('')}</select>`)}
           ${field('level', 'Level of study', `<select class="select" id="level" name="level" required data-validate ${desc('level')}><option value="">Select a level</option><option>Foundation</option><option>Undergraduate</option><option>Postgraduate</option><option>Not sure yet</option></select>`)}
           ${field('intake', 'Preferred start (optional)', `<select class="select" id="intake" name="intake"><option value="">Not sure yet</option><option>January 2027</option><option>September 2027</option><option>January 2028</option><option>September 2028</option></select>`, { error: false })}
           <div class="span-2">${field('interest', 'Course or subject you are interested in (optional)', `<input class="input" id="interest" name="interest" type="text" autocomplete="off">`, { error: false })}</div>
           <div class="span-2">${field('message', 'Anything else we should know? (optional)', `<textarea class="textarea" id="message" name="message" rows="4"></textarea>`, { error: false })}</div>
           <div class="span-2 field">
-            <div class="check"><input id="consent" name="consent" type="checkbox" required data-validate ${desc('consent')}><label for="consent" style="font-weight:400">I agree that Learn UK can contact me about my enquiry. We will not share your details. <span class="visually-hidden">(required)</span></label></div>
+            <div class="check"><input id="consent" name="consent" type="checkbox" required data-validate ${desc('consent')}><label for="consent" style="font-weight:400">I agree that Learn UK can contact me about my enquiry. Read our <a href="privacy.html">privacy policy</a>. <span class="visually-hidden">(required)</span></label></div>
             <p class="error" id="consent-error">${icon('info', 'style="width:1rem;height:1rem;flex:none"')}<span></span></p>
           </div>
         </div>
@@ -610,11 +701,17 @@ async function main() {
   copyFileSync(ROOT + 'node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2', OUT + 'assets/fonts/inter-latin-wght.woff2');
   for (const f of ['learn-uk-wordmark-white.svg', 'learn-uk-wordmark-royal-blue.svg', 'learn-uk-favicon.svg']) copyFileSync(LOGO + f, OUT + 'assets/img/' + f);
   if (existsSync(ROOT + 'static/img')) cpSync(ROOT + 'static/img', OUT + 'assets/img', { recursive: true });
-  copyFileSync(SRC + 'data/universities.json', OUT + 'data/universities.json');
+  writeFileSync(OUT + 'data/universities.json', JSON.stringify({ meta: dataMeta, universities }));
   // The courses page loads one compact file: universities by index, subjects by index, then courses.
   // Default order: by subject of the course name, ignoring the award (BA, BSc (Hons) ...) and stray quote marks.
   const AWARD = /^(?:(?:BA|BSc|BEng|BMus|BEd|BN|BNurs|BMid|BDes|BFA|BTh|BSW|BAcc|BBA|BM|BArch|BDS|BVSc|BVetMed|BVMS|BMedSci|LLB|MA|MSc|MEng|MSci|MChem|MPhys|MMath|MPharm|MBiol|MComp|MArts|MDes|MArch|MNurs|MOst|MChiro|MGeol|MEnv|MPlan|MSW|MB|MBBS|MBChB|FdA|FdSc|FdEng|HND|HNC|DipHE|CertHE)\b\.?\s*(?:\([A-Za-z]{2,8}\))?\s*(?:[/&,]\s*)?)+/;
-  const tidyTitle = (t) => t.replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
+  // Clean up capitals in the source titles: "BA 3d Design And Craft" becomes "BA 3D Design and Craft".
+  const SMALL = /(?<!^|: )\b(And|Of|In|With|For|The|To|On|At|From|Or)\b/g;
+  const tidyTitle = (t) => {
+    t = t.replace(/["“”]/g, '').replace(/\s+/g, ' ').trim().replace(/\b([23])d\b/g, '$1D');
+    const award = (t.match(AWARD) || [''])[0];
+    return award + t.slice(award.length).replace(SMALL, (w) => w.toLowerCase());
+  };
   const sortKey = (t) => t.replace(AWARD, '').toLowerCase();
   const clientCourses = courseData.courses.map((c) => [tidyTitle(c[0]), ...c.slice(1)]).sort((a, b) => sortKey(a[0]).localeCompare(sortKey(b[0])) || a[0].localeCompare(b[0]));
   const client = { updated: dataMeta.updated, u: universities.map((u) => [u.slug, u.name, u.city || '', u.nation || '', u.ukprn]), s: subjects, c: clientCourses };

@@ -381,7 +381,7 @@ body.menu-open { overflow: hidden; }
 .card-link:focus-visible { outline: none; }
 .card:has(.card-link:focus-visible) { outline: 3px solid var(--royal); outline-offset: 3px; }
 .meta { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
-.tag { min-width: 0; max-width: 100%; overflow-wrap: anywhere; display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .6rem; border-radius: 999px; background: var(--mist); color: var(--ink); font-size: .8rem; font-weight: 500; }
+.tag { min-width: 0; max-width: 100%; overflow-wrap: anywhere; display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .6rem; border-radius: 999px; background: var(--mist); color: var(--ink); font-size: .85rem; font-weight: 500; }
 .tag--royal { background: #E8E5FA; color: var(--royal); }
 .tag--amber { background: #FFF1D9; color: var(--amber-text); }
 .card-foot { margin-top: auto; padding-top: .5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; font-size: .9rem; color: var(--ink-soft); }
@@ -619,3 +619,17 @@ body.menu-open { overflow: hidden; }
 .page-hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(11 22 64 / .96) 0%, rgb(11 22 64 / .9) 40%, rgb(11 22 64 / .45) 75%, rgb(11 22 64 / .25) 100%); }
 @media (max-width: 47.99em) { .page-hero-media::after { background: linear-gradient(180deg, rgb(11 22 64 / .78) 0%, rgb(11 22 64 / .92) 100%); } }
 .page-hero--photo .container { padding-block: var(--space-6) var(--space-6); }
+
+/* ---------- Universities guide, legal pages ---------- */
+.grid--2 { display: grid; gap: var(--space-4); }
+@media (min-width: 48em) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+.nation-count { display: inline-block; margin-left: .4rem; padding: .15rem .55rem; border-radius: 999px; background: #E8E5FA; color: var(--royal); font: 500 .85rem/1.4 var(--font-body); vertical-align: middle; }
+.uni-subjects { margin: .75rem 0 0; font-size: .9rem; color: var(--ink-soft); }
+.uni-subjects span { font-weight: 600; color: var(--ink); }
+.footer-legal { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; }
+.footer-legal a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
+.prose h2 { font-size: var(--step-2); margin: var(--space-5) 0 var(--space-2); }
+.prose ul { padding-left: 1.2rem; }
+.prose li { margin-bottom: .35rem; }
+.prose a { color: var(--royal); }
+.legal-updated { color: var(--ink-soft); font-size: .95rem; }
