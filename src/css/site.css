@@ -635,7 +635,7 @@ body.menu-open { overflow: hidden; }
 .footer-legal { display: inline-flex; gap: var(--space-3); flex-wrap: wrap; }
 .footer-legal a { color: inherit; text-decoration: underline; text-underline-offset: .2em; }
 .prose h2 { font-size: var(--step-2); margin: var(--space-5) 0 var(--space-2); }
-.prose ul { padding-left: 1.2rem; }
+.prose ul, .prose ol { padding-left: 1.2rem; }
 .prose li { margin-bottom: .35rem; }
 .prose a { color: var(--royal); }
 .legal-updated { color: var(--ink-soft); font-size: .95rem; }

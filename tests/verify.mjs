@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const BASE = process.env.BASE || 'http://localhost:4173/';
 const EXE = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 const GL_ARGS = ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
-const PAGES = ['index.html', 'universities.html', 'courses.html', 'application-journey.html', 'services.html', 'about.html', 'faqs.html', 'contact.html', 'privacy.html', 'terms.html'];
+const PAGES = ['index.html', 'universities.html', 'courses.html', 'application-journey.html', 'services.html', 'about.html', 'faqs.html', 'contact.html', 'privacy.html', 'terms.html', 'cookies.html', 'accessibility.html', 'complaints.html'];
 const WIDTHS = [320, 375, 390, 768, 1024, 1440, 1920, 540, 1200];
 const axeSrc = readFileSync(new URL('../node_modules/axe-core/axe.min.js', import.meta.url), 'utf8');
 
