@@ -451,7 +451,7 @@ function initEnquiry() {
       ['Length', p.get('length')],
       ['Placement year', p.get('placement')],
       ['Year abroad', p.get('abroad')],
-    ].filter(([, v]) => v);
+    ].filter(([, v]) => v).map(([k, v]) => [k, v.charAt(0).toUpperCase() + v.slice(1)]);
     panel.querySelector('[data-course-title]').textContent = course;
     panel.querySelector('dl').innerHTML = rows.map(([k, v]) => `<div><dt>${k}</dt><dd></dd></div>`).join('');
     panel.querySelectorAll('dd').forEach((dd, i) => { dd.textContent = rows[i][1]; });
