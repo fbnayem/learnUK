@@ -94,9 +94,9 @@ const icon = (n, extra = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="cu
 
 
 // Responsive photo from static/img/photos (made by tools/gen-photos.mjs).
-const PHOTO_W = { 'study-documents': [480, 800, 1200], default: [480, 800, 1200, 1536] };
+const PHOTO_W = { 'study-documents': [480, 800, 1200], card: [480, 800, 1200], default: [480, 800, 1200, 1536] };
 const pic = (name, alt, sizes, { w = 1536, h = 1024, cls = '', eager = false } = {}) => {
-  const ws = PHOTO_W[name] || PHOTO_W.default;
+  const ws = PHOTO_W[name] || (/^(why|service)-/.test(name) ? PHOTO_W.card : PHOTO_W.default);
   const set = (ext) => ws.map((x) => `assets/img/photos/${name}-${x}.${ext} ${x}w`).join(', ');
   return `<picture class="photo ${cls}"><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${set('webp')}" sizes="${sizes}"><img src="assets/img/photos/${name}-800.jpg" width="${w}" height="${h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
 };
@@ -220,6 +220,23 @@ const SERVICES = [
   ['plane', 'Pre-departure and arrival', 'Accommodation options, what to pack, and what to do in your first week in the UK.'],
 ];
 
+const WHY_PHOTOS = [
+  ['why-consultation', 'A student smiling as she introduces herself to an adviser at a small table'],
+  ['why-support', 'An adviser shaking hands with a student arriving at the airport with his suitcase'],
+  ['why-honest', 'An adviser explaining something openly to a student across a desk'],
+  ['why-data', 'A student comparing two university course pages side by side on a laptop'],
+  ['why-funding', 'A student planning his budget with a notebook and calculator'],
+  ['why-team', 'An adviser welcoming a student into a bright office reception'],
+];
+const SERVICE_PHOTOS = [
+  ['service-matching', 'A student and adviser comparing university brochures on a table'],
+  ['service-applications', 'Hands sorting certificates and application documents into a folder'],
+  ['service-english', 'A student wearing headphones practising for a speaking test on her laptop'],
+  ['service-scholarships', 'A student celebrating good news in a letter as his mother smiles'],
+  ['service-visa', 'A passport beside a visa document checklist being ticked off'],
+  ['service-arrival', 'A student packing a warm coat into her suitcase for the UK'],
+];
+const cardPic = ([name, alt]) => `<div class="feature-media">${pic(name, alt, '(min-width: 64em) 23rem, (min-width: 48em) 45vw, 92vw')}</div>`;
 const WHY_US = [
   ['heart', 'Free first consultation', 'Talk through your options with an adviser at no cost, and get honest advice before you commit to anything.'],
   ['chat', 'Support from start to finish', 'We stay with you from your first question to your first week, so you always know what comes next and who to ask.'],
@@ -438,7 +455,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
     </dl>
     <div class="why-us">
       <div class="why-us-head reveal"><h3 id="why-us-title">Why students choose Learn UK</h3><p>Studying abroad is a big decision. Here is what you get when you work with us.</p></div>
-      <div class="grid grid--3" role="list" aria-labelledby="why-us-title">${WHY_US.map(([ic, h, p], i) => `<div class="feature reveal" role="listitem" style="--i:${i % 3}"><div class="icon-tile">${icon(ic)}</div><h4>${h}</h4><p>${p}</p></div>`).join('')}</div>
+      <div class="grid grid--3" role="list" aria-labelledby="why-us-title">${WHY_US.map(([ic, h, p], i) => `<div class="feature feature--photo reveal" role="listitem" style="--i:${i % 3}">${cardPic(WHY_PHOTOS[i])}<div class="icon-tile">${icon(ic)}</div><h4>${h}</h4><p>${p}</p></div>`).join('')}</div>
       <div class="why-us-cta reveal"><a class="btn" href="contact.html">Book a free consultation ${icon('arrow')}</a></div>
     </div>
   </div>
@@ -447,7 +464,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
 <section class="section" aria-labelledby="services-title">
   <div class="container">
     <div class="section-head reveal"><div><p class="eyebrow">How we help</p><h2 id="services-title">Support at every step</h2><p>One team to guide you from your first question to your first lecture.</p></div><a class="text-link" href="services.html">All services ${icon('arrow')}</a></div>
-    <div class="grid grid--3">${SERVICES.map(([ic, h, p], i) => `<div class="feature reveal" style="--i:${i % 3}"><div class="icon-tile">${icon(ic)}</div><h3>${h}</h3><p>${p}</p></div>`).join('')}</div>
+    <div class="grid grid--3">${SERVICES.map(([ic, h, p], i) => `<div class="feature feature--photo reveal" style="--i:${i % 3}">${cardPic(SERVICE_PHOTOS[i])}<div class="icon-tile">${icon(ic)}</div><h3>${h}</h3><p>${p}</p></div>`).join('')}</div>
   </div>
 </section>
 
@@ -540,7 +557,7 @@ pages.push({ file: 'services.html', title: 'Services', description: 'Course matc
   body: `${pageHero('Services', 'Services', 'Everything you need to study in the UK', 'Practical, honest guidance at every stage, so you can make decisions with confidence.')}
 <section class="section">
   <div class="container">
-    <div class="grid grid--3">${SERVICES.map(([ic, h, p], i) => `<div class="feature reveal" style="--i:${i % 3}"><div class="icon-tile">${icon(ic)}</div><h2 style="font-size:var(--step-1)">${h}</h2><p>${p}</p></div>`).join('')}</div>
+    <div class="grid grid--3">${SERVICES.map(([ic, h, p], i) => `<div class="feature feature--photo reveal" style="--i:${i % 3}">${cardPic(SERVICE_PHOTOS[i])}<div class="icon-tile">${icon(ic)}</div><h2 style="font-size:var(--step-1)">${h}</h2><p>${p}</p></div>`).join('')}</div>
   </div>
 </section>
 <section class="section section--mist">

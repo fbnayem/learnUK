@@ -634,3 +634,14 @@ body.menu-open { overflow: hidden; }
 .legal-updated { color: var(--ink-soft); font-size: .95rem; }
 .lead-error { margin: 0 0 .6rem; padding: .55rem .8rem; border-radius: 10px; background: #FDECEC; color: #8A1C1C; font-size: .9rem; }
 .lead-error a { color: inherit; }
+
+/* ---------- Photo cards (Why choose Learn UK, services) ---------- */
+.feature--photo { padding-top: 0; overflow: hidden; }
+.feature-media { margin: 0 calc(-1 * var(--space-4)); aspect-ratio: 3 / 2; overflow: hidden; background: var(--mist); }
+.feature-media picture, .feature-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.feature-media img { transition: transform var(--t-slow) var(--ease-out); }
+.feature--photo:hover .feature-media img { transform: scale(1.03); }
+.feature--photo .icon-tile { margin-top: calc(-1 * var(--space-3) - 1.6rem); z-index: 1; box-shadow: 0 0 0 4px var(--white), 0 10px 18px -8px rgb(24 0 172 / .6); }
+.feature--photo .icon-tile::after { display: none; }
+.feature-media .photo { border-radius: 0; }
+@media (prefers-reduced-motion: reduce) { .feature-media img { transition: none; } .feature--photo:hover .feature-media img { transform: none; } }
