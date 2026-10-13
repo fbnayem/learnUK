@@ -261,7 +261,7 @@ const JOURNEY = [
 const FAQS = [
   { group: 'Getting started', items: [
     ['Is the first consultation really free?', 'Yes. Your first consultation is free and there is no obligation to use our services afterwards. We will tell you upfront if any later service has a cost.'],
-    ['When should I start planning?', 'Ideally 9 to 12 months before your course starts. Many courses begin in September, and some also have a January intake. Starting early gives you time for English tests, applications and your visa.'],
+    ['When should I start planning?', 'Ideally 9 to 12 months before your course starts. Our main intakes are January and May, and there are intakes all year round. Starting early gives you time for English tests, applications and your visa.'],
     ['Can you help if I have not chosen a subject yet?', 'Yes. We will talk through your interests, strengths and career plans and show you how different courses lead to different options.'],
   ] },
   { group: 'Applications', items: [
@@ -282,7 +282,7 @@ const FAQS = [
   ] },
   { group: 'Studying and living in the UK', items: [
     ['How long does a UK degree take?', 'Most undergraduate degrees take three years in England, Wales and Northern Ireland, and four years in Scotland. Most taught master’s degrees take one year.'],
-    ['When do UK courses start?', 'Most courses start in September. Many universities also offer a January start on some courses.'],
+    ['When do UK courses start?', 'Our main intakes are January and May, with intakes all year round. Start dates depend on the course, so an adviser will confirm the options for the course you choose.'],
     ['Can I work while I study?', 'Most students on a Student visa studying at degree level can work up to 20 hours a week during term time and full time in the holidays. Your visa sets your exact limit, so check it before you take a job.'],
     ['Can I stay in the UK after I graduate?', 'The Graduate route lets eligible students stay and work in the UK for a period after finishing their degree. The rules and length can change, so check GOV.UK for the current terms.'],
     ['Can I bring my family?', 'Most students on taught courses, including most master’s courses, cannot bring family members as dependants. Some research postgraduate students can. Check the latest rules on GOV.UK.'],
@@ -455,7 +455,7 @@ pages.push({ file: 'index.html', title: 'Home', preloadHero: true,
     <dl class="stats">
       <div class="stat reveal" style="--i:0"><dt>for most undergraduate degrees in England, Wales and Northern Ireland</dt><dd>3 years</dd></div>
       <div class="stat reveal" style="--i:1"><dt>for most taught master’s degrees</dt><dd>1 year</dd></div>
-      <div class="stat reveal" style="--i:2"><dt>main intakes: September, with January on many courses</dt><dd>2 intakes</dd></div>
+      <div class="stat reveal" style="--i:2"><dt>January, May - All year round intakes</dt><dd>All year</dd></div>
     </dl>
     <div class="why-us">
       <div class="why-us-head reveal"><h3 id="why-us-title">Why students choose Learn UK</h3><p>Studying abroad is a big decision. Here is what you get when you work with us.</p></div>
@@ -711,7 +711,7 @@ pages.push({ file: 'contact.html', title: 'Book a free consultation', descriptio
           ${field('phone', 'Phone or WhatsApp number (optional)', `<input class="input" id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+44 7700 900123" data-validate ${desc('phone', true)}>`, { hint: 'Include your country code, for example +44 7700 900123 or +880 1712 345678' })}
           ${field('country', 'Country you live in', `<select class="select" id="country" name="country" autocomplete="country-name" required data-validate ${desc('country')}><option value="">Select a country</option>${countries.map((c) => `<option>${c}</option>`).join('')}</select>`)}
           ${field('level', 'Level of study', `<select class="select" id="level" name="level" required data-validate ${desc('level')}><option value="">Select a level</option><option>Foundation</option><option>Undergraduate</option><option>Postgraduate</option><option>Not sure yet</option></select>`)}
-          ${field('intake', 'Preferred start (optional)', `<select class="select" id="intake" name="intake"><option value="">Not sure yet</option><option>January 2027</option><option>September 2027</option><option>January 2028</option><option>September 2028</option></select>`, { error: false })}
+          ${field('intake', 'Preferred start (optional)', `<select class="select" id="intake" name="intake"><option value="">Not sure yet</option><option>January 2027</option><option>May 2027</option><option>January 2028</option><option>May 2028</option><option>Another month</option></select>`, { error: false })}
           <div class="span-2">${field('interest', 'Course or subject you are interested in (optional)', `<input class="input" id="interest" name="interest" type="text" autocomplete="off">`, { error: false })}</div>
           <div class="span-2">${field('message', 'Anything else we should know? (optional)', `<textarea class="textarea" id="message" name="message" rows="4"></textarea>`, { error: false })}</div>
           <div class="span-2 field">
