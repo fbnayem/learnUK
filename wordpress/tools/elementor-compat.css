@@ -1,0 +1,71 @@
+/* Learn UK on Elementor: makes Elementor's markup behave like the original site's markup.
+   Loaded after site.css. Every Learn UK container has the class lu-c; the plugin adds the body class lu. */
+
+/* Brand colours follow Elementor's Site Settings > Global Colors, so changing a colour there changes the site. */
+body.lu {
+  --navy: var(--e-global-color-lunavy, #0B1640);
+  --royal: var(--e-global-color-luroyal, #1800AC);
+  --mist: var(--e-global-color-lumist, #F4F6FB);
+  --amber: var(--e-global-color-luamber, #F5A623);
+  --amber-text: var(--e-global-color-luambertext, #8A5300);
+  --ink: var(--navy);
+  --ink-soft: var(--e-global-color-luinksoft, #3B4468);
+}
+
+/* Containers are plain boxes: no Elementor padding, gaps, widths or flex, so the Learn UK classes do the layout. */
+/* Elementor writes --display:flex per element (specificity 0,3,0), so the variables need a stronger selector.
+   The site's own rules set real properties, not these variables, so they still win. */
+body.lu .e-con.lu-c.lu-c {
+  --display: block;
+  --flex-direction: row;
+  --flex-wrap: nowrap;
+  --flex-grow: 0;
+  --flex-shrink: 1;
+  --flex-basis: auto;
+  --justify-content: normal;
+  --align-items: normal;
+  --align-content: normal;
+  --gap: 0px;
+  --row-gap: 0px;
+  --column-gap: 0px;
+  --padding-top: 0px;
+  --padding-right: 0px;
+  --padding-bottom: 0px;
+  --padding-left: 0px;
+  --margin-top: 0px;
+  --margin-right: 0px;
+  --margin-bottom: 0px;
+  --margin-left: 0px;
+  --width: auto;
+  --min-height: 0;
+  --text-align: inherit;
+  --container-widget-width: auto;
+  --container-widget-flex-grow: 0;
+}
+:where(.lu) .e-con.lu-c {
+  position: static;
+  transition: none;
+  max-width: none;
+}
+:where(.lu) .e-con.lu-c::before { content: none; }
+
+/* On the live page, widget wrappers and the header/footer holders take no box, so the original elements sit
+   directly in their grids and flex rows, and the sticky header still sticks. In the editor they stay boxes. */
+.lu:not(.elementor-editor-active) .e-con.lu-contents,
+.lu:not(.elementor-editor-active) .e-con.lu-c > .elementor-widget:not(.elementor-widget-image) { display: contents; }
+
+/* Image widgets carry the original picture classes (photo, etc.). */
+.lu .elementor-widget-image.lu-w { text-align: initial; min-width: 0; }
+.lu .elementor-widget-image.lu-w img { width: 100%; height: 100%; object-fit: cover; max-width: none; border-radius: 0; box-shadow: none; }
+
+/* Text and HTML widgets: undo Elementor's spacing and colour defaults. */
+.lu .elementor-widget-text-editor, .lu .elementor-widget-html { color: inherit; font: inherit; }
+.lu .e-con .elementor-widget.elementor-widget { margin-block-end: 0; }
+
+/* Undo the WordPress theme's and Elementor's base text styles where the site relies on browser defaults. */
+body.lu { font-weight: 400; letter-spacing: normal; }
+:where(.lu) .elementor a { text-decoration-line: underline; }
+.lu :is(b, strong) { font-weight: bolder; }
+
+/* Elementor turns on smooth scrolling for the whole page; the site jumps straight to anchors and focused fields. */
+html { scroll-behavior: auto; }

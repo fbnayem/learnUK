@@ -1,0 +1,37 @@
+LEARN UK WEBSITE FOR WORDPRESS + ELEMENTOR
+==========================================
+
+What is in this folder
+- learn-uk-site.zip ............ WordPress plugin with the site's styles, scripts, fonts, images and course data. Install it first.
+- learn-uk-elementor-kit.zip ... Elementor Kit with all 13 pages, the brand colours and fonts.
+- learn-uk-page-templates.zip .. The same 13 pages as single Elementor templates, if you only want some pages.
+
+Before you start
+- WordPress 6.5 or newer, Elementor (the free version is enough), PHP 7.4 or newer.
+- The theme "Hello Elementor" is recommended (Appearance > Themes > Add New). Any theme works, because the pages use Elementor's blank "Canvas" layout with their own header and footer.
+- The site must be online during the import: Elementor downloads the photos into your Media Library from the live Learn UK site (learn-uk-one.vercel.app).
+
+Steps
+1. Plugins > Add New Plugin > Upload Plugin > choose learn-uk-site.zip > Install Now > Activate.
+2. Elementor > Tools > Import / Export Kit (in newer Elementor: Elementor > Tools > Website Templates) > Import > upload learn-uk-elementor-kit.zip. Keep "Content" and "Site settings" ticked, then Import. Allow "unfiltered file uploads" if Elementor asks.
+3. Go to the Dashboard. In the Learn UK notice at the top, click "Finish Learn UK setup". It sets the Home page as the front page, turns on /page-name/ links and fills in the photo descriptions (alt text).
+4. Open your site. Edit any page with "Edit with Elementor".
+5. Before going live: Settings > Reading, untick "Discourage search engines" if it is ticked. Optionally set Settings > General > Site Language to English (UK).
+
+Importing single pages instead (learn-uk-page-templates.zip)
+- Unzip it. Templates > Saved Templates > Import Templates > choose a .json file.
+- Pages > Add New Page. Set the title so the web address matches: Home, Universities, Courses, Application journey, Services, About, FAQs, Contact, Privacy, Terms, Cookies, Accessibility, Complaints. Set Page Attributes > Template to "Elementor Canvas", click Edit with Elementor, open the folder icon, My Templates, Insert.
+
+Editing
+- Text blocks (headings and paragraphs) are normal Elementor Text Editor widgets.
+- Photos are Image widgets: click one and choose another image from the Media Library.
+- Brand colours: Site Settings > Global Colors. Changing a "Learn UK" colour there updates the whole site.
+- Parts with forms, filters, icons and buttons are HTML widgets; edit their code in the widget panel.
+  Links inside the pages are written as https://lu.home/page-name/ and images as https://lu.assets/...; the plugin turns these into your site's real addresses, so keep that form when you add links.
+- The header and footer are on every page (Elementor's free version has no shared header). To change a phone number, edit the header and footer HTML widgets on each page, or ask for an updated kit.
+
+Good to know
+- Enquiry forms still send to info@learnuk.co.uk through FormSubmit, as on the current site.
+- The university and course lists are a snapshot of the official Discover Uni data from the current build. They no longer refresh weekly by themselves; a new plugin version updates them.
+- Photos arrive in the Media Library as WebP files, and WordPress makes the smaller sizes from them.
+- The plugin serves the fonts itself and switches off Elementor's Google Fonts, so the cookie policy ("no third-party tracking") stays true.

@@ -29,3 +29,11 @@ Edit the data JSON files, then rebuild, to change universities and courses. The 
 ## Deployment
 
 Vercel builds from this repo using `vercel.json`: `npm install --omit=dev`, then `node src/build.mjs`, serving `dist/`. Only esbuild, three and the two font packages are needed to build; the rest (Playwright, Lighthouse, sharp, map data) are dev tools for regenerating assets and testing.
+
+## WordPress + Elementor version
+
+`wordpress/build.sh` turns `dist/` into files for a WordPress site with Elementor (free): a plugin with the styles, scripts, fonts, images and course data (`learn-uk-site.zip`), an Elementor Kit with all pages and site settings, and the same pages as single templates. Run `node src/build.mjs` first, then `wordpress/build.sh`; output goes to `wordpress/out/`. Import steps for site owners are in `wordpress/IMPORT-STEPS.txt`.
+
+- `tools/convert.mjs` maps each page to Elementor containers (layout elements keep their classes), Text Editor widgets (runs of plain headings, paragraphs and lists), Image widgets (photos, downloaded into the Media Library on import from `IMG_BASE`) and HTML widgets (forms, filters, icons, buttons, header and footer). Links are written as `https://lu.home/...` and assets as `https://lu.assets/...`; the plugin replaces them when the page renders.
+- `tools/transform-css.mjs` raises `site.css` above Elementor's own CSS (`.lu.lu` prefix; `lu` is the body class the plugin adds) and repeats child selectors through Elementor's widget wrappers. `tools/elementor-compat.css` neutralises Elementor's container defaults.
+- `tools/drift.mjs` and `tools/styles.mjs` compare a WordPress page with the static page (positions and computed styles) in Chromium.
