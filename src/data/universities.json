@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updated": "2026-10-12",
+  "updated": "2026-10-19",
   "source": {
    "courses": "Discover Uni (Office for Students, HESA and the UK higher education funding bodies), Open Government Licence v3.0",
    "facts": "Wikidata (CC0), matched by UK Provider Reference Number",
@@ -116,7 +116,7 @@
    "website": "http://www.bath.ac.uk/",
    "founded": 1966,
    "wikidata": "Q1422458",
-   "courseCount": 196
+   "courseCount": 195
   },
   {
    "slug": "bath-spa-university",
@@ -457,7 +457,7 @@
    "website": "https://www.ed.ac.uk",
    "founded": 1583,
    "wikidata": "Q160302",
-   "courseCount": 351
+   "courseCount": 350
   },
   {
    "slug": "edinburgh-napier-university",
@@ -512,7 +512,7 @@
    "website": "https://gla.ac.uk/",
    "founded": 1451,
    "wikidata": "Q192775",
-   "courseCount": 685
+   "courseCount": 689
   },
   {
    "slug": "glasgow-caledonian-university",
@@ -743,7 +743,7 @@
    "website": "http://www.lancs.ac.uk/",
    "founded": 1964,
    "wikidata": "Q262854",
-   "courseCount": 459
+   "courseCount": 469
   },
   {
    "slug": "university-of-law",
