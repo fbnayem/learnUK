@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updated": "2026-10-26",
+  "updated": "2026-11-02",
   "source": {
    "courses": "Discover Uni (Office for Students, HESA and the UK higher education funding bodies), Open Government Licence v3.0",
    "facts": "Wikidata (CC0), matched by UK Provider Reference Number",
@@ -116,7 +116,7 @@
    "website": "http://www.bath.ac.uk/",
    "founded": 1966,
    "wikidata": "Q1422458",
-   "courseCount": 196
+   "courseCount": 188
   },
   {
    "slug": "bath-spa-university",
@@ -314,7 +314,7 @@
    "website": "https://www.chester.ac.uk/",
    "founded": 1839,
    "wikidata": "Q762243",
-   "courseCount": 216
+   "courseCount": 220
   },
   {
    "slug": "university-of-chichester",
@@ -457,7 +457,7 @@
    "website": "https://www.ed.ac.uk",
    "founded": 1583,
    "wikidata": "Q160302",
-   "courseCount": 351
+   "courseCount": 350
   },
   {
    "slug": "edinburgh-napier-university",
@@ -578,7 +578,7 @@
    "website": "https://www.gre.ac.uk/",
    "founded": 1890,
    "wikidata": "Q1896148",
-   "courseCount": 117
+   "courseCount": 122
   },
   {
    "slug": "guildhall-school-of-music-and-drama",
@@ -743,7 +743,7 @@
    "website": "http://www.lancs.ac.uk/",
    "founded": 1964,
    "wikidata": "Q262854",
-   "courseCount": 456
+   "courseCount": 472
   },
   {
    "slug": "university-of-law",
@@ -820,7 +820,7 @@
    "website": "http://www.lincoln.ac.uk/",
    "founded": 1996,
    "wikidata": "Q2738646",
-   "courseCount": 173
+   "courseCount": 176
   },
   {
    "slug": "lincoln-bishop-university",
@@ -1370,7 +1370,7 @@
    "website": "https://st-andrews.ac.uk",
    "founded": 1413,
    "wikidata": "Q216273",
-   "courseCount": 995
+   "courseCount": 982
   },
   {
    "slug": "st-mary-s-university-college",
@@ -1447,7 +1447,7 @@
    "website": "https://uos.ac.uk/",
    "founded": 2007,
    "wikidata": "Q24661246",
-   "courseCount": 49
+   "courseCount": 48
   },
   {
    "slug": "university-of-sunderland",
@@ -1491,7 +1491,7 @@
    "website": "http://www.swansea.ac.uk/",
    "founded": 1920,
    "wikidata": "Q1420500",
-   "courseCount": 494
+   "courseCount": 483
   },
   {
    "slug": "teesside-university",
