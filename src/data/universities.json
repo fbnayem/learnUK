@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updated": "2026-11-16",
+  "updated": "2026-11-23",
   "source": {
    "courses": "Discover Uni (Office for Students, HESA and the UK higher education funding bodies), Open Government Licence v3.0",
    "facts": "Wikidata (CC0), matched by UK Provider Reference Number",
@@ -50,7 +50,7 @@
    "website": "https://aru.ac.uk/",
    "founded": 1992,
    "wikidata": "Q540751",
-   "courseCount": 419
+   "courseCount": 414
   },
   {
    "slug": "arden-university",
@@ -457,7 +457,7 @@
    "website": "https://www.ed.ac.uk",
    "founded": 1583,
    "wikidata": "Q160302",
-   "courseCount": 349
+   "courseCount": 351
   },
   {
    "slug": "edinburgh-napier-university",
@@ -512,7 +512,7 @@
    "website": "https://gla.ac.uk/",
    "founded": 1451,
    "wikidata": "Q192775",
-   "courseCount": 686
+   "courseCount": 692
   },
   {
    "slug": "glasgow-caledonian-university",
@@ -1370,7 +1370,7 @@
    "website": "https://st-andrews.ac.uk",
    "founded": 1413,
    "wikidata": "Q216273",
-   "courseCount": 994
+   "courseCount": 1019
   },
   {
    "slug": "st-mary-s-university-college",
@@ -1491,7 +1491,7 @@
    "website": "http://www.swansea.ac.uk/",
    "founded": 1920,
    "wikidata": "Q1420500",
-   "courseCount": 494
+   "courseCount": 489
   },
   {
    "slug": "teesside-university",
